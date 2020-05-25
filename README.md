@@ -5,8 +5,9 @@
 * `lab_##`: Code used for weekly ENPH 480 labs (## indicates which week)
 * `robot`: Code for the actual robot
 * `tools`: Dependencies/other tools we use
+* `files`: Useful pdfs/files to reference while coding
 
-To reduce clutter, please only push your source code to each of these folders.
+To reduce clutter, please only push your source code to each of these folders. Please limit the 'files' uploaded and mostly refer to our Google Drive for sharing.
 
 ## File Naming
 Most of the files will be called main.cpp, so please save them to the corresponding folders.
