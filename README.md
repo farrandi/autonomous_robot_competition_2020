@@ -1,5 +1,7 @@
 # sylvestinator
 
+For C++ coding help, refer to [C++ documentation](https://devdocs.io/cpp/), the [Google C++ style guide](https://google.github.io/styleguide/cppguide.html), or this [Java to C++ basics](https://horstmann.com/ccj2/ccjapp3.html)
+
 ## Structure
 
 * `labs`: Code used for weekly ENPH 480 labs (## indicates which week)
