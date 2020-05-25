@@ -2,17 +2,23 @@
 
 ## Structure
 
-* `lab_##`: Code used for weekly ENPH 480 labs (## indicates which week)
+* `labs`: Code used for weekly ENPH 480 labs (## indicates which week)
 * `robot`: Code for the actual robot
 * `tools`: Dependencies/other tools we use
 * `files`: Useful pdfs/files to reference while coding
 
-To reduce clutter, please only push your source code to each of these folders. Please limit the 'files' uploaded and mostly refer to our Google Drive for sharing.
+When uploading robot code, make sure you upload the _entire_ project folder of your PlatformIO code (do not upload only `./src`) if there are significant differences.
+
+If changes are minor, feel free to only upload the `main.cpp` code provided you name it properly as detailed in the next section.
 
 ## File Naming
-Most of the files will be called main.cpp, so please save them to the corresponding folders.
+Be __specific__ about the names of your projects/files and save them in the corresponding folders. Suffixes should be added to the end of each file to indicate whose code it is.
+For example, if __John Doe__ was trying to upload a project folder named 'foo', it should be named
+> foo_jd
 
-Suffixes should be added to the end of each file to indicate whose code it is. Please add '\__initials_' to the end of your files. For example, if __John Doe__ was trying to upload a main.cpp file, it should be named
-> main_jd.cpp
+To be more specific, add descriptions about what it was for. ie. for lab 1, name it:
+> foo_l1_jd
+
+You can choose to only upload to a personal branch or master if proper naming conventions are followed.
 
 ## To be continued...
