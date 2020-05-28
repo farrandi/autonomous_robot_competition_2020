@@ -1,5 +1,11 @@
 # sylvestinator
 
+## Resources
+
+The [ENPH 253/480 Playlists](https://www.youtube.com/playlist?list=PLfCQFn-5zQea-hT0bXkBX_ccUr0g87iYa) provide some guidance on PlatformIO.
+
+The robot embedded system is done on VS Code's PlatformIO with the Arduino framework. You can find [more libraries](https://platformio.org/lib) in the PlatformIO website.
+
 For C++ coding help, refer to [C++ documentation](https://devdocs.io/cpp/), the [Google C++ style guide](https://google.github.io/styleguide/cppguide.html), or this [Java to C++ basics](https://horstmann.com/ccj2/ccjapp3.html)
 
 For C++ specific to STM32 development, refer to the [Arduino STM32 wiki](https://github.com/stm32duino/wiki/wiki).
