@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "display_l1_cl",
+			"path": "."
+		},
+		{
+			"name": "display",
+			"path": "..\\..\\..\\..\\..\\Documents\\PlatformIO\\Projects\\display"
+		}
+	],
+	"settings": {}
+}
