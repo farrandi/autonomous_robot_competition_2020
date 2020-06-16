@@ -1,0 +1,9 @@
+(sym_lib_table
+  (lib (name HC-SR04)(type Legacy)(uri C:/Users/Charls/Desktop/Projects/sylvestinator/schematics/pts_lib/HC-SR04.lib)(options "")(descr ""))
+  (lib (name IRFZ44)(type Legacy)(uri C:/Users/Charls/Desktop/Projects/sylvestinator/schematics/pts_lib/IRFZ44.lib)(options "")(descr ""))
+  (lib (name LT1161ISWPBF)(type Legacy)(uri C:/Users/Charls/Desktop/Projects/sylvestinator/schematics/pts_lib/LT1161ISWPBF.lib)(options "")(descr ""))
+  (lib (name mct62)(type Legacy)(uri C:/Users/Charls/Desktop/Projects/sylvestinator/schematics/pts_lib/mct62.lib)(options "")(descr ""))
+  (lib (name mct62_optoisolator)(type Legacy)(uri C:/Users/Charls/Desktop/Projects/sylvestinator/schematics/pts_lib/mct62_optoisolator.lib)(options "")(descr ""))
+  (lib (name TSHA5203)(type Legacy)(uri C:/Users/Charls/Desktop/Projects/sylvestinator/schematics/pts_lib/TSHA5203.lib)(options "")(descr ""))
+  (lib (name TCRT5000)(type Legacy)(uri C:/Users/Charls/Desktop/Projects/sylvestinator/schematics/pts_lib/TCRT5000.lib)(options "")(descr ""))
+)

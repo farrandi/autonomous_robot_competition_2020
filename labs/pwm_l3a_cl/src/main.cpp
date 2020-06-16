@@ -16,9 +16,9 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  // put your main code here, o run repeatedly:
   float v_pot = analogRead(POT_IN);
-  pwm_start(MOTOR_2, 2000, v_pot, RESOLUTION_10B_COMPARE_FORMAT);
+  pwm_start(MOTOR_2, 1024, v_pot, RESOLUTION_10B_COMPARE_FORMAT);
   Serial.print("Duty Cycle:");
   Serial.print(v_pot/1024*100);
   Serial.println("%");

@@ -1,0 +1,607 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L MCU_ST_STM32F1:STM32F103C8Tx U?
+U 1 1 5EE90AA8
+P 9750 2450
+F 0 "U?" H 9700 861 50  0000 C CNN
+F 1 "STM32F103C8Tx" H 9700 770 50  0000 C CNN
+F 2 "Package_QFP:LQFP-48_7x7mm_P0.5mm" H 9150 1050 50  0001 R CNN
+F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00161566.pdf" H 9750 2450 50  0001 C CNN
+	1    9750 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 5EEA92CC
+P 1400 1500
+F 0 "C?" H 1518 1546 50  0000 L CNN
+F 1 "470 nf" H 1518 1455 50  0000 L CNN
+F 2 "" H 1438 1350 50  0001 C CNN
+F 3 "~" H 1400 1500 50  0001 C CNN
+	1    1400 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 5EEA9BE8
+P 2400 1500
+F 0 "C?" H 2518 1546 50  0000 L CNN
+F 1 "470 nF" H 2518 1455 50  0000 L CNN
+F 2 "" H 2438 1350 50  0001 C CNN
+F 3 "~" H 2400 1500 50  0001 C CNN
+	1    2400 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1400 1100 1400 1350
+Connection ~ 1400 1350
+Wire Wire Line
+	1400 1350 1400 1400
+Wire Wire Line
+	1400 1100 1600 1100
+Wire Wire Line
+	2400 1100 2400 1350
+Connection ~ 1400 1100
+Connection ~ 2400 1350
+Wire Wire Line
+	2400 1350 2400 1400
+$Comp
+L Regulator_Linear:LM7805_TO220 U?
+U 1 1 5EEAB0F3
+P 1900 1100
+F 0 "U?" H 1900 1342 50  0000 C CNN
+F 1 "LM7805_TO220" H 1900 1251 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 1900 1325 50  0001 C CIN
+F 3 "http://www.fairchildsemi.com/ds/LM/LM7805.pdf" H 1900 1050 50  0001 C CNN
+	1    1900 1100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2200 1100 2400 1100
+$Comp
+L Regulator_Linear:LM7805_TO220 U?
+U 1 1 5EEAC994
+P 3100 1100
+F 0 "U?" H 3100 1342 50  0000 C CNN
+F 1 "LM7833_TO220" H 3100 1251 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 3100 1325 50  0001 C CIN
+F 3 "http://www.fairchildsemi.com/ds/LM/LM7805.pdf" H 3100 1050 50  0001 C CNN
+	1    3100 1100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2400 1100 2800 1100
+Connection ~ 2400 1100
+Wire Wire Line
+	3400 1100 3600 1100
+Wire Wire Line
+	3100 1400 3100 1800
+Wire Wire Line
+	3100 1800 2400 1800
+Wire Wire Line
+	1400 1600 1400 1650
+Connection ~ 1400 1650
+Wire Wire Line
+	1400 1650 1400 1800
+Wire Wire Line
+	2400 1600 2400 1650
+Connection ~ 2400 1800
+Wire Wire Line
+	2400 1800 1900 1800
+Connection ~ 2400 1650
+Wire Wire Line
+	2400 1650 2400 1800
+Wire Wire Line
+	3100 1800 3600 1800
+Connection ~ 3100 1800
+$Comp
+L power:GND1 #PWR?
+U 1 1 5EEAF7C7
+P 4100 1800
+F 0 "#PWR?" H 4100 1550 50  0001 C CNN
+F 1 "GND1" V 4105 1672 50  0000 R CNN
+F 2 "" H 4100 1800 50  0001 C CNN
+F 3 "" H 4100 1800 50  0001 C CNN
+	1    4100 1800
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 5EEAFF67
+P 3600 1500
+F 0 "C?" H 3718 1546 50  0000 L CNN
+F 1 "470 nF" H 3718 1455 50  0000 L CNN
+F 2 "" H 3638 1350 50  0001 C CNN
+F 3 "~" H 3600 1500 50  0001 C CNN
+	1    3600 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3600 1400 3600 1350
+Connection ~ 3600 1350
+Wire Wire Line
+	3600 1350 3600 1100
+Wire Wire Line
+	3600 1600 3600 1650
+Connection ~ 3600 1800
+Wire Wire Line
+	3600 1800 4100 1800
+Connection ~ 3600 1650
+Wire Wire Line
+	3600 1650 3600 1800
+Text Notes 700  600  0    50   ~ 0
+Linear Regulator Power Line
+Wire Wire Line
+	1300 6300 900  6300
+Wire Wire Line
+	1300 6300 1700 6300
+Connection ~ 1300 6300
+$Comp
+L Device:R R?
+U 1 1 5EEC1A96
+P 900 6500
+F 0 "R?" H 970 6546 50  0000 L CNN
+F 1 "330" H 970 6455 50  0000 L CNN
+F 2 "" V 830 6500 50  0001 C CNN
+F 3 "~" H 900 6500 50  0001 C CNN
+	1    900  6500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	900  6300 900  6350
+Connection ~ 900  6350
+Wire Wire Line
+	900  6350 900  6400
+Wire Wire Line
+	1700 6900 1600 6900
+Wire Wire Line
+	900  6600 900  6650
+Wire Wire Line
+	900  6900 1000 6900
+Connection ~ 900  6650
+Wire Wire Line
+	900  6650 900  6900
+$Comp
+L TCRT5000:TCRT5000 U?
+U 1 1 5EE92FBF
+P 1300 7000
+F 0 "U?" H 1300 7365 50  0000 C CNN
+F 1 "TCRT5000" H 1300 7274 50  0000 C CNN
+F 2 "OPTO_TCRT5000" H 1300 7000 50  0001 L BNN
+F 3 "Manufacturer recommendations" H 1300 7000 50  0001 L BNN
+F 4 "7.2mm" H 1300 7000 50  0001 L BNN "Field4"
+F 5 "Vishay" H 1300 7000 50  0001 L BNN "Field5"
+F 6 "1.7" H 1300 7000 50  0001 L BNN "Field6"
+	1    1300 7000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1000 7100 900  7100
+Wire Wire Line
+	1600 7100 1700 7100
+Wire Wire Line
+	1700 7100 1700 7300
+Wire Wire Line
+	1700 7300 2100 7300
+Wire Wire Line
+	1700 7300 900  7300
+Wire Wire Line
+	900  7300 900  7100
+Connection ~ 1700 7300
+Wire Wire Line
+	1700 6300 2100 6300
+Connection ~ 1700 6300
+Wire Wire Line
+	2100 7250 2100 7300
+$Comp
+L Comparator:LM311 U?
+U 1 1 5EEA67C3
+P 2850 6800
+F 0 "U?" H 3194 6846 50  0000 L CNN
+F 1 "LM311" H 3194 6755 50  0000 L CNN
+F 2 "" H 2850 6800 50  0001 C CNN
+F 3 "https://www.st.com/resource/en/datasheet/lm311.pdf" H 2850 6800 50  0001 C CNN
+	1    2850 6800
+	1    0    0    -1  
+$EndComp
+Connection ~ 1700 6700
+Wire Wire Line
+	1700 6700 1700 6900
+$Comp
+L Device:R_POT RV?
+U 1 1 5EEAEE91
+P 2100 7100
+F 0 "RV?" H 2031 7146 50  0000 R CNN
+F 1 "R_POT" H 2031 7055 50  0000 R CNN
+F 2 "" H 2100 7100 50  0001 C CNN
+F 3 "~" H 2100 7100 50  0001 C CNN
+	1    2100 7100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2100 7000 2100 6950
+Connection ~ 2100 6950
+Wire Wire Line
+	2100 6950 2100 6300
+Wire Wire Line
+	2550 6900 2400 6900
+Wire Wire Line
+	2400 6900 2400 7100
+Wire Wire Line
+	2400 7100 2250 7100
+Connection ~ 2250 7100
+Wire Wire Line
+	2250 7100 2200 7100
+Wire Wire Line
+	3150 6800 3450 6800
+Text Notes 3450 6800 0    50   ~ 0
+BP Pin
+Text Notes 900  6000 0    50   ~ 0
+Tape Reflectance Sensor
+$Comp
+L power:+5V BT1
+U 1 1 5EEC034E
+P 1300 6300
+F 0 "BT1" H 1300 6150 50  0001 C CNN
+F 1 "+5V" H 1315 6473 50  0000 C CNN
+F 2 "" H 1300 6300 50  0001 C CNN
+F 3 "" H 1300 6300 50  0001 C CNN
+	1    1300 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1900 1400 1900 1800
+Connection ~ 1900 1800
+Wire Wire Line
+	1900 1800 1400 1800
+Connection ~ 1700 6650
+Wire Wire Line
+	1700 6650 1700 6700
+Wire Wire Line
+	1700 6600 1700 6650
+Connection ~ 1700 6350
+Wire Wire Line
+	1700 6350 1700 6400
+Wire Wire Line
+	1700 6300 1700 6350
+$Comp
+L Device:R R?
+U 1 1 5EEC2557
+P 1700 6500
+F 0 "R?" H 1770 6546 50  0000 L CNN
+F 1 "47k" H 1770 6455 50  0000 L CNN
+F 2 "" V 1630 6500 50  0001 C CNN
+F 3 "~" H 1700 6500 50  0001 C CNN
+	1    1700 6500
+	1    0    0    -1  
+$EndComp
+Text Notes 1800 6650 0    31   ~ 0
+or 10k
+Text Notes 4300 5900 0    50   ~ 0
+IR Beacon
+$Comp
+L power:+5V BEACON_PWR
+U 1 1 5EEC4CB9
+P 5350 6300
+F 0 "BEACON_PWR" H 5438 6383 50  0000 L CNN
+F 1 "+5V" H 5438 6292 50  0000 L CNN
+F 2 "" H 5350 6300 50  0001 C CNN
+F 3 "" H 5350 6300 50  0001 C CNN
+	1    5350 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2750 6500 2750 6400
+$Comp
+L power:+9V #PWR?
+U 1 1 5EEC6C2D
+P 2750 6400
+F 0 "#PWR?" H 2750 6250 50  0001 C CNN
+F 1 "+9V" H 2765 6573 50  0000 C CNN
+F 2 "" H 2750 6400 50  0001 C CNN
+F 3 "" H 2750 6400 50  0001 C CNN
+	1    2750 6400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND1 #PWR?
+U 1 1 5EEC6F65
+P 2450 7300
+F 0 "#PWR?" H 2450 7050 50  0001 C CNN
+F 1 "GND1" H 2455 7127 50  0000 C CNN
+F 2 "" H 2450 7300 50  0001 C CNN
+F 3 "" H 2450 7300 50  0001 C CNN
+	1    2450 7300
+	1    0    0    -1  
+$EndComp
+Connection ~ 2100 7300
+Wire Wire Line
+	2750 7100 2750 7300
+Wire Wire Line
+	2100 7300 2450 7300
+Wire Wire Line
+	2850 7050 2850 7100
+Connection ~ 2850 7100
+Wire Wire Line
+	2850 7100 2850 7300
+Connection ~ 2750 7300
+Wire Wire Line
+	2750 7300 2850 7300
+Wire Wire Line
+	1700 6700 2550 6700
+Connection ~ 2450 7300
+Wire Wire Line
+	2450 7300 2750 7300
+$Comp
+L Comparator:LM311 U?
+U 1 1 5EEDD64C
+P 5500 6900
+F 0 "U?" H 5844 6946 50  0000 L CNN
+F 1 "LM311" H 5844 6855 50  0000 L CNN
+F 2 "" H 5500 6900 50  0001 C CNN
+F 3 "https://www.st.com/resource/en/datasheet/lm311.pdf" H 5500 6900 50  0001 C CNN
+	1    5500 6900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4900 6800 5200 6800
+Connection ~ 5200 6800
+Wire Wire Line
+	5200 6800 5250 6800
+$Comp
+L Device:R R?
+U 1 1 5EEE08FB
+P 4900 6650
+F 0 "R?" H 4970 6696 50  0000 L CNN
+F 1 "R" H 4970 6605 50  0000 L CNN
+F 2 "" V 4830 6650 50  0001 C CNN
+F 3 "~" H 4900 6650 50  0001 C CNN
+	1    4900 6650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4900 6800 4900 7000
+Wire Wire Line
+	5500 7350 5500 7200
+Connection ~ 4900 6800
+Wire Wire Line
+	5400 7200 5400 7350
+Connection ~ 5400 7350
+Wire Wire Line
+	5400 7350 5500 7350
+$Comp
+L power:GND #PWR?
+U 1 1 5EEE5AB2
+P 5500 7350
+F 0 "#PWR?" H 5500 7100 50  0001 C CNN
+F 1 "GND" H 5505 7177 50  0000 C CNN
+F 2 "" H 5500 7350 50  0001 C CNN
+F 3 "" H 5500 7350 50  0001 C CNN
+	1    5500 7350
+	1    0    0    -1  
+$EndComp
+Connection ~ 5500 7350
+$Comp
+L Device:R R?
+U 1 1 5EEE62C3
+P 4900 7150
+F 0 "R?" H 4970 7196 50  0000 L CNN
+F 1 "R" H 4970 7105 50  0000 L CNN
+F 2 "" V 4830 7150 50  0001 C CNN
+F 3 "~" H 4900 7150 50  0001 C CNN
+	1    4900 7150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4900 7300 4900 7350
+Wire Wire Line
+	4900 6300 4900 6500
+$Comp
+L TSHA5203:TSHA5203 D?
+U 1 1 5EEEF279
+P 5800 6700
+F 0 "D?" V 5704 6894 50  0000 L CNN
+F 1 "TSHA5203" V 5795 6894 50  0000 L CNN
+F 2 "LEDRD254W55D595H1320" H 5800 6700 50  0001 L BNN
+F 3 "13.2mm" H 5800 6700 50  0001 L BNN
+F 4 "IPC 7351B" H 5800 6700 50  0001 L BNN "Field4"
+F 5 "2" H 5800 6700 50  0001 L BNN "Field5"
+F 6 "VISHAY" H 5800 6700 50  0001 L BNN "Field6"
+	1    5800 6700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5800 6400 5800 6300
+Connection ~ 5350 6300
+Wire Wire Line
+	5350 6300 4900 6300
+Wire Wire Line
+	5350 6300 5800 6300
+$Comp
+L Device:Battery BT1
+U 1 1 5EEFAA13
+P 8200 5850
+F 0 "BT1" H 8308 5896 50  0000 L CNN
+F 1 "BP_Board" H 8308 5805 50  0000 L CNN
+F 2 "" V 8200 5910 50  0001 C CNN
+F 3 "~" V 8200 5910 50  0001 C CNN
+	1    8200 5850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Battery BT2
+U 1 1 5EEFB962
+P 8800 5850
+F 0 "BT2" H 8908 5896 50  0000 L CNN
+F 1 "Beacon" H 8908 5805 50  0000 L CNN
+F 2 "" V 8800 5910 50  0001 C CNN
+F 3 "~" V 8800 5910 50  0001 C CNN
+	1    8800 5850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Battery BT3
+U 1 1 5EEFC0B9
+P 9350 5850
+F 0 "BT3" H 9458 5896 50  0000 L CNN
+F 1 "LMotor" H 9458 5805 50  0000 L CNN
+F 2 "" V 9350 5910 50  0001 C CNN
+F 3 "~" V 9350 5910 50  0001 C CNN
+	1    9350 5850
+	1    0    0    -1  
+$EndComp
+Text Notes 8050 5250 0    50   ~ 0
+Batteries
+Wire Wire Line
+	1400 1100 1100 1100
+Text GLabel 1100 1100 0    50   Input ~ 0
+BAT_1
+Text GLabel 8200 5650 1    50   Input ~ 0
+BAT_1
+$Comp
+L power:GND1 #PWR?
+U 1 1 5EF0DC8A
+P 8200 6050
+F 0 "#PWR?" H 8200 5800 50  0001 C CNN
+F 1 "GND1" H 8205 5877 50  0000 C CNN
+F 2 "" H 8200 6050 50  0001 C CNN
+F 3 "" H 8200 6050 50  0001 C CNN
+	1    8200 6050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5EF0E3B9
+P 8800 6050
+F 0 "#PWR?" H 8800 5800 50  0001 C CNN
+F 1 "GND" H 8805 5877 50  0000 C CNN
+F 2 "" H 8800 6050 50  0001 C CNN
+F 3 "" H 8800 6050 50  0001 C CNN
+	1    8800 6050
+	1    0    0    -1  
+$EndComp
+Text GLabel 8800 5650 1    50   Input ~ 0
+BAT_2
+Text GLabel 9350 5650 1    50   Input ~ 0
+BAT_3
+$Comp
+L power:GND2 #PWR?
+U 1 1 5EF0F634
+P 10400 6050
+F 0 "#PWR?" H 10400 5800 50  0001 C CNN
+F 1 "GND2" H 10405 5877 50  0000 C CNN
+F 2 "" H 10400 6050 50  0001 C CNN
+F 3 "" H 10400 6050 50  0001 C CNN
+	1    10400 6050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:L7805 U?
+U 1 1 5EF1AD3C
+P 4600 6300
+F 0 "U?" H 4600 6542 50  0000 C CNN
+F 1 "L7805" H 4600 6451 50  0000 C CNN
+F 2 "" H 4625 6150 50  0001 L CIN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/41/4f/b3/b0/12/d4/47/88/CD00000444.pdf/files/CD00000444.pdf/jcr:content/translations/en.CD00000444.pdf" H 4600 6250 50  0001 C CNN
+	1    4600 6300
+	1    0    0    -1  
+$EndComp
+Connection ~ 4900 6300
+Wire Wire Line
+	4600 6600 4600 7350
+Wire Wire Line
+	4600 7350 4900 7350
+Connection ~ 4900 7350
+Wire Wire Line
+	4900 7350 5400 7350
+Text GLabel 4100 6300 0    50   Input ~ 0
+BAT_2
+Wire Wire Line
+	4100 6300 4300 6300
+$Comp
+L power:+9V BT2
+U 1 1 5EF27AEC
+P 5400 6600
+F 0 "BT2" H 5400 6450 50  0001 C CNN
+F 1 "+9V" H 5488 6637 50  0000 L CNN
+F 2 "" H 5400 6600 50  0001 C CNN
+F 3 "" H 5400 6600 50  0001 C CNN
+	1    5400 6600
+	1    0    0    -1  
+$EndComp
+Text Label 4200 1100 0    50   ~ 0
+3.3V
+Connection ~ 3600 1100
+Wire Wire Line
+	3600 1100 4200 1100
+Wire Wire Line
+	2400 1100 2400 900 
+Wire Wire Line
+	1400 1100 1400 900 
+Text Label 2400 900  0    50   ~ 0
+5V
+Text Label 1400 900  0    50   ~ 0
+9V
+$Comp
+L Device:Battery BT4
+U 1 1 5EF3F435
+P 9850 5850
+F 0 "BT4" H 9958 5896 50  0000 L CNN
+F 1 "RMotor" H 9958 5805 50  0000 L CNN
+F 2 "" V 9850 5910 50  0001 C CNN
+F 3 "~" V 9850 5910 50  0001 C CNN
+	1    9850 5850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Battery BT5
+U 1 1 5EF411D0
+P 10400 5850
+F 0 "BT5" H 10508 5896 50  0000 L CNN
+F 1 "LrgServo" H 10508 5805 50  0000 L CNN
+F 2 "" V 10400 5910 50  0001 C CNN
+F 3 "~" V 10400 5910 50  0001 C CNN
+	1    10400 5850
+	1    0    0    -1  
+$EndComp
+Text GLabel 9850 5650 1    50   Input ~ 0
+BAT_4
+Text GLabel 10400 5650 1    50   Input ~ 0
+BAT_5
+$Comp
+L power:GNDA #PWR?
+U 1 1 5EF42DCF
+P 9850 6050
+F 0 "#PWR?" H 9850 5800 50  0001 C CNN
+F 1 "GNDA" H 9855 5877 50  0000 C CNN
+F 2 "" H 9850 6050 50  0001 C CNN
+F 3 "" H 9850 6050 50  0001 C CNN
+	1    9850 6050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GNDS #PWR?
+U 1 1 5EF45D06
+P 9350 6050
+F 0 "#PWR?" H 9350 5800 50  0001 C CNN
+F 1 "GNDS" H 9355 5877 50  0000 C CNN
+F 2 "" H 9350 6050 50  0001 C CNN
+F 3 "" H 9350 6050 50  0001 C CNN
+	1    9350 6050
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC
