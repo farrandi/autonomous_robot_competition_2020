@@ -10,4 +10,6 @@
   (lib (name LT1161CSWTR)(type Legacy)(uri "C:/Users/Timmy Turner/Desktop/school - local/Robot/sylvestinator/schematics/pts_lib/LT1161CSWTR/LT1161CSWTR.lib")(options "")(descr ""))
   (lib (name LT1161)(type Legacy)(uri "C:/Users/Timmy Turner/Desktop/school - local/Robot/sylvestinator/schematics/pts_lib/LT1161.lib")(options "")(descr ""))
   (lib (name mct6_custom)(type Legacy)(uri "C:/Users/Timmy Turner/Desktop/school - local/Robot/sylvestinator/schematics/pts_lib/mct6_custom.lib")(options "")(descr ""))
+  (lib (name LT1161_all-pins)(type Legacy)(uri C:/Users/Charls/Desktop/Projects/sylvestinator/schematics/pts_lib/LT1161_all-pins.lib)(options "")(descr ""))
+  (lib (name bp_display)(type Legacy)(uri C:/Users/Charls/Desktop/Projects/sylvestinator/schematics/pts_lib/bp_display.lib)(options "")(descr ""))
 )
