@@ -6,4 +6,8 @@
   (lib (name mct62_optoisolator)(type Legacy)(uri C:/Users/Charls/Desktop/Projects/sylvestinator/schematics/pts_lib/mct62_optoisolator.lib)(options "")(descr ""))
   (lib (name TSHA5203)(type Legacy)(uri C:/Users/Charls/Desktop/Projects/sylvestinator/schematics/pts_lib/TSHA5203.lib)(options "")(descr ""))
   (lib (name TCRT5000)(type Legacy)(uri C:/Users/Charls/Desktop/Projects/sylvestinator/schematics/pts_lib/TCRT5000.lib)(options "")(descr ""))
+  (lib (name circuit-schematics-rescue)(type Legacy)(uri "${KIPRJMOD}/circuit schematics-rescue.lib")(options "")(descr ""))
+  (lib (name LT1161CSWTR)(type Legacy)(uri "C:/Users/Timmy Turner/Desktop/school - local/Robot/sylvestinator/schematics/pts_lib/LT1161CSWTR/LT1161CSWTR.lib")(options "")(descr ""))
+  (lib (name LT1161)(type Legacy)(uri "C:/Users/Timmy Turner/Desktop/school - local/Robot/sylvestinator/schematics/pts_lib/LT1161.lib")(options "")(descr ""))
+  (lib (name mct6_custom)(type Legacy)(uri "C:/Users/Timmy Turner/Desktop/school - local/Robot/sylvestinator/schematics/pts_lib/mct6_custom.lib")(options "")(descr ""))
 )
