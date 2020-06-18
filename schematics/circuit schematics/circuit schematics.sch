@@ -1384,7 +1384,7 @@ Wire Wire Line
 Wire Wire Line
 	1550 4750 2100 4750
 $Comp
-L circuit-schematics-rescue:MCT6-mct6_custom U7
+L circuit-schematics-rescue:MCT6-mct6_custom-circuit-schematics-rescue U7
 U 1 1 5F88C55B
 P 2350 4950
 F 0 "U7" H 2375 4996 50  0000 L CNN
@@ -1539,7 +1539,7 @@ Wire Wire Line
 Wire Wire Line
 	2750 4400 2950 4400
 $Comp
-L circuit-schematics-rescue:MCT6-mct6_custom U6
+L circuit-schematics-rescue:MCT6-mct6_custom-circuit-schematics-rescue U6
 U 1 1 5FFC5DD3
 P 2350 4200
 F 0 "U6" H 2375 4246 50  0000 L CNN
@@ -1727,7 +1727,7 @@ F 3 "~" H 12850 2050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L circuit-schematics-rescue:STM32_BluePill-Custom~Parts BP1
+L Custom_Parts:STM32_BluePill BP1
 U 1 1 609C409C
 P 14550 2650
 F 0 "BP1" H 14525 4515 50  0000 C CNN
