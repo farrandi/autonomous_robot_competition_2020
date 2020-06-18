@@ -1879,8 +1879,6 @@ Wire Wire Line
 Connection ~ -1850 -2550
 Text Label 13050 5700 2    50   ~ 0
 BP_outLS
-Text Label 14800 6300 0    50   ~ 0
-BP_outSS
 Text Label 10700 4200 0    50   ~ 0
 BP_IR1
 Text Label 14800 6150 0    50   ~ 0
@@ -2793,4 +2791,12 @@ Wire Wire Line
 	7100 1450 7100 1800
 Wire Wire Line
 	7100 2100 7100 2500
+Text Notes 12900 3350 0    50   ~ 0
+Sonar Sensor
+Text Label 14800 6300 0    50   ~ 0
+BP_outSS
+Wire Wire Line
+	13050 6750 12400 6750
+Text Label 12400 6750 2    50   ~ 0
+BP_in_limit
 $EndSCHEMATC

@@ -149,7 +149,7 @@ Connection ~ 950  4200
 Wire Wire Line
 	950  4200 950  4450
 $Comp
-L circuit-schematics-rescue:TCRT5000-TCRT5000-circuit-schematics-rescue U14
+L circuit-schematicsv1.2-rescue:TCRT5000-TCRT5000-circuit-schematics-rescue-circuit-schematics-rescue U14
 U 1 1 5EE92FBF
 P 1350 4550
 F 0 "U14" H 1350 4915 50  0000 C CNN
@@ -411,7 +411,7 @@ Connection ~ 7600 2500
 Wire Wire Line
 	8500 1550 8500 1450
 $Comp
-L circuit-schematics-rescue:TSHA5203-TSHA5203-circuit-schematics-rescue D3
+L circuit-schematicsv1.2-rescue:TSHA5203-TSHA5203-circuit-schematics-rescue-circuit-schematics-rescue D3
 U 1 1 5EEEF279
 P 8500 1850
 F 0 "D3" V 8404 2044 50  0000 L CNN
@@ -1334,7 +1334,7 @@ Wire Wire Line
 Wire Wire Line
 	1600 7100 2150 7100
 $Comp
-L circuit-schematics-rescue:MCT6-mct6_custom U7
+L circuit-schematicsv1.2-rescue:MCT6-mct6_custom-circuit-schematics-rescue U7
 U 1 1 5F88C55B
 P 2400 7300
 F 0 "U7" H 2425 7346 50  0000 L CNN
@@ -1489,7 +1489,7 @@ Wire Wire Line
 Wire Wire Line
 	2800 6750 3000 6750
 $Comp
-L circuit-schematics-rescue:MCT6-mct6_custom U6
+L circuit-schematicsv1.2-rescue:MCT6-mct6_custom-circuit-schematics-rescue U6
 U 1 1 5FFC5DD3
 P 2400 6550
 F 0 "U6" H 2425 6596 50  0000 L CNN
