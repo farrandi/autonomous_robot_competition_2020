@@ -411,6 +411,27 @@ Connection ~ 7600 2500
 Wire Wire Line
 	8500 1550 8500 1450
 $Comp
+<<<<<<< HEAD
+=======
+L Regulator_Linear:L7805 U22
+U 1 1 5EF1AD3C
+P 11100 4100
+F 0 "U22" H 11100 4342 50  0000 C CNN
+F 1 "L7805" H 11100 4251 50  0000 C CNN
+F 2 "" H 11125 3950 50  0001 L CIN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/41/4f/b3/b0/12/d4/47/88/CD00000444.pdf/files/CD00000444.pdf/jcr:content/translations/en.CD00000444.pdf" H 11100 4050 50  0001 C CNN
+	1    11100 4100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11850 4100 12300 4100
+Wire Wire Line
+	11850 4100 11400 4100
+Connection ~ 11850 4100
+Wire Wire Line
+	12300 4200 12300 4100
+$Comp
+>>>>>>> cf37cd0040dc80f00e7f938d6d3853a3577d1a41
 L circuit-schematics-rescue:TSHA5203-TSHA5203-circuit-schematics-rescue D3
 U 1 1 5EEEF279
 P 8500 1850
@@ -854,7 +875,7 @@ $EndComp
 Text Notes 1050 5800 0    50   ~ 0
 Optoisolators and Gate Driver
 $Comp
-L IRFZ44:IRFZ44 U8
+L circuit-schematics-rescue:IRFZ44-IRFZ44 U8
 U 1 1 5EEE04A7
 P 3300 9000
 F 0 "U8" H 3462 9046 50  0000 L CNN
@@ -865,7 +886,7 @@ F 3 "" H 3300 9000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L IRFZ44:IRFZ44 U11
+L circuit-schematics-rescue:IRFZ44-IRFZ44 U11
 U 1 1 5EEE61B9
 P 4300 9000
 F 0 "U11" H 4462 9046 50  0000 L CNN
@@ -876,7 +897,7 @@ F 3 "" H 4300 9000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L IRFZ44:IRFZ44 U9
+L circuit-schematics-rescue:IRFZ44-IRFZ44 U9
 U 1 1 5EEEA055
 P 3300 10200
 F 0 "U9" H 3462 10246 50  0000 L CNN
@@ -887,7 +908,7 @@ F 3 "" H 3300 10200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L IRFZ44:IRFZ44 U12
+L circuit-schematics-rescue:IRFZ44-IRFZ44 U12
 U 1 1 5EEEA94B
 P 4300 10200
 F 0 "U12" H 4462 10246 50  0000 L CNN
@@ -1055,7 +1076,7 @@ $EndComp
 Wire Wire Line
 	5450 9300 5450 8800
 $Comp
-L IRFZ44:IRFZ44 U16
+L circuit-schematics-rescue:IRFZ44-IRFZ44 U16
 U 1 1 5F2BA848
 P 7950 10250
 F 0 "U16" H 8113 10204 50  0000 L CNN
@@ -1066,7 +1087,7 @@ F 3 "" H 7950 10250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L IRFZ44:IRFZ44 U15
+L circuit-schematics-rescue:IRFZ44-IRFZ44 U15
 U 1 1 5F2C7B96
 P 7950 9000
 F 0 "U15" H 8113 8954 50  0000 L CNN
@@ -1077,7 +1098,7 @@ F 3 "" H 7950 9000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L IRFZ44:IRFZ44 U19
+L circuit-schematics-rescue:IRFZ44-IRFZ44 U19
 U 1 1 5F2E0E0B
 P 9350 9000
 F 0 "U19" H 9513 8954 50  0000 L CNN
@@ -1088,7 +1109,7 @@ F 3 "" H 9350 9000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L IRFZ44:IRFZ44 U20
+L circuit-schematics-rescue:IRFZ44-IRFZ44 U20
 U 1 1 5F2E1AAB
 P 9350 10250
 F 0 "U20" H 9513 10204 50  0000 L CNN
@@ -1280,7 +1301,7 @@ RB_Motor
 Text GLabel 6050 8500 1    50   Input ~ 0
 BAT_3
 $Comp
-L LT1161_all-pins:LT1161 LT1
+L circuit-schematics-rescue:LT1161-LT1161_all-pins LT1
 U 1 1 5F6EDE90
 P 4450 6900
 F 0 "LT1" H 4450 7349 50  0000 C CNN
@@ -1334,7 +1355,7 @@ Wire Wire Line
 Wire Wire Line
 	1600 7100 2150 7100
 $Comp
-L circuit-schematics-rescue:MCT6-mct6_custom U7
+L circuit-schematics-rescue:MCT6-mct6_custom-circuit-schematics-rescue U7
 U 1 1 5F88C55B
 P 2400 7300
 F 0 "U7" H 2425 7346 50  0000 L CNN
@@ -1489,7 +1510,7 @@ Wire Wire Line
 Wire Wire Line
 	2800 6750 3000 6750
 $Comp
-L circuit-schematics-rescue:MCT6-mct6_custom U6
+L circuit-schematics-rescue:MCT6-mct6_custom-circuit-schematics-rescue U6
 U 1 1 5FFC5DD3
 P 2400 6550
 F 0 "U6" H 2425 6596 50  0000 L CNN
@@ -1676,7 +1697,7 @@ F 3 "~" H 12250 6000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom~Parts:STM32_BluePill BP1
+L Custom_Parts:STM32_BluePill BP1
 U 1 1 609C409C
 P 13950 6600
 F 0 "BP1" H 13925 8465 50  0000 C CNN
@@ -1703,7 +1724,7 @@ GND_Disp
 Text Label 12450 6100 0    50   ~ 0
 GND_BP
 $Comp
-L HC-SR04:HC-SR04 U13
+L circuit-schematics-rescue:HC-SR04-HC-SR04 U13
 U 1 1 60CD3600
 P 13300 4000
 F 0 "U13" H 13393 3533 50  0000 C CNN
@@ -2730,6 +2751,7 @@ Wire Wire Line
 Connection ~ 7600 1450
 Connection ~ 7100 1450
 $Comp
+<<<<<<< HEAD
 L Device:R R?
 U 1 1 60CE9DD8
 P 8050 1450
@@ -2793,4 +2815,40 @@ Wire Wire Line
 	7100 1450 7100 1800
 Wire Wire Line
 	7100 2100 7100 2500
+=======
+L circuit-schematics-rescue:BP_Display-bp_display J?
+U 1 1 617ECB45
+P 11000 2250
+F 0 "J?" H 11057 2617 50  0000 C CNN
+F 1 "BP_Display" H 11057 2526 50  0000 C CNN
+F 2 "SPARKX_1X04_1MM_RA" H 10980 2150 20  0001 C CNN
+F 3 "" H 10950 2200 60  0001 C CNN
+	1    11000 2250
+	1    0    0    -1  
+$EndComp
+Text Label 11200 2300 0    50   ~ 0
+B6
+Text Label 11200 2400 0    50   ~ 0
+B7
+Text Label 13650 3100 2    50   ~ 0
+B6
+Text Label 13650 3250 2    50   ~ 0
+B7
+Text Label 11200 2100 0    50   ~ 0
+BP_Display
+Text Label 15400 1450 0    50   ~ 0
+BP_Display
+Text Label 11200 2200 0    50   ~ 0
+GND_Disp
+Text Notes 6800 1050 0    50   ~ 0
+Sonar Sensor
+Text Notes 8950 1000 0    50   ~ 0
+Arm Servos
+Text Notes 11600 1100 0    50   ~ 0
+Control Switch\n
+Text Notes 11600 1500 0    50   ~ 0
+Control Switch\n
+Text Notes 11650 2400 0    50   ~ 0
+Display\n
+>>>>>>> cf37cd0040dc80f00e7f938d6d3853a3577d1a41
 $EndSCHEMATC
