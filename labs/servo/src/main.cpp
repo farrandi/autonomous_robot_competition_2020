@@ -13,10 +13,6 @@ int i = 0;
 void setup() {
   // put your setup code here, to run once:
   myServo.attach(servoPin);
-  pinMode(POT_IN, INPUT);
-  Serial.begin(9600);
-    delay(10000);
-
 }
 
 void loop() {

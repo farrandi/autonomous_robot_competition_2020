@@ -1,0 +1,20 @@
+#include <Arduino.h>
+
+#define DIRXN_CONTROL PB6
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(DIRXN_CONTROL, INPUT_PULLUP);
+  Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, o run repeatedly:
+  if(digitalRead(DIRXN_CONTROL)){
+    Serial.println("Hello, world!");
+    delay(1000);
+  } else{
+    Serial.println("Goodbye, world :(");
+    delay(1000);
+  }
+}

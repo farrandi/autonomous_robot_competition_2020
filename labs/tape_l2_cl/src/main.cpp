@@ -2,7 +2,7 @@
 
 // Set LED_BUILTIN if it is not defined by Arduino framework
 // #define LED_BUILTIN 13
-#define OBJECT_SENSOR PA5
+#define OBJECT_SENSOR PA0
 
 void setup()
 {
@@ -19,7 +19,7 @@ void loop()
 
   Serial.println(reflectance);
   if (reflectance > threshold){
-    Serial.println("No object here");
+    Serial.println("No object");
   } else {
     Serial.println("Object detected!");
   }
