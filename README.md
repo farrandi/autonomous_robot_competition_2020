@@ -6,16 +6,18 @@ The [ENPH 253/480 Playlists](https://www.youtube.com/playlist?list=PLfCQFn-5zQea
 
 The robot embedded system is done on VS Code's PlatformIO with the Arduino framework. You can find [more libraries](https://platformio.org/lib) in the PlatformIO website.
 
-For C++ coding help, refer to [C++ documentation](https://devdocs.io/cpp/), the [Google C++ style guide](https://google.github.io/styleguide/cppguide.html), or this [Java to C++ basics](https://horstmann.com/ccj2/ccjapp3.html)
+For C++ coding help, refer to [C++ documentation](https://devdocs.io/cpp/), the [Google C++ style guide](https://google.github.io/styleguide/cppguide.html), or this [Java to C++ basics](https://horstmann.com/ccj2/ccjapp3.html) and [a similar site by Brown University](http://cs.brown.edu/courses/cs123/docs/java_to_cpp.shtml).
 
 For C++ specific to STM32 development, refer to the [Arduino STM32 wiki](https://github.com/stm32duino/wiki/wiki).
 
 ## Structure
 
 * `labs`: Code used for weekly ENPH 480 labs (## indicates which week)
+* `components-test`: Code used for individual components
 * `robot`: Code for the actual robot
-* `tools`: Dependencies/other tools we use
+* `tools`: Dependencies/other tools we used (includes self-written header files)
 * `files`: Useful pdfs/files to reference while coding
+* `schematics`: Electrical schematics for our circuits
 
 When uploading robot code, make sure you upload the _entire_ project folder of your PlatformIO code (do not upload only `./src`) if there are significant differences.
 

@@ -16,11 +16,12 @@ void disp_setup();
 NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
 
 void setup() {
-  disp_setup();
+  disp_setup();iiiii
 }
 
 void loop() {
   display.clearDisplay();
+  display.setCursor(0,0);
   delay(500);                     // Wait 500ms between pings (about 20 pings/sec). 29ms should be the shortest delay between pings.
   display.print("Ping: ");
   display.print(sonar.ping_cm()); // Send ping, get distance in cm and print result (0 = outside set distance range)
