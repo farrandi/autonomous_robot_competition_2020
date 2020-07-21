@@ -12,8 +12,7 @@ Motor::Motor(){
  * @param: int speed, from 1-10, speed of motor is MAX_MOTOR*speed/11
  */
 void Motor::drive_forward(int speed){
-  pwm_start(MOTOR_1B, FREQUENCY, 0, RESOLUTION_16B_COMPARE_FORMAT);
-  pwm_start(MOTOR_2B, FREQUENCY, 0, RESOLUTION_16B_COMPARE_FORMAT);
+  this->stop();
   delay(50);
   pwm_start(MOTOR_1F, FREQUENCY, speed * MAX_MOTOR/11, RESOLUTION_16B_COMPARE_FORMAT);
   pwm_start(MOTOR_2F, FREQUENCY, speed * MAX_MOTOR/11, RESOLUTION_16B_COMPARE_FORMAT);
@@ -23,8 +22,7 @@ void Motor::drive_forward(int speed){
  * @param: int speed, from 1-10, speed of motor is MAX_MOTOR*speed/11
  */
 void Motor::drive_backward(int speed){
-  pwm_start(MOTOR_1F, FREQUENCY, 0, RESOLUTION_16B_COMPARE_FORMAT);
-  pwm_start(MOTOR_2F, FREQUENCY, 0, RESOLUTION_16B_COMPARE_FORMAT);
+  this->stop();
   delay(50);
   pwm_start(MOTOR_1B, FREQUENCY, speed * MAX_MOTOR/11, RESOLUTION_16B_COMPARE_FORMAT);
   pwm_start(MOTOR_2B, FREQUENCY, speed * MAX_MOTOR/11, RESOLUTION_16B_COMPARE_FORMAT);
@@ -32,8 +30,7 @@ void Motor::drive_backward(int speed){
 
 /* Makes robot rotate clockwise (right)*/
 void Motor::drive_cw(){
-  pwm_start(MOTOR_1B, FREQUENCY, 0, RESOLUTION_16B_COMPARE_FORMAT);
-  pwm_start(MOTOR_2F, FREQUENCY, 0, RESOLUTION_16B_COMPARE_FORMAT);
+  this->stop();
   delay(50);
   pwm_start(MOTOR_1F, FREQUENCY, MAX_MOTOR/2, RESOLUTION_16B_COMPARE_FORMAT);
   pwm_start(MOTOR_2B, FREQUENCY, MAX_MOTOR/2, RESOLUTION_16B_COMPARE_FORMAT);
@@ -41,8 +38,7 @@ void Motor::drive_cw(){
 
 /* Makes robot rotate counter-clockwise (left)*/
 void Motor::drive_ccw(){
-  pwm_start(MOTOR_1F, FREQUENCY, 0, RESOLUTION_16B_COMPARE_FORMAT);
-  pwm_start(MOTOR_2B, FREQUENCY, 0, RESOLUTION_16B_COMPARE_FORMAT);
+  this->stop();
   delay(50);
   pwm_start(MOTOR_1B, FREQUENCY, MAX_MOTOR/2, RESOLUTION_16B_COMPARE_FORMAT);
   pwm_start(MOTOR_2F, FREQUENCY, MAX_MOTOR/2, RESOLUTION_16B_COMPARE_FORMAT);
