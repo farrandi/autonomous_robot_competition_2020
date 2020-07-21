@@ -1,5 +1,6 @@
 #ifndef Motor_h
 #define Motor_h
+#endif
 
 #include "Arduino.h"
 
@@ -11,17 +12,20 @@
 
 #define FREQUENCY 1000
 
-class Motor
-{
-public:
-    // Drives motors forward
-    void drive_forward(int speed);
+class Motor{
+    public:
+        // Constructors
+        Motor();
+        Motor(PinName left_f, PinName left_b, PinName right_f, PinName right_b);
 
-    // Drives motors backwards
-    void drive_backward(int speed);
+        // Drives motors forward
+        void drive_forward(int speed);
 
-    //
-    void drive_cw();
-    void drive_ccw();
-    void stop();
-}
+        // Drives motors backwards
+        void drive_backward(int speed);
+
+        //
+        void drive_cw();
+        void drive_ccw();
+        void stop();
+};

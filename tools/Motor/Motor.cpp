@@ -8,17 +8,6 @@ Motor::Motor(){
     pinMode(MOTOR_2B, OUTPUT);
 }
 
-/* Constructor for Motor class that sets up parameters as pins for output.
- * @param: PinName left_f is pin name reference for the forward left motor PWM signal,
- * likewise for the remaining pins
- */
-Motor::Motor(PinName left_f, PinName left_b, PinName right_f, PinName right_b){
-    pinMode(left_f, OUTPUT);
-    pinMode(left_b, OUTPUT);
-    pinMode(right_f, OUTPUT);
-    pinMode(right_b, OUTPUT);
-}
-
 /* Makes robot drive forward at a speed 
  * @param: int speed, from 1-10, speed of motor is MAX_MOTOR*speed/11
  */
