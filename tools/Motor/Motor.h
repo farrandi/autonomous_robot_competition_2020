@@ -29,4 +29,8 @@ class Motor{
         void drive_cw();
         void drive_ccw();
         void stop();
+    
+    private:
+        // Speed conversion
+        int speed(int speed);
 };
