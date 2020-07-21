@@ -4,11 +4,12 @@
 
 #include "Arduino.h"
 
-#define MOTOR_1F PA_2 //left
-#define MOTOR_1B PA_1 //left
-#define MOTOR_2F PB_8 //right
-#define MOTOR_2B PB_9 //right
+#define MOTOR_LF PA_2 //left
+#define MOTOR_LB PA_1 //left
+#define MOTOR_RF PB_8 //right
+#define MOTOR_RB PB_9 //right
 #define MAX_MOTOR 65535
+#define MOTOR_RATIO 0.7
 
 #define FREQUENCY 1000
 
