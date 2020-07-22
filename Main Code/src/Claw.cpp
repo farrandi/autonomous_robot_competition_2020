@@ -3,6 +3,7 @@
 Claw::Claw(){
   clawServo.attach(servoClawPin);
   armServo.attach(servoArmPin);
+  NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
 }
 
 /* Opens the claw at a given angle per 15 ms.
