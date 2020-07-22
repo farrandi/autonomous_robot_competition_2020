@@ -14,4 +14,5 @@
   (lib (name bp_display)(type Legacy)(uri C:/Users/Charls/Desktop/Projects/sylvestinator/schematics/pts_lib/bp_display.lib)(options "")(descr ""))
   (lib (name Custom_Parts)(type Legacy)(uri "C:/Users/Timmy Turner/Desktop/school - local/Robot/sylvestinator/schematics/pts_lib/Custom_Parts.lib")(options "")(descr ""))
   (lib (name circuit-schematicsv1.2-rescue)(type Legacy)(uri "${KIPRJMOD}/circuit schematicsv1.2-rescue.lib")(options "")(descr ""))
+  (lib (name circuit-schematicsv2.2-rescue)(type Legacy)(uri "${KIPRJMOD}/circuit schematicsv2.2-rescue.lib")(options "")(descr ""))
 )
