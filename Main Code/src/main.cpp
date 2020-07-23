@@ -1,13 +1,8 @@
-#include "Wire.h"
-#include "Arduino.h"
-#include <NewPing.h>
-#include <Adafruit_SSD1306.h>
-#include <Servo.h>
+#include "INIT.h"
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 #define OLED_RESET     -1 // This display does not have a reset pin accessible
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 #define TRIGGER_PIN  PA15  // Arduino pin tied to trigger pin on the ultrasonic sensor.
 #define ECHO_PIN     PB3  // Arduino pin tied to echo pin on the ultrasonic sensor.
@@ -43,38 +38,38 @@ void disp_setup(){
 }
 
 void loop() {
-  display.clearDisplay();
-  display.setCursor(0,0);
-  delay(250);                     // Wait 500ms between pings (about 20 pings/sec). 29ms should be the shortest delay between pings.
-  distance = sonar.ping_cm();
-  display.print("Ping: ");
-  display.print(distance); // Send ping, get distance in cm and print result (0 = outside set distance range)
-  display.println("cm");
-  display.display();
+  // display.clearDisplay();
+  // display.setCursor(0,0);
+  // delay(250);                     // Wait 500ms between pings (about 20 pings/sec). 29ms should be the shortest delay between pings.
+  // distance = sonar.ping_cm();
+  // display.print("Ping: ");
+  // display.print(distance); // Send ping, get distance in cm and print result (0 = outside set distance range)
+  // display.println("cm");
+  // display.display();
 
-  if((distance>10 || distance <6)){
-    if (state == CLOSE){
-      display.println("open");
-      display.display();
-      for (i = 0; i<maxAngle-1; i+=2){
-        myServo.write(i);
-        delay(15);
-      } 
-      state = OPEN;
-    } else {
-      myServo.write(0);
-      state = OPEN;
-    }
-  }else if(state == OPEN){
-    display.println("close");
-    display.display();
-    for(i = maxAngle; i >0; i-=2){
-      myServo.write(i);
-      delay(15);
-    }
-    state = CLOSE;
-  }else{
-    myServo.write(maxAngle);
-    state = CLOSE;
-  }
+  // if((distance>10 || distance <6)){
+  //   if (state == CLOSE){
+  //     display.println("open");
+  //     display.display();
+  //     for (i = 0; i<maxAngle-1; i+=2){
+  //       myServo.write(i);
+  //       delay(15);
+  //     } 
+  //     state = OPEN;
+  //   } else {
+  //     myServo.write(0);
+  //     state = OPEN;
+  //   }
+  // }else if(state == OPEN){
+  //   display.println("close");
+  //   display.display();
+  //   for(i = maxAngle; i >0; i-=2){
+  //     myServo.write(i);
+  //     delay(15);
+  //   }
+  //   state = CLOSE;
+  // }else{
+  //   myServo.write(maxAngle);
+  //   state = CLOSE;
+  // }
 }
