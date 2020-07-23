@@ -22,13 +22,13 @@ void disp_setup();
 void setup() {
   // put your setup code here, to run once:
   pinMode(TAPE_SENSOR, INPUT);
-  pinMode(SWITCH, INPUT_PULLDOWN);
+  pinMode(SWITCH, INPUT_PULLUP);
   disp_setup();
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  while(digitalRead(SWITCH) == HIGH){
+  if(digitalRead(SWITCH) == HIGH){
     reflectance = analogRead(TAPE_SENSOR);
     if (reflectance > threshold){
       display.clearDisplay();
@@ -39,11 +39,11 @@ void loop() {
       
       motor.stop();
       motor.drive_backward(9);
-      delay(500);
+      delay(800);
       motor.drive_ccw();
-      delay(500);
+      delay(800);
     }
-    motor.drive_forward(5);
+    motor.drive_forward(8);
 
     display.clearDisplay();
     display.setCursor(0,0);
