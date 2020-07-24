@@ -14,7 +14,7 @@ Motor motor;
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-volatile short int kp = 5;
+volatile short int kp = 20;
 volatile short int kd = 10;
 volatile short int ki = 2;
 
@@ -96,8 +96,8 @@ void loop()
 
   display.display();
 
-  // if (digitalRead(PA7) == HIGH)
-  // {
+  if (digitalRead(PA7) == HIGH)
+  {
     err = left - right;
 
     if (err < ERROR_RANGE && err > -ERROR_RANGE)
@@ -135,9 +135,9 @@ void loop()
     }
     display.display();
   }
-  // else
-  // {
-  //   display.println("OFF");
-  //   display.display();
-  // }
-// }
+  else
+  {
+    display.println("OFF");
+    display.display();
+   }
+}
