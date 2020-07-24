@@ -2,26 +2,23 @@
 #include <NewPing.h>
 #include <Adafruit_SSD1306.h>
 #include <Motor.h>
+#include <Claw.h>
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 #define OLED_RESET -1    // This display does not have a reset pin accessible
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-#define TRIGGER_PIN PA15 // Arduino pin tied to trigger pin on the ultrasonic sensor.
-#define ECHO_PIN PB3     // Arduino pin tied to echo pin on the ultrasonic sensor.
-#define MAX_DISTANCE 200 // Maximum distance we want to ping for (in centimeters). Maximum sensor distance is rated at 400-500cm.
-#define CLAWDISTANCE 12  // The ideal distance for the claw to be away from the sonar.
-
 Motor robotMotor;
+Claw robotClaw;
 
 void disp_setup();
 void disp_dist(int dist);
 bool sweepSearch();
-void sweep(int direction);
+void sweep();
 bool headToCan();
-int getMinIndex(int array[]);
-NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
+
+volatile int count = 0;
 
 void setup()
 {
@@ -38,12 +35,19 @@ void loop()
   display.setCursor(0, 0);
   if (!atCan)
   {
+    robotClaw.openClaw();
     objectDetected = sweepSearch();
+    count++;
   }
   if (objectDetected)
   {
+    count = 0;
     atCan = headToCan();
+  } 
+  if (atCan) {
+    robotClaw.closeClaw();
   }
+
 }
 
 bool sweepSearch()
@@ -55,37 +59,44 @@ bool sweepSearch()
   {
     display.println("Object Detected!");
     display.display();
-    delay(2000);
+    delay(500);
     return true;
   }
   else
   {
     display.println("No object detected...");
     display.display();
-    sweep(1);
+    sweep();
     delay(500);
     return false;
   }
   
 }
 
-void sweep(int direction)
+void sweep()
 {
-
+  int sweepTime = 500;
+  int direction = count % 2;
+  if (count % 3 == 0) {
+    sweepTime = 1000; 
+  }
+  if (count % 5 == 0) {
+    sweepTime = 2000;
+  }
   if (direction == 1)
   {
     robotMotor.stop();
-    delay(1000);
+    delay(sweepTime);
     robotMotor.drive_cw();
-    delay(1000);
+    delay(sweepTime);
     robotMotor.stop();
   }
   else
   {
     robotMotor.stop();
-    delay(1000);
+    delay(sweepTime);
     robotMotor.drive_ccw();
-    delay(1000);
+    delay(sweepTime);
     robotMotor.stop();
   }
 }
@@ -93,7 +104,7 @@ void sweep(int direction)
 bool headToCan()
 {
   int lbdistance = 10;
-  int ubdistance = 16;
+  int ubdistance = 14;
   int sonarReading = sonar.ping_cm();
 
   if (sonarReading > ubdistance || sonarReading < lbdistance)
@@ -105,7 +116,7 @@ bool headToCan()
       disp_dist(sonarReading);
       display.println("Heading to can...");
       display.display();
-      robotMotor.drive_forward(50);
+      robotMotor.drive_forward(8);
       delay(500);
       robotMotor.stop();
     }
@@ -116,7 +127,7 @@ bool headToCan()
       disp_dist(sonarReading);
       display.println("Heading to can...");
       display.display();
-      robotMotor.drive_backward(10);
+      robotMotor.drive_backward(8);
       delay(500);
       robotMotor.stop();
     }
