@@ -1,19 +1,22 @@
 #include "INIT.h"
+#include "Motor.h"
 
 void disp_setup();
 void disp_reset();
 
 #define ANALOG_MAX 1023
 #define MAX_I 200
-#define SPEED MAX_MOTOR/10*6
+#define SPEED MAX_MOTOR / 10 * 5
 
-#define ERROR_RANGE 10
+#define ERROR_RANGE 5
+
+Motor motor;
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-volatile short int kp = 6;
-volatile short int kd = 0;
-volatile short int ki = 0;
+volatile short int kp = 5;
+volatile short int kd = 10;
+volatile short int ki = 2;
 
 volatile short int P = 0;
 volatile short int D = 0;
@@ -37,7 +40,6 @@ void setup()
   pinMode(IR_rightA, INPUT);
   pinMode(IR_rightB, INPUT);
   pinMode(A7, INPUT_PULLUP);
-
   disp_setup();
 }
 
@@ -82,26 +84,28 @@ void loop()
     right = right_high;
   }
 
-  display.print("A1: ");
+  display.print("A1 (L_hi): ");
   display.println(left_high);
-  display.print("A0: ");
+  display.print("A0 (L_lo): ");
   display.println(left_low);
 
-  display.print("B1: ");
+  display.print("B1 (R_hi): ");
   display.println(right_high);
-  display.print("B0: ");
+  display.print("B0 (R_lo): ");
   display.println(right_low);
 
   display.display();
 
-  //if (digitalRead(PA7) == HIGH)
-  //{
+  // if (digitalRead(PA7) == HIGH)
+  // {
     err = left - right;
 
-    if (err < ERROR_RANGE || err > -ERROR_RANGE)
+    if (err < ERROR_RANGE && err > -ERROR_RANGE)
     {
       pwm_start(MOTOR_LF, FREQUENCY, SPEED, RESOLUTION_16B_COMPARE_FORMAT);
-      pwm_start(MOTOR_RF, FREQUENCY, SPEED , RESOLUTION_16B_COMPARE_FORMAT);
+      pwm_start(MOTOR_RF, FREQUENCY, SPEED, RESOLUTION_16B_COMPARE_FORMAT);
+      display.println("Running forward...");
+      display.display();
     }
     else
     {
@@ -117,26 +121,23 @@ void loop()
       {
         pwm_start(MOTOR_LF, FREQUENCY, SPEED - G, RESOLUTION_16B_COMPARE_FORMAT);
         pwm_start(MOTOR_RF, FREQUENCY, SPEED + G, RESOLUTION_16B_COMPARE_FORMAT);
+        display.println("L > R");
+        display.display();
       }
       else
       {
         pwm_start(MOTOR_LF, FREQUENCY, SPEED + G, RESOLUTION_16B_COMPARE_FORMAT);
         pwm_start(MOTOR_RF, FREQUENCY, SPEED - G, RESOLUTION_16B_COMPARE_FORMAT);
+        display.println("R > L");
+        display.display();
       }
       prev = err;
-
-      display.print("Error: ");
-      display.println(err);
-      display.print("Gain: ");
-      display.println(G);
-
-      display.display();
     }
-  // }
+    display.display();
+  }
   // else
   // {
   //   display.println("OFF");
-
   //   display.display();
   // }
-}
+// }

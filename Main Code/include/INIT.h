@@ -16,7 +16,7 @@
 
 // Motor Parameters
 #define MAX_MOTOR 65535
-#define MOTOR_RATIO 0.7
+#define MOTOR_RATIO 0.7  // RIGHT/LEFT
 #define FREQUENCY 1000
 
 // For Sonar
