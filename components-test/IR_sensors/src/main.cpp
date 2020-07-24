@@ -7,7 +7,7 @@
 #define OLED_RESET     -1 // This display does not have a reset pin accessible
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-#define IR_leftA PB1
+#define IR_leftA PB_1
 #define IR_leftB PB0
 #define IR_rightA PB1
 #define IR_rightB PB0

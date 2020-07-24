@@ -2,9 +2,7 @@
 #define Claw_h
 #endif
 
-#include "Arduino.h"
-#include "Servo.h"
-#include "NewPing.h"
+#include "INIT.h"
 
 // For Sonar on Claw
 #define TRIGGER_PIN PB_5
@@ -24,14 +22,16 @@ class Claw
 {
 public:
     Claw();
-    void open(int speed);
-    void close(int speed);
-    void open();
-    void close();
-    int read_sonar();
+    void openClaw(int blueServoPos);
+    void closeClaw(int blueServoPos);
+    void lowerClaw(int greyServoPos);
+    void raiseClaw(int greyServoPos);
 
 private:
-    Servo clawServo;
-    Servo armServo;
-    volatile int position;
+    Servo blueServo;
+    Servo greyServo;
+
+    long distance = -1;
+    int blueServoPos = -1;
+    int greyServoPos = -1;
 };
