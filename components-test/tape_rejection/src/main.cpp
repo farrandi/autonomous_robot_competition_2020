@@ -8,12 +8,14 @@
 #define OLED_RESET     -1 // This display does not have a reset pin accessible
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-#define TAPE_SENSOR PA5
+#define TAPE_SENSOR_R PA4
+#define TAPE_SENSOR_L PA5
 #define SWITCH A7
 
 Motor motor;
 
-volatile double reflectance = 0.0;
+volatile double reflectance_L = 0.0;
+volatile double reflectance_R = 0.0;
 volatile double threshold = 500.0;
 volatile bool tape = false;
 
@@ -21,41 +23,57 @@ void disp_setup();
 
 void setup() {
   // put your setup code here, to run once:
-  pinMode(TAPE_SENSOR, INPUT);
+  pinMode(TAPE_SENSOR_R, INPUT);
+  pinMode(TAPE_SENSOR_L, INPUT);
   pinMode(SWITCH, INPUT_PULLUP);
   disp_setup();
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  display.clearDisplay();
+  display.setCursor(0,0);
+
   if(digitalRead(SWITCH) == HIGH){
-    reflectance = analogRead(TAPE_SENSOR);
-    if (reflectance > threshold){
-      display.clearDisplay();
-      display.setCursor(0,0);
-      display.println("On");
-      display.println("Tape Detected!");
+    display.println("On");
+    reflectance_L = analogRead(TAPE_SENSOR_L);
+    reflectance_R = analogRead(TAPE_SENSOR_R);
+
+    if (reflectance_L > threshold && reflectance_R > threshold){
+      display.println("Tape Detected! (front)");
+      display.display();
+      
+      motor.stop();
+      motor.drive_backward(9);
+      delay(900);
+      motor.drive_ccw();
+      delay(1000);
+    } else if (reflectance_L > threshold){
+      display.println("Tape Detected! (left)");
+      display.display();
+      
+      motor.stop();
+      motor.drive_backward(9);
+      delay(800);
+      motor.drive_cw();
+      delay(600);
+    } else if (reflectance_R > threshold){
+      display.println("Tape Detected! (right)");
       display.display();
       
       motor.stop();
       motor.drive_backward(9);
       delay(800);
       motor.drive_ccw();
-      delay(800);
+      delay(600);
     }
-    motor.drive_forward(8);
 
-    display.clearDisplay();
-    display.setCursor(0,0);
-    display.println("On");
+    motor.drive_forward(8);
     display.println("Driving around...");
     display.display();
   }
 
   if (digitalRead(SWITCH) == LOW){
     motor.stop();
-    display.clearDisplay();
-    display.setCursor(0,0);
     display.println("Off");
     display.display();
   }
