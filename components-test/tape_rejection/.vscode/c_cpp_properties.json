@@ -8,7 +8,6 @@
             "includePath": [
                 "C:/Users/Charls/Desktop/Projects/sylvestinator/components-test/tape_rejection/include",
                 "C:/Users/Charls/Desktop/Projects/sylvestinator/components-test/tape_rejection/src",
-                "C:/Users/Charls/Desktop/Projects/sylvestinator/components-test/tape_rejection/lib/Motor",
                 "C:/Users/Charls/Desktop/Projects/sylvestinator/components-test/tape_rejection/.pio/libdeps/bluepill_f103c8/Adafruit SSD1306",
                 "C:/Users/Charls/Desktop/Projects/sylvestinator/components-test/tape_rejection/.pio/libdeps/bluepill_f103c8/Adafruit GFX Library",
                 "C:/Users/Charls/Desktop/Projects/sylvestinator/components-test/tape_rejection/.pio/libdeps/bluepill_f103c8/Adafruit BusIO",
@@ -31,7 +30,6 @@
                 "C:/Users/Charls/.platformio/packages/framework-arduinoststm32/system/Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/gcc",
                 "C:/Users/Charls/.platformio/packages/framework-arduinoststm32/cores/arduino",
                 "C:/Users/Charls/.platformio/packages/framework-arduinoststm32/variants/PILL_F103XX",
-                "C:/Users/Charls/Desktop/Projects/sylvestinator/components-test/tape_rejection/lib/Claw",
                 "C:/Users/Charls/.platformio/lib/PID",
                 "C:/Users/Charls/.platformio/packages/framework-arduinoststm32/libraries/CMSIS_DSP/src",
                 "C:/Users/Charls/.platformio/packages/framework-arduinoststm32/libraries/EEPROM/src",
@@ -49,7 +47,6 @@
                 "path": [
                     "C:/Users/Charls/Desktop/Projects/sylvestinator/components-test/tape_rejection/include",
                     "C:/Users/Charls/Desktop/Projects/sylvestinator/components-test/tape_rejection/src",
-                    "C:/Users/Charls/Desktop/Projects/sylvestinator/components-test/tape_rejection/lib/Motor",
                     "C:/Users/Charls/Desktop/Projects/sylvestinator/components-test/tape_rejection/.pio/libdeps/bluepill_f103c8/Adafruit SSD1306",
                     "C:/Users/Charls/Desktop/Projects/sylvestinator/components-test/tape_rejection/.pio/libdeps/bluepill_f103c8/Adafruit GFX Library",
                     "C:/Users/Charls/Desktop/Projects/sylvestinator/components-test/tape_rejection/.pio/libdeps/bluepill_f103c8/Adafruit BusIO",
@@ -72,7 +69,6 @@
                     "C:/Users/Charls/.platformio/packages/framework-arduinoststm32/system/Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/gcc",
                     "C:/Users/Charls/.platformio/packages/framework-arduinoststm32/cores/arduino",
                     "C:/Users/Charls/.platformio/packages/framework-arduinoststm32/variants/PILL_F103XX",
-                    "C:/Users/Charls/Desktop/Projects/sylvestinator/components-test/tape_rejection/lib/Claw",
                     "C:/Users/Charls/.platformio/lib/PID",
                     "C:/Users/Charls/.platformio/packages/framework-arduinoststm32/libraries/CMSIS_DSP/src",
                     "C:/Users/Charls/.platformio/packages/framework-arduinoststm32/libraries/EEPROM/src",
