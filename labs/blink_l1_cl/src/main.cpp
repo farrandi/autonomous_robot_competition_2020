@@ -5,9 +5,6 @@
  * then off for one second, repeatedly.
  */
 #include "Arduino.h"
-#include <Motor.h>
-
-Motor motor;
 
 // Set LED_BUILTIN if it is not defined by Arduino framework
 // #define LED_BUILTIN 13
@@ -30,6 +27,4 @@ void loop()
 
    // wait for a second
   delay(1000);
-
-  motor.drive_backward(5);
 }
