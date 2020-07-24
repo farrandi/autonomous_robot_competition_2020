@@ -9,8 +9,8 @@
 #include <Servo.h>
 
 // Motor Pins
-#define MOTOR_LF PA_2 //left
-#define MOTOR_LB PA_1 //left
+#define MOTOR_LF PA_3 //left
+#define MOTOR_LB PA_2 //left
 #define MOTOR_RF PB_8 //right
 #define MOTOR_RB PB_9 //right
 
@@ -47,10 +47,10 @@
 #define OLED_RESET     -1 // This display does not have a reset pin accessible
 
 // IR Sensors
-#define IR_leftA PA_1
-#define IR_leftB PA_0
-#define IR_rightA PB_1
-#define IR_rightB PB_0
+#define IR_leftA PA1
+#define IR_leftB PA0
+#define IR_rightA PB1
+#define IR_rightB PB0
 
 // Tape Sensors
 #define TAPE_left PA_5
