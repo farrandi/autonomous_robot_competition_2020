@@ -51,9 +51,3 @@ void Motor::stop(){
     pwm_start(MOTOR_RF, 0,0,RESOLUTION_16B_COMPARE_FORMAT);
     pwm_start(MOTOR_RB, 0,0,RESOLUTION_16B_COMPARE_FORMAT);
 }
-
-void Motor::PID_control(int left_speed, int right_speed){
-  this->stop();
-  pwm_start(MOTOR_LF, FREQUENCY, left_speed, RESOLUTION_16B_COMPARE_FORMAT);
-  pwm_start(MOTOR_RF, FREQUENCY, right_speed, RESOLUTION_16B_COMPARE_FORMAT);
-}

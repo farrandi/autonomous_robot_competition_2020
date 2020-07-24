@@ -1,141 +1,86 @@
 #include "Arduino.h"
+#include "Adafruit_SSD1306.h"
+
 #include <Motor.h>
-#include <Adafruit_SSD1306.h>
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 #define OLED_RESET     -1 // This display does not have a reset pin accessible
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
+#define TAPE_SENSOR_R PA4
+#define TAPE_SENSOR_L PA5
+#define SWITCH A7
+
 Motor motor;
 
-#define TAPE_SENSOR_L PA5
-#define TAPE_SENSOR_R PA4
-#define SWITCH A7
+volatile double reflectance_L = 0.0;
+volatile double reflectance_R = 0.0;
+volatile double threshold = 500.0;
+volatile bool tape = false;
 
 void disp_setup();
 
-void setup()
-{
-  // initialize LED digital pin as an output.
-  pinMode(SWITCH, INPUT_PULLUP);
-  pinMode(TAPE_SENSOR_L, INPUT);
+void setup() {
+  // put your setup code here, to run once:
   pinMode(TAPE_SENSOR_R, INPUT);
+  pinMode(TAPE_SENSOR_L, INPUT);
+  pinMode(SWITCH, INPUT_PULLUP);
   disp_setup();
 }
 
-volatile float left = 0.0;
-volatile float right = 0.0;
+void loop() {
+  display.clearDisplay();
+  display.setCursor(0,0);
 
-volatile double threshold = 500.0;
-volatile bool l_on = false;
-volatile bool r_on = false;
-volatile bool cond = false;
-volatile int tape = 1;
-
-void loop()
-{
   if(digitalRead(SWITCH) == HIGH){
-    reflectance = analogRead(TAPE_SENSOR);
-    if (reflectance > threshold){
-      display.clearDisplay();
-      display.setCursor(0,0);
-      display.println("On");
-      display.println("Tape Detected!");
+    display.println("On");
+    reflectance_L = analogRead(TAPE_SENSOR_L);
+    reflectance_R = analogRead(TAPE_SENSOR_R);
+
+    display.print("Left: ");
+    display.println(reflectance_L);
+    display.print("Right: ");
+    display.println(reflectance_R);
+
+    if (reflectance_L > threshold && reflectance_R > threshold){
+      display.println("Tape Detected! (front)");
+      display.display();
+      
+      motor.stop();
+      motor.drive_backward(9);
+      delay(900);
+      motor.drive_ccw();
+      delay(1000);
+    } else if (reflectance_L > threshold){
+      display.println("Tape Detected! (left)");
+      display.display();
+      
+      motor.stop();
+      motor.drive_backward(9);
+      delay(800);
+      motor.drive_cw();
+      delay(600);
+    } else if (reflectance_R > threshold){
+      display.println("Tape Detected! (right)");
       display.display();
       
       motor.stop();
       motor.drive_backward(9);
       delay(800);
       motor.drive_ccw();
-      delay(800);
+      delay(600);
     }
-    motor.drive_forward(8);
 
-    display.clearDisplay();
-    display.setCursor(0,0);
-    display.println("On");
+    motor.drive_forward(10);
     display.println("Driving around...");
     display.display();
   }
 
   if (digitalRead(SWITCH) == LOW){
     motor.stop();
-    display.clearDisplay();
-    display.setCursor(0,0);
     display.println("Off");
     display.display();
-  }
-  // if(digitalRead(SWITCH) == HIGH){
-  //   left = analogRead(TAPE_SENSOR_L);
-  //   right = analogRead(TAPE_SENSOR_R);
-    
-  //   display.clearDisplay();
-  //   display.setCursor(0,0);
-  //   display.println("On");
-  //   display.print("Left: ");
-  //   display.println(left);
-  //   display.print("Right: ");
-  //   display.println(right);
-  //   display.display();
-
-  //   l_on = left > threshold;
-  //   r_on = right > threshold;
-
-  //   switch(tape){
-  //     case 1:
-  //     motor.drive_forward(10);
-  //     if (l_on){
-  //       if (r_on) {
-  //         tape = 2;
-  //       } else {
-  //         tape = 3;
-  //       }
-  //     }
-  //     if (r_on){
-  //       tape = 4;
-  //     }
-  //     case 2: // Both tapes detected
-  //       display.println("Both Detected!");
-  //       display.display();
-  //       motor.stop();
-  //       motor.drive_backward(8);
-  //       delay(1000);
-  //       motor.drive_cw();
-  //       delay(2000);
-  //       motor.stop();
-  //       tape = 1;
-      
-  //     case 3: 
-  //       display.println("Left Detected!");
-  //       display.display();
-  //       motor.stop();
-  //       motor.drive_backward(8);
-  //       delay(1000);
-  //       motor.drive_cw();
-  //       delay(1000);
-  //       motor.stop();
-  //       tape = 1;
-
-  //     case 4:
-  //       display.println("Left Detected!");
-  //       display.display();
-  //       motor.stop();
-  //       motor.drive_backward(8);
-  //       delay(1000);
-  //       motor.drive_cw();
-  //       delay(1000);
-  //       motor.stop();
-  //       tape = 1;
-  //   }
-  }
-  else {
-    display.clearDisplay();
-    display.setCursor(0,0);
-    display.println("Off");
-    display.display();
-
-    motor.stop();
   }
 }
 
