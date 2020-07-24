@@ -1,32 +1,23 @@
 #include "INIT.h"
 
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels
-#define OLED_RESET     -1 // This display does not have a reset pin accessible
-
-#define TRIGGER_PIN  PA15  // Arduino pin tied to trigger pin on the ultrasonic sensor.
-#define ECHO_PIN     PB3  // Arduino pin tied to echo pin on the ultrasonic sensor.
-#define MAX_DISTANCE 200 // Maximum distance we want to ping for (in centimeters). Maximum sensor distance is rated at 400-500cm.
-
-#define servoPin PA6
-#define maxAngle 120
-
 #define OPEN 1
 #define CLOSE 0
 
-Servo myServo;
-int pos = 0;
-int i = 0;
-int distance = 0;
-int state = OPEN;
+// Servo myServo;
+// int pos = 0;
+// int i = 0;
+// int distance = 0;
+// int state = OPEN;
 
 void disp_setup();
 
-NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+// NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
 
 void setup() {
   disp_setup();
-  myServo.attach(servoPin);
+  // myServo.attach(servoPin);
 }
 
 void disp_setup(){

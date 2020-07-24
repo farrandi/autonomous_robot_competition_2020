@@ -1,4 +1,6 @@
-#pragma once
+#ifndef INIT_h
+#define INIT_h
+#endif
 
 #include "Wire.h"
 #include "Arduino.h"
@@ -43,7 +45,6 @@
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 #define OLED_RESET     -1 // This display does not have a reset pin accessible
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 // IR Sensors
 #define IR_leftA PA_1
