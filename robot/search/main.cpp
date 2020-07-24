@@ -46,6 +46,9 @@ void loop()
   } 
   if (atCan) {
     robotClaw.closeClaw();
+    display.clearDisplay();
+    display.println("Grabbing can...");
+    display.display();
   }
 
 }

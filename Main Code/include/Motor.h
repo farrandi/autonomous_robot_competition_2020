@@ -2,16 +2,8 @@
 #define Motor_h
 #endif
 
+#include "Arduino.h"
 #include "INIT.h"
-
-#define MOTOR_LF PA_2 //left
-#define MOTOR_LB PA_1 //left
-#define MOTOR_RF PB_8 //right
-#define MOTOR_RB PB_9 //right
-
-#define MAX_MOTOR 65535
-#define MOTOR_RATIO 0.7
-#define FREQUENCY 1000
 
 class Motor{
     public:

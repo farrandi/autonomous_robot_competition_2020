@@ -27,19 +27,18 @@
 #define MAX_DISTANCE 200 // Maximum distance we want to ping for (in centimeters). Maximum sensor distance is rated at 400-500cm.
 
 // For Claw Servo
-#define servoPinBlue PA7
+#define BLUESERVO_PIN PA7
 
 // For Arm Servo
-#define servoPinGrey PA8
+#define GREYSERVO_PIN PA8
 
 // Servo Parameters
-#define maxAngleBlue 180
-#define maxAngleGrey 120
-#define armMaxAngle 100
-#define closePos 0 // check that your servo is oriented this way - it may be the opposite
-#define openPos (maxAngleBlue-1)
-#define downPos 0
-#define upPos 90
+#define MAXANGLE_BLUE 180
+#define MAXANGLE_GREY 120
+#define CLOSEPOS 0 // check that your servo is oriented this way - it may be the opposite
+#define OPENPOS (MAXANGLE_BLUE-1)
+#define DOWNPOS 0
+#define UPPOS 90
 
 // Display Settings
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
@@ -47,14 +46,14 @@
 #define OLED_RESET     -1 // This display does not have a reset pin accessible
 
 // IR Sensors
-#define IR_leftA PA_1
-#define IR_leftB PA_0
-#define IR_rightA PB_1
-#define IR_rightB PB_0
+#define IR_LA PA_1
+#define IR_LB PA_0
+#define IR_RA PB_1
+#define IR_RB PB_0
 
 // Tape Sensors
-#define TAPE_left PA_5
-#define TAPE_right PA_4
+#define TAPE_L PA_5
+#define TAPE_R PA_4
 
 // Control
 #define SWITCH PB14
