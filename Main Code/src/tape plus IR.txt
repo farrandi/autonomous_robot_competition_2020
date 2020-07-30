@@ -6,18 +6,18 @@ void disp_reset();
 
 #define ANALOG_MAX 1023
 #define MAX_I 200
-#define SPEED MAX_MOTOR / 10 * 5
+#define SPEED MAX_MOTOR / 10 * 6
 
 #define ERROR_RANGE 10
-#define NOISE 10
+#define NOISE 25
 #define STOP_RANGE 950
 
 Motor motor;
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-volatile short int kp = 20;
-volatile short int kd = 20;
+volatile short int kp = 40;
+volatile short int kd = 16;
 volatile short int ki = 2;
 
 volatile short int P = 0;
