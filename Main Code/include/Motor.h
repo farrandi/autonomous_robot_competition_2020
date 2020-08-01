@@ -2,6 +2,7 @@
 #define Motor_h
 #endif
 
+#include "Arduino.h"
 #include "INIT.h"
 
 class Motor{

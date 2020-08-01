@@ -5,33 +5,30 @@
 #include "INIT.h"
 
 // For Sonar on Claw
-#define TRIGGER_PIN PB_5
-#define ECHO_PIN PB_4
-#define MAX_DISTANCE 320
 
 // For Claw Servo
-#define servoClawPin PA7
-#define clawMaxAngle 120
-#define clawSpeed 2
 
 // For Arm Servo
-#define servoArmPin PA8
-#define armMaxAngle 100
 
 class Claw
 {
 public:
     Claw();
-    void openClaw(int blueServoPos);
-    void closeClaw(int blueServoPos);
-    void lowerClaw(int greyServoPos);
-    void raiseClaw(int greyServoPos);
+    void openClaw();
+    void closeClaw();
+    void lowerClaw();
+    void raiseClaw();
 
 private:
-    Servo blueServo;
-    Servo greyServo;
+    Servo smallServo;
+    Servo bigServo;
+	
+	// int openPos = (clawMaxAngle-1);
+	// int closePos = 0;
+	// int downPos = 0
+	// int upPos = 90;
 
     long distance = -1;
-    int blueServoPos = -1;
-    int greyServoPos = -1;
+    int smallServoPos = -1;
+    int bigServoPos = -1;
 };
