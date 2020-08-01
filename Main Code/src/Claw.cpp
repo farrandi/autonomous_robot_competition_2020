@@ -1,45 +1,45 @@
 #include <Claw.h>
 
 Claw::Claw(){
-    blueServo.attach(BLUESERVO_PIN);
-    greyServo.attach(GREYSERVO_PIN);
+    smallServo.attach(SMALLSERVO_PIN);
+    bigServo.attach(BIGSERVO_PIN);
     NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
   }
 
   void Claw::openClaw(){
-	int blueServoPos = blueServo.read();
-    for (int pos = blueServoPos; pos <= OPENPOS; pos++){
-      blueServo.write(pos);
+	int smallServoPos = smallServo.read();
+    for (int pos = smallServoPos; pos <= OPENPOS; pos++){
+      smallServo.write(pos);
       delay(5);
     }
     return;
   }
 
   void Claw::closeClaw(){
-    int blueServoPos = blueServo.read();
-	if (blueServoPos != OPENPOS) {
+    int smallServoPos = smallServo.read();
+	if (smallServoPos != OPENPOS) {
       openClaw();
     }
     for (int pos = OPENPOS; pos >= CLOSEPOS; pos--) {
-      blueServo.write(pos);
+      smallServo.write(pos);
       delay(5);
     }
     return;
   }
 
   void Claw::lowerClaw() { 
-    int greyServoPos = greyServo.read();
-	for (int pos = greyServoPos; pos >= DOWNPOS; pos--) {
-      greyServo.write(pos);
+    int bigServoPos = bigServo.read();
+	for (int pos = bigServoPos; pos >= DOWNPOS; pos--) {
+      bigServo.write(pos);
       delay(15);
     }
     return;
   }
 
   void Claw::raiseClaw() {
-	int greyServoPos = greyServo.read();
-    for (int pos = greyServoPos; pos <= UPPOS; pos++){
-      greyServo.write(pos);
+	int bigServoPos = bigServo.read();
+    for (int pos = bigServoPos; pos <= UPPOS; pos++){
+      bigServo.write(pos);
       delay(15);
     }
   }

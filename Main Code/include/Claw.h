@@ -20,8 +20,8 @@ public:
     void raiseClaw();
 
 private:
-    Servo blueServo;
-    Servo greyServo;
+    Servo smallServo;
+    Servo bigServo;
 	
 	// int openPos = (clawMaxAngle-1);
 	// int closePos = 0;
@@ -29,6 +29,6 @@ private:
 	// int upPos = 90;
 
     long distance = -1;
-    int blueServoPos = -1;
-    int greyServoPos = -1;
+    int smallServoPos = -1;
+    int bigServoPos = -1;
 };
