@@ -4,7 +4,6 @@
 
 #include "Wire.h"
 #include "Arduino.h"
-#include <NewPing.h>
 #include <Adafruit_SSD1306.h>
 #include <Servo.h>
 #include <Ultrasonic.h>
@@ -32,10 +31,10 @@
 #define BIGSERVO_PIN PA8
 
 // Servo Parameters
-#define MAXANGLE_BLUE 180
-#define MAXANGLE_GREY 120
+#define MAXANGLE_SMALL 180
+#define MAXANGLE_BOG 120
 #define CLOSEPOS 0 // check that your servo is oriented this way - it may be the opposite
-#define OPENPOS (MAXANGLE_BLUE-1)
+#define OPENPOS (MAXANGLE_SMALL-1)
 #define DOWNPOS 0
 #define UPPOS 90
 

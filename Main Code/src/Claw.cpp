@@ -1,9 +1,9 @@
 #include <Claw.h>
+#include <INIT.h>
 
 Claw::Claw(){
     smallServo.attach(SMALLSERVO_PIN);
     bigServo.attach(BIGSERVO_PIN);
-    NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
   }
 
   void Claw::openClaw(){

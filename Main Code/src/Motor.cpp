@@ -1,4 +1,5 @@
 #include <Motor.h>
+#include <INIT.h>
 
 /* Empty Constructor for Motor class that sets up the defined pins for output. */
 Motor::Motor(){

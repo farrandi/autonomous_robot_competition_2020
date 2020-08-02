@@ -32,10 +32,10 @@ volatile unsigned short int right_low;
 
 void setup()
 {
-  pinMode(IR_leftA, INPUT);
-  pinMode(IR_leftB, INPUT);
-  pinMode(IR_rightA, INPUT);
-  pinMode(IR_rightB, INPUT);
+  pinMode(IR_LA, INPUT);
+  pinMode(IR_LB, INPUT);
+  pinMode(IR_RA, INPUT);
+  pinMode(IR_RB, INPUT);
   pinMode(A7, INPUT_PULLUP);
 
   disp_setup();
@@ -59,10 +59,10 @@ void disp_reset()
 void loop()
 {
   disp_reset();
-  left_high = analogRead(IR_leftA);
-  left_low = analogRead(IR_leftB);
-  right_high = analogRead(IR_rightA);
-  right_low = analogRead(IR_rightB);
+  left_high = analogRead(IR_LA);
+  left_low = analogRead(IR_LB);
+  right_high = analogRead(IR_RA);
+  right_low = analogRead(IR_RB);
 
   if (left_high > ANALOG_MAX)
   {
