@@ -32,7 +32,7 @@
 
 // Servo Parameters
 #define MAXANGLE_SMALL 180
-#define MAXANGLE_BOG 120
+#define MAXANGLE_BIG 120
 #define CLOSEPOS 0 // check that your servo is oriented this way - it may be the opposite
 #define OPENPOS (MAXANGLE_SMALL-1)
 #define DOWNPOS 0
