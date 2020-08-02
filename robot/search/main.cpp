@@ -2,7 +2,6 @@
 #include <NewPing.h>
 #include <Adafruit_SSD1306.h>
 #include <Motor.h>
-#include <Claw.h>
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
@@ -10,7 +9,8 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 Motor robotMotor;
-Claw robotClaw;
+NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
+
 
 void disp_setup();
 void disp_dist(int dist);
@@ -44,12 +44,6 @@ void loop()
     count = 0;
     atCan = headToCan();
   } 
-  if (atCan) {
-    robotClaw.closeClaw();
-    display.clearDisplay();
-    display.println("Grabbing can...");
-    display.display();
-  }
 
 }
 
@@ -81,10 +75,10 @@ void sweep()
   int sweepTime = 500;
   int direction = count % 2;
   if (count % 3 == 0) {
-    sweepTime = 1000; 
+    sweepTime = 750; 
   }
   if (count % 5 == 0) {
-    sweepTime = 2000;
+    sweepTime = 1500;
   }
   if (direction == 1)
   {
