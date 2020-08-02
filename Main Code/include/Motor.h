@@ -9,7 +9,6 @@ class Motor{
     public:
         // Constructors
         Motor();
-        Motor(PinName left_f, PinName left_b, PinName right_f, PinName right_b);
 
         // Drives motors forward
         void drive_forward(int speed);
@@ -21,4 +20,6 @@ class Motor{
         void drive_cw();
         void drive_ccw();
         void stop();
+
+        void PID_control(int left_speed, int right_speed);
 };
