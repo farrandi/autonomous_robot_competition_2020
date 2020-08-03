@@ -152,12 +152,8 @@ void testSonar(){
   // disp_clear();
   // disp_label_value("Distance (cm): ",sonar.ping_cm());
   disp_label_value("Distance (cm): ",ultrasonic.read());
-<<<<<<< HEAD
   delay(50);
-=======
   disp_label_value("Dist (in): ", ultrasonic.read(INC));
-  // delay(500);
->>>>>>> 66554a9978f69fb8a217688224ca9f8920077efd
 }
 
 // Tests if servo can actuate based on servo readings
@@ -166,13 +162,8 @@ void testSonarClawArm(){
   // int distance = sonar.ping_cm();
   int distance = ultrasonic.read();
   disp_label_value("Dist (cm): ", distance);
-<<<<<<< HEAD
   claw.openClaw();
   claw.lowerClaw();
-=======
-  //Claw.openClaw();
-  //Claw.closeClaw();
->>>>>>> 66554a9978f69fb8a217688224ca9f8920077efd
 
   if(distance<8 && distance>3) {
     disp_msg("Can detected!\n //Claw closing...");

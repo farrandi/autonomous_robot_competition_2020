@@ -12,8 +12,8 @@
 #include "Arduino.h"
 #include <Ultrasonic.h>
 #include <Adafruit_SSD1306.h>
-#include <Servo.h>
-#include <NewPing.h>
+// #include <Servo.h>
+// #include <NewPing.h>
 
 /* NOTE
 ** Pin notation:
@@ -35,10 +35,10 @@
 #define MAX_DISTANCE 200 // Maximum distance we want to ping for (in centimeters). Maximum sensor distance is rated at 400-500cm.
 
 // For Claw Servo
-#define SMALLSERVO_PIN PA7
+#define SMALLSERVO_PIN PA_7
 
 // For Arm Servo
-#define BIGSERVO_PIN PA8
+#define BIGSERVO_PIN PA_8
 
 // Servo Parameters
 #define MAXANGLE_SMALL 180
@@ -46,7 +46,7 @@
 #define CLOSEPOS 0 // check that your servo is oriented this way - it may be the opposite
 #define OPENPOS (MAXANGLE_SMALL-1)
 #define DOWNPOS 0
-#define UPPOS 90
+#define UPPOS 50
 
 // Display Settings
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
