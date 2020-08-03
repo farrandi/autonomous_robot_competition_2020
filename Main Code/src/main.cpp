@@ -15,12 +15,15 @@
 int state = 0;
 int prev_state = state;
 
-void setup()
-{
+Display myDisp;
+Motor myMotor;
+Claw myClaw;
+
+void setup() {
+  myDisp.setup();
 }
 
-void loop()
-{
+void loop() {
   prev_state = state;
 
   switch (state)
