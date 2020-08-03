@@ -1,7 +1,8 @@
 #include "INIT.h"
+#include <Display.h>
 
-void disp_setup();
-void disp_reset();
+// void disp_setup();
+// void disp_reset();
 
 #define ANALOG_MAX 1023
 #define MAX_I 200
@@ -9,7 +10,10 @@ void disp_reset();
 
 #define ERROR_RANGE 10
 
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+//Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+Display disp;
 
 volatile short int kp = 6;
 volatile short int kd = 0;
@@ -36,29 +40,32 @@ void setup()
   pinMode(IR_LB, INPUT);
   pinMode(IR_RA, INPUT);
   pinMode(IR_RB, INPUT);
-  pinMode(A7, INPUT_PULLUP);
 
-  disp_setup();
+  disp.setup();
+  // pinMode(A7, INPUT_PULLUP);
+
+
+  // disp_setup();
 }
 
-void disp_setup()
-{
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-  display.clearDisplay();
-  display.setTextSize(1);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(0, 0);
-}
+// void disp_setup()
+// {
+//   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+//   display.clearDisplay();
+//   display.setTextSize(1);
+//   display.setTextColor(SSD1306_WHITE);
+//   display.setCursor(0, 0);
+// }
 
-void disp_reset()
-{
-  display.clearDisplay();
-  display.setCursor(0, 0);
-}
+// void disp_reset()
+// {
+//   display.clearDisplay();
+//   display.setCursor(0, 0);
+// }
 
 void loop()
 {
-  disp_reset();
+  // disp_reset();
   left_high = analogRead(IR_LA);
   left_low = analogRead(IR_LB);
   right_high = analogRead(IR_RA);
@@ -82,17 +89,26 @@ void loop()
     right = right_high;
   }
 
-  display.print("A1: ");
-  display.println(left_high);
-  display.print("A0: ");
-  display.println(left_low);
+  disp.taggedValue("Left (H):",left_high);
+  disp.taggedValue("Left (L):",left_low);
 
-  display.print("B1: ");
-  display.println(right_high);
-  display.print("B0: ");
-  display.println(right_low);
+  disp.taggedValue("Right (H):",right_high);
+  disp.taggedValue("Right (L):",right_low);
 
-  display.display();
+disp.clear();
+
+
+  // display.print("A1: ");
+  // display.println(left_high);
+  // display.print("A0: ");
+  // display.println(left_low);
+
+  // display.print("B1: ");
+  // display.println(right_high);
+  // display.print("B0: ");
+  // display.println(right_low);
+
+  // display.display();
 
   //if (digitalRead(PA7) == HIGH)
   //{
@@ -125,12 +141,12 @@ void loop()
       }
       prev = err;
 
-      display.print("Error: ");
-      display.println(err);
-      display.print("Gain: ");
-      display.println(G);
+      // display.print("Error: ");
+      // display.println(err);
+      // display.print("Gain: ");
+      // display.println(G);
 
-      display.display();
+      // display.display();
     }
   // }
   // else

@@ -1,11 +1,11 @@
 #include "INIT.h"
 #include "Motor.h"
-#include "Claw.h"
+//#include "Claw.h"
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 Ultrasonic ultrasonic(TRIGGER_PIN,ECHO_PIN);
 Motor robotMotor;
-Claw claw;
+//Claw //Claw;
 
 void disp_setup();
 void disp_label_value(const char *label, int value);
@@ -16,9 +16,9 @@ void motorRawStop();
 /* TEST FUNCTIONS */
 void testDrive(); // (Uses Motor.h) Tests: driving forwards, backwards, turning ccw and cw
 void testDriveRaw(); // (Uses PWM) Tests: driving forwards, backwards, turning ccw and cw
-void testGrabber(); // Tests claw opening and closing
+void testGrabber(); // Tests //Claw opening and closing
 void testArm(); // Tests arm lifting and lowering
-void testClawFunctions(); // Uses Claw.h
+void testClawFunctions(); // Uses //Claw.h
 void testDriveAndServos(); // (Uses Motor.h)
 // void testDriveAndServosRaw(); // (Uses PWM)
 void testSonar();
@@ -34,13 +34,16 @@ void setup() {
   pinMode(IR_RB,INPUT);
   pinMode(TAPE_L, INPUT_PULLUP);
   pinMode(TAPE_R, INPUT_PULLUP);
+  
+  Serial.begin(9600);
+  disp_setup();
 }
 
 
 void loop() {
   // CHOOSE WHICH TEST FUNCTION TO RUN:
   // NOTE: if running the raw motor test files, make sure to comment out lines 2 and 7
-
+  testDriveRaw();
 }
 
 
@@ -87,16 +90,16 @@ void testDriveRaw(){
   delay(2000);
 }
 
-// Tests claw opening and closing
+// Tests //Claw opening and closing
 void testGrabber(){
-  claw.openClaw();
-  claw.closeClaw();
+  ////Claw.openClaw();
+  //Claw.closeClaw();
 }
 
 // Tests arm lifting and lowering
 void testArm(){
-  claw.raiseClaw();
-  claw.lowerClaw();
+  //Claw.raiseClaw();
+  //Claw.lowerClaw();
 }
 
 // (Uses Motor.h) Drives, stops, moves servos
@@ -110,13 +113,13 @@ void testDriveAndServos(){
   disp_clear();
   disp_msg("Moving servos...");
   for (int i = 0; i < 90; i++) {
-    claw.writeSmallServo(i);
-    claw.writeBigServo(i);
+    //Claw.writeSmallServo(i);
+    //Claw.writeBigServo(i);
     delay(15);
   }
   for (int i = 90; i >= 0; i--) {
-    claw.writeSmallServo(i);
-    claw.writeBigServo(i);
+    //Claw.writeSmallServo(i);
+    //Claw.writeBigServo(i);
     delay(15);
   }
 }
@@ -134,13 +137,13 @@ void testDriveAndServosRaw(){
   disp_clear();
   disp_msg("Moving servos...");
   for (int i = 0; i < 90; i++) {
-    claw.writeSmallServo(i);
-    claw.writeBigServo(i);
+    //Claw.writeSmallServo(i);
+    //Claw.writeBigServo(i);
     delay(15);
   }
   for (int i = 90; i >= 0; i--) {
-    claw.writeSmallServo(i);
-    claw.writeBigServo(i);
+    //Claw.writeSmallServo(i);
+    //Claw.writeBigServo(i);
     delay(15);
   }
 }
@@ -156,17 +159,17 @@ void testSonar(){
 void testSonarClawArm(){
   int distance = ultrasonic.read();
   disp_label_value("Dist (cm): ", distance);
-  claw.openClaw();
-  claw.closeClaw();
+  //Claw.openClaw();
+  //Claw.closeClaw();
 
   if(distance<8 && distance>3) {
-    disp_msg("Can detected!\n Claw closing...");
-    claw.closeClaw();
-    claw.raiseClaw();
+    disp_msg("Can detected!\n //Claw closing...");
+    //Claw.closeClaw();
+    //Claw.raiseClaw();
     delay(2000);
-    disp_msg("releasing claw...");
-    claw.lowerClaw();
-    claw.openClaw();
+    disp_msg("releasing //Claw...");
+    //Claw.lowerClaw();
+    //Claw.openClaw();
   }
 }
 

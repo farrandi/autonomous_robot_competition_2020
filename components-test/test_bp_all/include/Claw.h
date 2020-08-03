@@ -2,7 +2,7 @@
 #define Claw_h
 #endif
 
-#include "INIT.h"
+#include <INIT.h>
 
 class Claw
 {
@@ -16,8 +16,4 @@ public:
     int readbigServo();
     void writeSmallServo(int pos);
     void writeBigServo(int pos);
-
-private:
-    Servo smallServo;
-    Servo bigServo;
 };
