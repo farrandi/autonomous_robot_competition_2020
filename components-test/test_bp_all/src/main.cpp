@@ -2,7 +2,7 @@
 #include "Motor.h"
 #include "Claw.h"
 
-Ultrasonic ultrasonic(TRIGGER_PIN,ECHO_PIN);
+Ultrasonic ultrasonic(TRIGGER_PIN,ECHO_PIN, 15000UL);
 Motor robotMotor;
 Claw claw;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
@@ -43,16 +43,11 @@ void setup() {
 void loop() {
   // CHOOSE WHICH TEST FUNCTION TO RUN:
   // NOTE: if running the raw motor test files, make sure to comment out lines 2 and 7
-<<<<<<< HEAD
-  // disp_msg("Driving forward...");
-  testSonar();
-=======
 
   // disp_clear();
   // disp_msg("starting in 3...");
   // delay(3000);
-  testIRreading();
->>>>>>> b7ee4fa2071fb354d01c55679f4f8221bb5bcae2
+  testSonar();
 }
 
 
@@ -121,23 +116,10 @@ void testDriveAndServos(){
   delay(300);
   disp_clear();
   disp_msg("Moving servos...");
-<<<<<<< HEAD
-  for (int i = 0; i < 90; i++) {
-    //Claw.writeSmallServo(i);
-    //Claw.writeBigServo(i);
-    delay(15);
-  }
-  for (int i = 90; i >= 0; i--) {
-    //Claw.writeSmallServo(i);
-    //Claw.writeBigServo(i);
-    delay(15);
-  }
-=======
   claw.closeClaw();
   claw.raiseClaw();
   claw.lowerClaw();
   claw.openClaw();
->>>>>>> b7ee4fa2071fb354d01c55679f4f8221bb5bcae2
 }
 
 // (Uses PWM) Drives, stops, moves servos
@@ -168,7 +150,8 @@ void testDriveAndServosRaw(){
 void testSonar(){
   disp_clear();
   disp_label_value("Distance (cm): ",ultrasonic.read());
-  delay(500);
+  disp_label_value("Dist (in): ", ultrasonic.read(INC));
+  // delay(500);
 }
 
 // Tests if servo can actuate based on servo readings
