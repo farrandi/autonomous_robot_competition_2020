@@ -1,6 +1,7 @@
 #include <INIT.h>
 #include <Motor.h>
 #include <Claw.h>
+#include <Display.h>
 
 //STATE CONSTANTS
 #define SEARCH 0 //default
