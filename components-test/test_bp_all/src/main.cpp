@@ -43,10 +43,11 @@ void setup() {
 void loop() {
   // CHOOSE WHICH TEST FUNCTION TO RUN:
   // NOTE: if running the raw motor test files, make sure to comment out lines 2 and 7
-  disp_clear();
-  disp_msg("starting in 3...");
-  delay(3000);
-  testDriveAndServos();
+
+  // disp_clear();
+  // disp_msg("starting in 3...");
+  // delay(3000);
+  testIRreading();
 }
 
 
