@@ -60,14 +60,14 @@
 #define ECHO_PIN PB_4
 
 // IR Sensors
-#define IR_LA PB_1
-#define IR_LB PB_0
-#define IR_RA PA_1
-#define IR_RB PA_0
+#define IR_LA PB1
+#define IR_LB PB0
+#define IR_RA PA1
+#define IR_RB PA0
 
 // Tape Sensors
-#define TAPE_L PA_5
-#define TAPE_R PA_4
+#define TAPE_L PA5
+#define TAPE_R PA4
 
 // Control
 #define SWITCH PB14
