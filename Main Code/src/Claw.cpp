@@ -1,10 +1,18 @@
 #include <Claw.h>
-#include <INIT.h>
+
+Servo smallServo;
+Servo bigServo;
 
 Claw::Claw(){
-    smallServo.attach(SMALLSERVO_PIN);
-    bigServo.attach(BIGSERVO_PIN);
+
   }
+
+void Claw::setup(){
+  smallServo.attach(SMALLSERVO_PIN);
+  bigServo.attach(BIGSERVO_PIN);
+  bigServo.write(DOWNPOS);
+  return;
+}
 
   void Claw::openClaw(){
 	int smallServoPos = smallServo.read();
@@ -42,4 +50,20 @@ Claw::Claw(){
       bigServo.write(pos);
       delay(15);
     }
+  }
+
+  int Claw::readSmallServo(){
+    return smallServo.read();
+  }
+
+  int Claw::readbigServo(){
+    return bigServo.read();
+  }
+
+  void Claw::writeSmallServo(int pos){
+    smallServo.write(pos);
+  }
+
+  void Claw::writeBigServo(int pos){
+    bigServo.write(pos);
   }
