@@ -59,6 +59,10 @@
 // For Sonar
 #define TRIGGER_PIN PB5
 #define ECHO_PIN PB4
+<<<<<<< HEAD
+=======
+#define TIMEOUT 15000UL // 15000UL has range of approx. 105 inches, 20000UL is default and range of ~3m; maxed at 40 ms for 6.8m
+>>>>>>> 66554a9978f69fb8a217688224ca9f8920077efd
 
 // IR Sensors
 #define IR_LA PB1

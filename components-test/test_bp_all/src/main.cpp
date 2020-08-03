@@ -2,7 +2,7 @@
 #include "Motor.h"
 #include "Claw.h"
 
-Ultrasonic ultrasonic(TRIGGER_PIN,ECHO_PIN);
+Ultrasonic ultrasonic(TRIGGER_PIN,ECHO_PIN, 15000UL);
 Motor robotMotor;
 Claw claw;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
@@ -17,9 +17,9 @@ void motorRawStop();
 /* TEST FUNCTIONS */
 void testDrive(); // (Uses Motor.h) Tests: driving forwards, backwards, turning ccw and cw
 void testDriveRaw(); // (Uses PWM) Tests: driving forwards, backwards, turning ccw and cw
-void testGrabber(); // Tests claw opening and closing
+void testGrabber(); // Tests //Claw opening and closing
 void testArm(); // Tests arm lifting and lowering
-void testClawFunctions(); // Uses Claw.h
+void testClawFunctions(); // Uses //Claw.h
 void testDriveAndServos(); // (Uses Motor.h)
 void testDriveAndServosRaw(); // (Uses PWM)
 void testSonar(); // Reads the sonar reading
@@ -95,7 +95,7 @@ void testDriveRaw(){
   delay(2000);
 }
 
-// Tests claw opening and closing
+// Tests Claw opening and closing
 void testGrabber(){
   claw.openClaw();
   claw.closeClaw();
@@ -136,13 +136,13 @@ void testDriveAndServosRaw(){
   disp_clear();
   disp_msg("Moving servos...");
   for (int i = 0; i < 90; i++) {
-    claw.writeSmallServo(i);
-    claw.writeBigServo(i);
+    //Claw.writeSmallServo(i);
+    //Claw.writeBigServo(i);
     delay(15);
   }
   for (int i = 90; i >= 0; i--) {
-    claw.writeSmallServo(i);
-    claw.writeBigServo(i);
+    //Claw.writeSmallServo(i);
+    //Claw.writeBigServo(i);
     delay(15);
   }
 }
@@ -152,7 +152,12 @@ void testSonar(){
   // disp_clear();
   // disp_label_value("Distance (cm): ",sonar.ping_cm());
   disp_label_value("Distance (cm): ",ultrasonic.read());
+<<<<<<< HEAD
   delay(50);
+=======
+  disp_label_value("Dist (in): ", ultrasonic.read(INC));
+  // delay(500);
+>>>>>>> 66554a9978f69fb8a217688224ca9f8920077efd
 }
 
 // Tests if servo can actuate based on servo readings
@@ -161,17 +166,22 @@ void testSonarClawArm(){
   // int distance = sonar.ping_cm();
   int distance = ultrasonic.read();
   disp_label_value("Dist (cm): ", distance);
+<<<<<<< HEAD
   claw.openClaw();
   claw.lowerClaw();
+=======
+  //Claw.openClaw();
+  //Claw.closeClaw();
+>>>>>>> 66554a9978f69fb8a217688224ca9f8920077efd
 
   if(distance<8 && distance>3) {
-    disp_msg("Can detected!\n Claw closing...");
-    claw.closeClaw();
-    claw.raiseClaw();
+    disp_msg("Can detected!\n //Claw closing...");
+    //Claw.closeClaw();
+    //Claw.raiseClaw();
     delay(2000);
-    disp_msg("releasing claw...");
-    claw.lowerClaw();
-    claw.openClaw();
+    disp_msg("releasing //Claw...");
+    //Claw.lowerClaw();
+    //Claw.openClaw();
   }
 }
 

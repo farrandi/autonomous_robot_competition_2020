@@ -2,7 +2,7 @@
 #define Claw_h
 #endif
 
-#include "INIT.h"
+#include <INIT.h>
 
 class Claw
 {

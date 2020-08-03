@@ -23,8 +23,8 @@ void Claw::setup(){
     return;
   }
 
-  void Claw::closeClaw(){
-    int smallServoPos = smallServo.read();
+ void Claw::closeClaw(){
+  int smallServoPos = smallServo.read();
 	if (smallServoPos != OPENPOS) {
       openClaw();
     }
@@ -35,7 +35,7 @@ void Claw::setup(){
     return;
   }
 
-  void Claw::lowerClaw() { 
+void Claw::lowerClaw() { 
     int bigServoPos = bigServo.read();
 	for (int pos = bigServoPos; pos >= DOWNPOS; pos--) {
       bigServo.write(pos);
@@ -44,7 +44,7 @@ void Claw::setup(){
     return;
   }
 
-  void Claw::raiseClaw() {
+void Claw::raiseClaw() {
 	int bigServoPos = bigServo.read();
     for (int pos = bigServoPos; pos <= UPPOS; pos++){
       bigServo.write(pos);
