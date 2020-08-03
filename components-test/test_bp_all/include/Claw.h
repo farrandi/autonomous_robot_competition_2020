@@ -8,6 +8,7 @@ class Claw
 {
 public:
     Claw();
+    void setup();
     void openClaw();
     void closeClaw();
     void lowerClaw();
@@ -16,8 +17,5 @@ public:
     int readbigServo();
     void writeSmallServo(int pos);
     void writeBigServo(int pos);
-
-private:
-    Servo smallServo;
-    Servo bigServo;
+    
 };
