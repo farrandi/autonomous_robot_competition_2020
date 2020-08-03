@@ -6,6 +6,7 @@ Ultrasonic ultrasonic(TRIGGER_PIN,ECHO_PIN);
 Motor robotMotor;
 Claw claw;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+// NewPing sonar(TRIGGER_PIN,ECHO_PIN,MAX_DISTANCE);
 
 void disp_setup();
 void disp_label_value(const char *label, int value);
@@ -21,10 +22,10 @@ void testArm(); // Tests arm lifting and lowering
 void testClawFunctions(); // Uses Claw.h
 void testDriveAndServos(); // (Uses Motor.h)
 void testDriveAndServosRaw(); // (Uses PWM)
-void testSonar();
-void testSonarClawArm();
-void testIRreading();
-void testTapeReading();
+void testSonar(); // Reads the sonar reading
+void testSonarClawArm(); // Tests if servo can actuate based on servo readings
+void testIRreading(); // Reads the IRs
+void testTapeReading(); // Reads the Tape sensors
 
 void setup() {
   // put your setup code here, to run once:
@@ -44,10 +45,10 @@ void loop() {
   // CHOOSE WHICH TEST FUNCTION TO RUN:
   // NOTE: if running the raw motor test files, make sure to comment out lines 2 and 7
 
-  // disp_clear();
+  disp_clear();
   // disp_msg("starting in 3...");
   // delay(3000);
-  testIRreading();
+  testSonar();
 }
 
 
@@ -148,17 +149,20 @@ void testDriveAndServosRaw(){
 
 // Reads the sonar reading
 void testSonar(){
-  disp_clear();
+  // disp_clear();
+  // disp_label_value("Distance (cm): ",sonar.ping_cm());
   disp_label_value("Distance (cm): ",ultrasonic.read());
-  delay(500);
+  delay(50);
 }
 
 // Tests if servo can actuate based on servo readings
 void testSonarClawArm(){
+  disp_clear();
+  // int distance = sonar.ping_cm();
   int distance = ultrasonic.read();
   disp_label_value("Dist (cm): ", distance);
   claw.openClaw();
-  claw.closeClaw();
+  claw.lowerClaw();
 
   if(distance<8 && distance>3) {
     disp_msg("Can detected!\n Claw closing...");
@@ -172,7 +176,7 @@ void testSonarClawArm(){
 }
 
 void testIRreading(){
-  disp_clear();
+  // disp_clear();
   disp_label_value("LEFT IR HI: ", analogRead(IR_LA));
   disp_label_value("LEFT IR LO: ", analogRead(IR_LB));
   disp_label_value("RIGHT IR HI: ", analogRead(IR_RA));
@@ -181,7 +185,7 @@ void testIRreading(){
 }
 
 void testTapeReading(){
-  disp_clear();
+  // disp_clear();
   disp_label_value("Left Sensor: ",analogRead(TAPE_L));
   disp_label_value("Right Sensor: ",analogRead(TAPE_R));
   delay(500);

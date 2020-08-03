@@ -13,6 +13,7 @@
 #include <Ultrasonic.h>
 #include <Adafruit_SSD1306.h>
 #include <Servo.h>
+#include <NewPing.h>
 
 /* NOTE
 ** Pin notation:
@@ -56,8 +57,8 @@
 //BLUEPILL INPUTS//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // For Sonar
-#define TRIGGER_PIN PB_5
-#define ECHO_PIN PB_4
+#define TRIGGER_PIN PB5
+#define ECHO_PIN PB4
 
 // IR Sensors
 #define IR_LA PB1
