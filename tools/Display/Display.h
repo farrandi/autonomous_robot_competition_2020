@@ -9,8 +9,8 @@ class Display{
     public:
         // Constructors
         Display();
-
-        // Sets up the displays
+        
+        // Sets up the display
         void setup();
 
         // Clears the display
@@ -27,6 +27,7 @@ class Display{
         void print(double num);
 
         //Write a value on the display with a tag
-        void taggedValue(const char *tag, int value);
+        void taggedValue(const char *tag, int value);\
+
 
 };
