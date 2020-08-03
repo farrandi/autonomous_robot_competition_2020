@@ -15,6 +15,9 @@
 #include <Servo.h>
 #include <NewPing.h>
 
+#define TRUE 1
+#define FALSE 0
+
 /* NOTE
 ** Pin notation:
 ** Use underscore for analog (?)
@@ -60,16 +63,27 @@
 #define TRIGGER_PIN PB5
 #define ECHO_PIN PB4
 #define TIMEOUT 15000UL // 15000UL has range of approx. 105 inches, 20000UL is default and range of ~3m; maxed at 40 ms for 6.8m
+#define NEAR 100 //cm
+#define MIN_REACH_RANGE 8 //change according to the range your claw can grab the can
+#define MAX_REACH_RANGE 11
 
 // IR Sensors
 #define IR_LA PB1
 #define IR_LB PB0
 #define IR_RA PA1
 #define IR_RB PA0
+#define IR_NOISE 50
+#define IR_BIN 1000
+#define ANALOG_MAX 1023
 
 // Tape Sensors
 #define TAPE_L PA5
 #define TAPE_R PA4
+#define NONE 0
+#define LEFT 1
+#define RIGHT 2
+#define BOTH 3
+#define TAPE_THRES 400
 
 // Control
 #define SWITCH PB14
