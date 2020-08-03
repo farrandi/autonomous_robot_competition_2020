@@ -1,11 +1,13 @@
 #include <Display.h>
 
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
 /* Empty Constructor for Display class that initializes the Adafruit SSD1306 */
-Display::Display(){
-    Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+Display::Display() {
+    // Empty constructor because it is not necessary.
 }
 
-/* Sets up the Adafruit Display
+/* Clears the Adafruit Display and resets the cursor postiion
  */
 void Display::setup() {
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
@@ -13,9 +15,9 @@ void Display::setup() {
   display.setTextSize(1);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(0, 0);
-}
+} 
 
-/* Clears the Adefruit Display and resets the cursor postiion
+/* Clears the Adafruit Display and resets the cursor postiion
  */
 void Display::clear() {
   display.clearDisplay();
@@ -71,10 +73,11 @@ void Display::print(double num) {
 }
 
 /* Writes a tag and its value on the display
- * @param: const char *tag, a character array to print on the display.
+ * @param: const char *tag, a character array to print on the display.display.
  *         int value, the value corresponding to the given label
  */
 void Display::taggedValue(const char *tag, int value) {
     display.print(tag);
-    display.print(value);
+    display.println(value);
     display.display();
+}

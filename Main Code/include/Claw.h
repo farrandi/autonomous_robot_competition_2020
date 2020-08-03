@@ -4,20 +4,16 @@
 
 #include "INIT.h"
 
-// For Sonar on Claw
-
-// For Claw Servo
-
-// For Arm Servo
-
 class Claw
 {
 public:
     Claw();
+    void setup();
     void openClaw();
     void closeClaw();
     void lowerClaw();
     void raiseClaw();
+<<<<<<< HEAD
 
 private:
 	// int openPos = (clawMaxAngle-1);
@@ -30,4 +26,11 @@ private:
     int bigServoPos = -1;
     static Servo smallServo;
     static Servo bigServo;
+=======
+    int readSmallServo();
+    int readbigServo();
+    void writeSmallServo(int pos);
+    void writeBigServo(int pos);
+    
+>>>>>>> 7c132714873f53004ef8de7d758466cb71f25058
 };

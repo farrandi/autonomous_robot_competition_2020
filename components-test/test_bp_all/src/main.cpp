@@ -2,10 +2,10 @@
 #include "Motor.h"
 //#include "Claw.h"
 
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 Ultrasonic ultrasonic(TRIGGER_PIN,ECHO_PIN);
 Motor robotMotor;
-//Claw //Claw;
+Claw claw;
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 void disp_setup();
 void disp_label_value(const char *label, int value);
@@ -20,7 +20,7 @@ void testGrabber(); // Tests //Claw opening and closing
 void testArm(); // Tests arm lifting and lowering
 void testClawFunctions(); // Uses //Claw.h
 void testDriveAndServos(); // (Uses Motor.h)
-// void testDriveAndServosRaw(); // (Uses PWM)
+void testDriveAndServosRaw(); // (Uses PWM)
 void testSonar();
 void testSonarClawArm();
 void testIRreading();
@@ -34,16 +34,18 @@ void setup() {
   pinMode(IR_RB,INPUT);
   pinMode(TAPE_L, INPUT_PULLUP);
   pinMode(TAPE_R, INPUT_PULLUP);
-  
-  Serial.begin(9600);
+
   disp_setup();
+  claw.setup();
 }
 
 
 void loop() {
   // CHOOSE WHICH TEST FUNCTION TO RUN:
   // NOTE: if running the raw motor test files, make sure to comment out lines 2 and 7
-  testDriveRaw();
+  // disp_msg("Driving forward...");
+  testArm();
+  testDrive();
 }
 
 
@@ -55,7 +57,7 @@ void testDrive(){
   robotMotor.drive_forward(5);
   disp_msg("Driving forward...");
   delay(5000);
-  robotMotor.drive_forward(5);
+  robotMotor.drive_backward(5);
   disp_msg("Driving backward...");
   delay(3000);
   robotMotor.drive_ccw();
@@ -96,7 +98,7 @@ void testGrabber(){
   //Claw.closeClaw();
 }
 
-// Tests arm lifting and lowering
+// // Tests arm lifting and lowering
 void testArm(){
   //Claw.raiseClaw();
   //Claw.lowerClaw();
@@ -192,10 +194,10 @@ void testTapeReading(){
 /* OTHER DISPLAY FUNCTIONS */
 
 void motorRawStop(){
-  pwm_start(MOTOR_LF, 0,0,RESOLUTION_16B_COMPARE_FORMAT);
-  pwm_start(MOTOR_LB, 0,0,RESOLUTION_16B_COMPARE_FORMAT);
-  pwm_start(MOTOR_RF, 0,0,RESOLUTION_16B_COMPARE_FORMAT);
-  pwm_start(MOTOR_RB, 0,0,RESOLUTION_16B_COMPARE_FORMAT);
+  pwm_start(MOTOR_LF, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
+  pwm_start(MOTOR_LB, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
+  pwm_start(MOTOR_RF, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
+  pwm_start(MOTOR_RB, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
   delay(50);
 }
 
@@ -208,6 +210,7 @@ void disp_setup()
   display.setTextSize(1);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(0, 0);
+
 }
 
 void disp_label_value(const char *label, int value){

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "INIT.h"
 #include <Display.h>
 
@@ -79,13 +80,39 @@ void loop()
   {
     left = left_high;
   }
+=======
+#include <INIT.h>
+#include <Motor.h>
+#include <Claw.h>
+#include <Display.h>
 
-  if (right_high > ANALOG_MAX)
+//STATE CONSTANTS
+#define SEARCH 0 //default
+#define PICK_UP 1
+#define LOOK 2
+#define HOME 3
+#define DROP 4
+#define AVOID 5
+#define FUN 6
+#define OFF 8
+int state = 0;
+int prev_state = state;
+
+Display myDisp;
+Motor myMotor;
+Claw myClaw;
+
+void setup() {
+  myDisp.setup();
+}
+
+void loop() {
+  prev_state = state;
+>>>>>>> 7c132714873f53004ef8de7d758466cb71f25058
+
+  switch (state)
   {
-    right = right_low;
-  }
-  else
-  {
+<<<<<<< HEAD
     right = right_high;
   }
 
@@ -109,50 +136,88 @@ disp.clear();
   // display.println(right_low);
 
   // display.display();
+=======
+  default:
 
-  //if (digitalRead(PA7) == HIGH)
-  //{
-    err = left - right;
-
-    if (err < ERROR_RANGE || err > -ERROR_RANGE)
+    if (sonar == 'Y')
     {
-      pwm_start(MOTOR_LF, FREQUENCY, SPEED, RESOLUTION_16B_COMPARE_FORMAT);
-      pwm_start(MOTOR_RF, FREQUENCY, SPEED , RESOLUTION_16B_COMPARE_FORMAT);
+      state = HEAD;
+      break;
     }
     else
     {
-      P = kp * err;
-      D = kd * (err - prev);
-      I = (ki * err) + I;
-      if (I > MAX_I)
-        I = MAX_I;
-      if (I < -MAX_I)
-        I = -MAX_I;
-      G = P + D + I;
-      if (err > 0)
+      break;
+    }
+>>>>>>> 7c132714873f53004ef8de7d758466cb71f25058
+
+  case HEAD:
+
+    if (can == 'N')
+    {
+      state = SEARCH;
+      break;
+    }
+    else
+    {
+      if (close == 'Y')
       {
-        pwm_start(MOTOR_LF, FREQUENCY, SPEED - G, RESOLUTION_16B_COMPARE_FORMAT);
-        pwm_start(MOTOR_RF, FREQUENCY, SPEED + G, RESOLUTION_16B_COMPARE_FORMAT);
+        state = PICK_UP;
+        break;
       }
       else
       {
-        pwm_start(MOTOR_LF, FREQUENCY, SPEED + G, RESOLUTION_16B_COMPARE_FORMAT);
-        pwm_start(MOTOR_RF, FREQUENCY, SPEED - G, RESOLUTION_16B_COMPARE_FORMAT);
+        break;
       }
-      prev = err;
+    }
+  case PICK_UP:
 
+<<<<<<< HEAD
       // display.print("Error: ");
       // display.println(err);
       // display.print("Gain: ");
       // display.println(G);
 
       // display.display();
+=======
+    if (can == 'N')
+    {
+      state = SEARCH;
+      break;
     }
-  // }
-  // else
-  // {
-  //   display.println("OFF");
+    else
+    {
 
-  //   display.display();
-  // }
+      state = HOME;
+      break;
+>>>>>>> 7c132714873f53004ef8de7d758466cb71f25058
+    }
+  case HOME:
+
+    if (can == 'N')
+    {
+      state = SEARCH;
+      break;
+    }
+
+    if (bin == 'Y')
+    {
+      state = DROP;
+      break;
+    }
+    else
+    {
+      break;
+    }
+  case DROP:
+
+    state = SEARCH;
+    break;
+  case AVOID:
+
+    state = prev_state;
+    break;
+  case FUN:
+
+    break;
+  }
 }
