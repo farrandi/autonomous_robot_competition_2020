@@ -43,9 +43,10 @@ void setup() {
 void loop() {
   // CHOOSE WHICH TEST FUNCTION TO RUN:
   // NOTE: if running the raw motor test files, make sure to comment out lines 2 and 7
-  // disp_msg("Driving forward...");
-  testArm();
-  testDrive();
+  disp_clear();
+  disp_msg("starting in 3...");
+  delay(3000);
+  testDriveAndServos();
 }
 
 
@@ -108,22 +109,16 @@ void testArm(){
 void testDriveAndServos(){
   disp_clear();
   disp_msg("Driving...");
-  robotMotor.drive_forward(5);
-  delay(5000);
+  robotMotor.drive_forward(4);
+  delay(2000);
   robotMotor.stop();
   delay(300);
   disp_clear();
   disp_msg("Moving servos...");
-  for (int i = 0; i < 90; i++) {
-    claw.writeSmallServo(i);
-    claw.writeBigServo(i);
-    delay(15);
-  }
-  for (int i = 90; i >= 0; i--) {
-    claw.writeSmallServo(i);
-    claw.writeBigServo(i);
-    delay(15);
-  }
+  claw.closeClaw();
+  claw.raiseClaw();
+  claw.lowerClaw();
+  claw.openClaw();
 }
 
 // (Uses PWM) Drives, stops, moves servos
