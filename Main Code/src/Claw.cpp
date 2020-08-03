@@ -4,13 +4,6 @@ Servo smallServo;
 Servo bigServo;
 
 Claw::Claw(){
-<<<<<<< HEAD
-    smallServo.attach(SMALLSERVO_PIN);
-    bigServo.attach(BIGSERVO_PIN);
-}
-
-void Claw::openClaw(){
-=======
 
   }
 
@@ -22,7 +15,6 @@ void Claw::setup(){
 }
 
   void Claw::openClaw(){
->>>>>>> 7c132714873f53004ef8de7d758466cb71f25058
 	int smallServoPos = smallServo.read();
     for (int pos = smallServoPos; pos <= OPENPOS; pos++){
       smallServo.write(pos);

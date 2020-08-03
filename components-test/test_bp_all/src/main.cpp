@@ -1,6 +1,6 @@
 #include "INIT.h"
 #include "Motor.h"
-//#include "Claw.h"
+#include "Claw.h"
 
 Ultrasonic ultrasonic(TRIGGER_PIN,ECHO_PIN);
 Motor robotMotor;
@@ -44,8 +44,7 @@ void loop() {
   // CHOOSE WHICH TEST FUNCTION TO RUN:
   // NOTE: if running the raw motor test files, make sure to comment out lines 2 and 7
   // disp_msg("Driving forward...");
-  testArm();
-  testDrive();
+  testSonar();
 }
 
 
@@ -92,16 +91,16 @@ void testDriveRaw(){
   delay(2000);
 }
 
-// Tests //Claw opening and closing
+// Tests Claw opening and closing
 void testGrabber(){
-  ////Claw.openClaw();
-  //Claw.closeClaw();
+  claw.openClaw();
+  claw.closeClaw();
 }
 
 // // Tests arm lifting and lowering
 void testArm(){
-  //Claw.raiseClaw();
-  //Claw.lowerClaw();
+  claw.raiseClaw();
+  claw.lowerClaw();
 }
 
 // (Uses Motor.h) Drives, stops, moves servos
