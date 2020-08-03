@@ -47,10 +47,10 @@ void Motor::drive_ccw(){
 
 /* Stops both motors*/
 void Motor::stop(){
-    pwm_start(MOTOR_LF, 0,0,RESOLUTION_16B_COMPARE_FORMAT);
-    pwm_start(MOTOR_LB, 0,0,RESOLUTION_16B_COMPARE_FORMAT);
-    pwm_start(MOTOR_RF, 0,0,RESOLUTION_16B_COMPARE_FORMAT);
-    pwm_start(MOTOR_RB, 0,0,RESOLUTION_16B_COMPARE_FORMAT);
+    pwm_start(MOTOR_LF, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
+    pwm_start(MOTOR_LB, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
+    pwm_start(MOTOR_RF, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
+    pwm_start(MOTOR_RB, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
 }
 
 void Motor::PID_control(int left_speed, int right_speed){

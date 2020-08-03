@@ -1,11 +1,11 @@
 #include "INIT.h"
 #include "Motor.h"
-#include "Claw.h"
+//#include "Claw.h"
 
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 Ultrasonic ultrasonic(TRIGGER_PIN,ECHO_PIN);
 Motor robotMotor;
-Claw claw;
+//Claw claw;
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 void disp_setup();
 void disp_label_value(const char *label, int value);
@@ -16,13 +16,13 @@ void motorRawStop();
 /* TEST FUNCTIONS */
 void testDrive(); // (Uses Motor.h) Tests: driving forwards, backwards, turning ccw and cw
 void testDriveRaw(); // (Uses PWM) Tests: driving forwards, backwards, turning ccw and cw
-void testGrabber(); // Tests claw opening and closing
+//void testGrabber(); // Tests claw opening and closing
 void testArm(); // Tests arm lifting and lowering
-void testClawFunctions(); // Uses Claw.h
+//void testClawFunctions(); // Uses Claw.h
 void testDriveAndServos(); // (Uses Motor.h)
 // void testDriveAndServosRaw(); // (Uses PWM)
 void testSonar();
-void testSonarClawArm();
+//void testSonarClawArm();
 void testIRreading();
 void testTapeReading();
 
@@ -34,13 +34,16 @@ void setup() {
   pinMode(IR_RB,INPUT);
   pinMode(TAPE_L, INPUT_PULLUP);
   pinMode(TAPE_R, INPUT_PULLUP);
+
+  disp_setup();
 }
 
 
 void loop() {
   // CHOOSE WHICH TEST FUNCTION TO RUN:
   // NOTE: if running the raw motor test files, make sure to comment out lines 2 and 7
-
+  // disp_msg("Driving forward...");
+  testDrive();
 }
 
 
@@ -52,7 +55,7 @@ void testDrive(){
   robotMotor.drive_forward(5);
   disp_msg("Driving forward...");
   delay(5000);
-  robotMotor.drive_forward(5);
+  robotMotor.drive_backward(5);
   disp_msg("Driving backward...");
   delay(3000);
   robotMotor.drive_ccw();
@@ -88,62 +91,62 @@ void testDriveRaw(){
 }
 
 // Tests claw opening and closing
-void testGrabber(){
-  claw.openClaw();
-  claw.closeClaw();
-}
+// void testGrabber(){
+//   claw.openClaw();
+//   claw.closeClaw();
+// }
 
-// Tests arm lifting and lowering
-void testArm(){
-  claw.raiseClaw();
-  claw.lowerClaw();
-}
+// // Tests arm lifting and lowering
+// void testArm(){
+//   claw.raiseClaw();
+//   claw.lowerClaw();
+// }
 
 // (Uses Motor.h) Drives, stops, moves servos
-void testDriveAndServos(){
-  disp_clear();
-  disp_msg("Driving...");
-  robotMotor.drive_forward(5);
-  delay(5000);
-  robotMotor.stop();
-  delay(300);
-  disp_clear();
-  disp_msg("Moving servos...");
-  for (int i = 0; i < 90; i++) {
-    claw.writeSmallServo(i);
-    claw.writeBigServo(i);
-    delay(15);
-  }
-  for (int i = 90; i >= 0; i--) {
-    claw.writeSmallServo(i);
-    claw.writeBigServo(i);
-    delay(15);
-  }
-}
+// void testDriveAndServos(){
+//   disp_clear();
+//   disp_msg("Driving...");
+//   robotMotor.drive_forward(5);
+//   delay(5000);
+//   robotMotor.stop();
+//   delay(300);
+//   disp_clear();
+//   disp_msg("Moving servos...");
+//   for (int i = 0; i < 90; i++) {
+//     claw.writeSmallServo(i);
+//     claw.writeBigServo(i);
+//     delay(15);
+//   }
+//   for (int i = 90; i >= 0; i--) {
+//     claw.writeSmallServo(i);
+//     claw.writeBigServo(i);
+//     delay(15);
+//   }
+// }
 
 // (Uses PWM) Drives, stops, moves servos
-void testDriveAndServosRaw(){
-  disp_clear();
-  disp_msg("Driving...");
-  pwm_start(MOTOR_LF, FREQUENCY, MOTOR_RATIO*0.5*MAX_MOTOR, RESOLUTION_16B_COMPARE_FORMAT);
-  pwm_start(MOTOR_RF, FREQUENCY, MOTOR_RATIO*0.5*MAX_MOTOR, RESOLUTION_16B_COMPARE_FORMAT);
-  delay(5000);
-  motorRawStop();
-  delay(300);
+// void testDriveAndServosRaw(){
+//   disp_clear();
+//   disp_msg("Driving...");
+//   pwm_start(MOTOR_LF, FREQUENCY, MOTOR_RATIO*0.5*MAX_MOTOR, RESOLUTION_16B_COMPARE_FORMAT);
+//   pwm_start(MOTOR_RF, FREQUENCY, MOTOR_RATIO*0.5*MAX_MOTOR, RESOLUTION_16B_COMPARE_FORMAT);
+//   delay(5000);
+//   motorRawStop();
+//   delay(300);
 
-  disp_clear();
-  disp_msg("Moving servos...");
-  for (int i = 0; i < 90; i++) {
-    claw.writeSmallServo(i);
-    claw.writeBigServo(i);
-    delay(15);
-  }
-  for (int i = 90; i >= 0; i--) {
-    claw.writeSmallServo(i);
-    claw.writeBigServo(i);
-    delay(15);
-  }
-}
+//   disp_clear();
+//   disp_msg("Moving servos...");
+//   for (int i = 0; i < 90; i++) {
+//     claw.writeSmallServo(i);
+//     claw.writeBigServo(i);
+//     delay(15);
+//   }
+//   for (int i = 90; i >= 0; i--) {
+//     claw.writeSmallServo(i);
+//     claw.writeBigServo(i);
+//     delay(15);
+//   }
+// }
 
 // Reads the sonar reading
 void testSonar(){
@@ -153,22 +156,22 @@ void testSonar(){
 }
 
 // Tests if servo can actuate based on servo readings
-void testSonarClawArm(){
-  int distance = ultrasonic.read();
-  disp_label_value("Dist (cm): ", distance);
-  claw.openClaw();
-  claw.closeClaw();
+// void testSonarClawArm(){
+//   int distance = ultrasonic.read();
+//   disp_label_value("Dist (cm): ", distance);
+//   claw.openClaw();
+//   claw.closeClaw();
 
-  if(distance<8 && distance>3) {
-    disp_msg("Can detected!\n Claw closing...");
-    claw.closeClaw();
-    claw.raiseClaw();
-    delay(2000);
-    disp_msg("releasing claw...");
-    claw.lowerClaw();
-    claw.openClaw();
-  }
-}
+//   if(distance<8 && distance>3) {
+//     disp_msg("Can detected!\n Claw closing...");
+//     claw.closeClaw();
+//     claw.raiseClaw();
+//     delay(2000);
+//     disp_msg("releasing claw...");
+//     claw.lowerClaw();
+//     claw.openClaw();
+//   }
+// }
 
 void testIRreading(){
   disp_clear();
@@ -189,10 +192,10 @@ void testTapeReading(){
 /* OTHER DISPLAY FUNCTIONS */
 
 void motorRawStop(){
-  pwm_start(MOTOR_LF, 0,0,RESOLUTION_16B_COMPARE_FORMAT);
-  pwm_start(MOTOR_LB, 0,0,RESOLUTION_16B_COMPARE_FORMAT);
-  pwm_start(MOTOR_RF, 0,0,RESOLUTION_16B_COMPARE_FORMAT);
-  pwm_start(MOTOR_RB, 0,0,RESOLUTION_16B_COMPARE_FORMAT);
+  pwm_start(MOTOR_LF, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
+  pwm_start(MOTOR_LB, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
+  pwm_start(MOTOR_RF, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
+  pwm_start(MOTOR_RB, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
   delay(50);
 }
 
