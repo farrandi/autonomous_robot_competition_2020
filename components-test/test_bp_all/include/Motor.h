@@ -4,8 +4,6 @@
 
 #include <INIT.h>
 
-#define FREQUENCY 500
-
 class Motor{
     public:
         // Constructors
