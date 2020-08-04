@@ -50,7 +50,8 @@
 // For Sonar
 #define TRIGGER_PIN PB_5
 #define ECHO_PIN PB_4
-
+#define TIMEOUT 15000UL
+    
 // IR Sensors
 #define IR_LA PB_1
 #define IR_LB PB_0
