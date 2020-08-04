@@ -53,9 +53,9 @@ void loop() {
   // NOTE: if running the raw motor test files, make sure to comment out lines 2 and 7
 
   disp_clear();
-  // disp_msg("starting in 3...");
-  // delay(3000);
-  testArm();
+  // disp_msg("starting");
+  
+  PIDtest();
 }
 
 
@@ -104,7 +104,9 @@ void testDriveRaw(){
 // Tests Claw opening and closing
 void testGrabber(){
   claw.open();
+  delay(1000);
   claw.close();
+  delay(1000);
 }
 
 // // Tests arm lifting and lowering
@@ -256,9 +258,9 @@ void disp_clear() {
 
 void PIDtest()
 {
-  int kp = 5;
-  int kd = 10;
-  int ki = 2;
+  int kp = 30;
+  int kd = 15;
+  int ki = 0;
 
   int P = 0;
   int D = 0;
@@ -267,7 +269,15 @@ void PIDtest()
 
   int err = sensors.ir_error();
 
-  if (!sensors.ir_noise()) { //if not reading noise
+  disp_clear();
+  
+  if (sensors.ir_nearbin()){
+    robotMotor.stop();
+    disp_msg("near!");
+  }
+  else if (!sensors.ir_noise()) { //if not reading noise
+    pwm_start(MOTOR_LB, FREQUENCY, 0, RESOLUTION_16B_COMPARE_FORMAT);
+
     P = kp * err;
     D = kd * (err - prev);
     I = (ki * err) + I;
@@ -278,11 +288,19 @@ void PIDtest()
     G = P + D + I;
 
     disp_label_value("gain = ",G);
-    pwm_start(MOTOR_LF,FREQUENCY, 5/10*MAX_MOTOR - G, RESOLUTION_16B_COMPARE_FORMAT);
-    pwm_start(MOTOR_RF,FREQUENCY, 5/10*MAX_MOTOR + G, RESOLUTION_16B_COMPARE_FORMAT);
+    disp_label_value("Left:", sensors.ir_l());
+    disp_label_value("Right:", sensors.ir_r());
+    float left_speed = 4.5/10*MAX_MOTOR - G;
+    float right_speed = 4.5/10*MAX_MOTOR + G;
+    pwm_start(MOTOR_LF,FREQUENCY, left_speed, RESOLUTION_16B_COMPARE_FORMAT);
+    pwm_start(MOTOR_RF,FREQUENCY, right_speed, RESOLUTION_16B_COMPARE_FORMAT);
+
+    disp_label_value("Right Speed:", right_speed);
+    disp_label_value("Left Speed:", left_speed);
 
     prev = err;
   } else {
     robotMotor.drive_ccw();
+    disp_msg("searching...");
   }
 }

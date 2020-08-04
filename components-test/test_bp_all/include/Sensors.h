@@ -17,4 +17,6 @@ class Sensors{
         bool ir_noise(); //returns TRUE if only reading noise, FALSE if beacon found
         int ir_error(); //returns (left - right) sensor reading
         bool ir_nearbin();
+        int ir_l();
+        int ir_r();
 };

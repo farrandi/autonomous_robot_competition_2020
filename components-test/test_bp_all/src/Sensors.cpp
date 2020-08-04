@@ -80,3 +80,13 @@ bool Sensors::ir_nearbin()
 
     return FALSE;
 }
+
+int Sensors::ir_l()
+{
+    return analogRead(IR_LA);
+}
+
+int Sensors::ir_r()
+{
+    return analogRead(IR_RA);
+}
