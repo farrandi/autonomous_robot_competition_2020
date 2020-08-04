@@ -25,10 +25,10 @@
 #define MAX_DISTANCE 200 // Maximum distance we want to ping for (in centimeters). Maximum sensor distance is rated at 400-500cm.
 
 // For Claw Servo
-#define SMALLSERVO_PIN PA7
+#define SMALLSERVO_PIN PA_7
 
 // For Arm Servo
-#define BIGSERVO_PIN PA8
+#define BIGSERVO_PIN PA_8
 
 // Servo Parameters
 #define MAXANGLE_SMALL 180
@@ -37,6 +37,8 @@
 #define OPENPOS (MAXANGLE_SMALL-1)
 #define DOWNPOS 0
 #define UPPOS 90
+#define SPEED_SMALL 5
+#define SPEED_BIG 1
 
 // Display Settings
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
