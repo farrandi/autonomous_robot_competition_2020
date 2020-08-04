@@ -53,11 +53,6 @@ void loop() {
   // disp_msg("starting in 3...");
   // delay(3000);
   testTapeReading();
-<<<<<<< HEAD
-  testIRreading();
-  testSonar();
-=======
->>>>>>> 9c1f11ec2142b1a4955e8547bffd907e4dd2777a
 }
 
 
