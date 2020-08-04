@@ -45,12 +45,12 @@
 #define BIGSERVO_PIN PA_8
 
 // Servo Parameters
-#define MAXANGLE_SMALL 180
+#define MAXANGLE_SMALL 120
 #define MAXANGLE_BIG 120
-#define CLOSEPOS 0 // check that your servo is oriented this way - it may be the opposite
-#define OPENPOS 150
-#define DOWNPOS 0
-#define UPPOS 50
+#define CLOSEPOS (MAXANGLE_SMALL-1) // check that your servo is oriented this way - it may be the opposite
+#define OPENPOS 0
+#define DOWNPOS 75
+#define UPPOS 115
 #define SPEED_SMALL 5
 #define SPEED_BIG 1
 
@@ -75,10 +75,10 @@
 #define IR_LB PB0
 #define IR_RA PA1
 #define IR_RB PA0
-#define IR_NOISE 50
+#define IR_NOISE 95
 #define IR_BIN 1000
 #define ANALOG_MAX 1023
-#define MAX_I 120
+#define MAX_I 1000
 
 // Tape Sensors
 #define TAPE_L PA5
