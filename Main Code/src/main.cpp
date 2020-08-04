@@ -46,36 +46,17 @@ void loop() {
   {
   default:
 
-    if (sonarFind == 'Y')     // If sonar finds object
+    if (search() == true)     // If sonar finds object
     {
-      state = HEAD;
+      state = PICK_UP;
       break;
     }
     else
     {
-      //add a drive forward?
+      myMotor.drive_forward(5); //not sure if this is necessary
       break;
     }
 
-  case HEAD:
-
-    if (can == 'N')
-    {
-      state = SEARCH;
-      break;
-    }
-    else
-    {
-      if (close == 'Y')
-      {
-        state = PICK_UP;
-        break;
-      }
-      else
-      {
-        break;
-      }
-    }
   case PICK_UP:
 
     if (can == 'N')
@@ -147,5 +128,6 @@ bool search() {
   } else { 
     myMotor.drive_cw();
   }
-
+  
+  return false;
 }
