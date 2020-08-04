@@ -2,6 +2,12 @@
 #define INIT_h
 #endif
 
+/* MAIN HEADER FILE
+** - Includes ALL pin variables
+** - Includes all other header files
+** - 
+*/
+
 #include "Wire.h"
 #include "Arduino.h"
 #include <Adafruit_SSD1306.h>
@@ -26,7 +32,7 @@
 
 // Motor Parameters
 #define MAX_MOTOR 65535
-#define MOTOR_RATIO 0.85 //Ratio of Right:Left
+#define MOTOR_RATIO 1 //Ratio of Right:Left
 #define FREQUENCY 500
 
 // Sonar Parameters
@@ -42,9 +48,9 @@
 #define MAXANGLE_SMALL 180
 #define MAXANGLE_BIG 120
 #define CLOSEPOS 0 // check that your servo is oriented this way - it may be the opposite
-#define OPENPOS (MAXANGLE_SMALL-1)
+#define OPENPOS 150
 #define DOWNPOS 0
-#define UPPOS 90
+#define UPPOS 50
 #define SPEED_SMALL 5
 #define SPEED_BIG 1
 
@@ -75,8 +81,13 @@
 #define MAX_I 120
 
 // Tape Sensors
-#define TAPE_L PA_5
-#define TAPE_R PA_4
+#define TAPE_L PA5
+#define TAPE_R PA4
+#define NONE 0
+#define LEFT 1
+#define RIGHT 2
+#define BOTH 3
+#define TAPE_THRES 400
 
 // Control
 #define SWITCH PB14
