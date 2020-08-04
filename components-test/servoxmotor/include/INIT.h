@@ -41,12 +41,12 @@
 #define BIGSERVO_PIN PA_8
 
 // Servo Parameters
-#define MAXANGLE_SMALL 180
-#define MAXANGLE_BIG 120
-#define CLOSEPOS 0 // check that your servo is oriented this way - it may be the opposite
-#define OPENPOS (MAXANGLE_SMALL-1)
-#define DOWNPOS 0
-#define UPPOS 50
+#define MAXANGLE_SMALL 120
+#define MAXANGLE_BIG 180
+#define CLOSEPOS (MAXANGLE_SMALL-1) // check that your servo is oriented this way - it may be the opposite
+#define OPENPOS 0
+#define DOWNPOS 75
+#define UPPOS 115
 
 // Display Settings
 #define SCREEN_WIDTH 128 // OLED display width, in pixels

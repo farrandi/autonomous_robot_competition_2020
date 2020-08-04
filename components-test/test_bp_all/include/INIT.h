@@ -7,6 +7,15 @@
 #include <Adafruit_SSD1306.h>
 #include <Ultrasonic.h>
 
+#define TRUE 1
+#define FALSE 0
+
+
+/* NOTE
+** Pin notation:
+** Use underscore for analog (?)
+*/
+
 //BLUEPILL OUTPUTS//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Motor Pins
@@ -51,12 +60,19 @@
 #define TRIGGER_PIN PB_5
 #define ECHO_PIN PB_4
 #define TIMEOUT 15000UL
-
+#define NEAR 100 //cm
+#define MIN_REACH_RANGE 8 //change according to the range your claw can grab the can
+#define MAX_REACH_RANGE 11
+    
 // IR Sensors
-#define IR_LA PB_1
-#define IR_LB PB_0
-#define IR_RA PA_1
-#define IR_RB PA_0
+#define IR_LA PB1
+#define IR_LB PB0
+#define IR_RA PA1
+#define IR_RB PA0
+#define IR_NOISE 50
+#define IR_BIN 1000
+#define ANALOG_MAX 1023
+#define MAX_I 120
 
 // Tape Sensors
 #define TAPE_L PA_5

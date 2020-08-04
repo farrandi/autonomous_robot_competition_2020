@@ -10,6 +10,8 @@ Claw claw;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 // NewPing sonar(TRIGGER_PIN,ECHO_PIN,MAX_DISTANCE);
 
+volatile short int prev = 0;
+
 void disp_setup();
 void disp_label_value(const char *label, int value);
 void disp_msg(const char *msg);
@@ -30,6 +32,7 @@ void testIRreadingRaw();
 void testIRreading();
 void testTapeReadingRaw();
 void testTapeReading();
+void PIDtest();
 
 void setup() {
   // put your setup code here, to run once:
@@ -50,9 +53,9 @@ void loop() {
   // NOTE: if running the raw motor test files, make sure to comment out lines 2 and 7
 
   disp_clear();
-  // disp_msg("starting in 3...");
-  // delay(3000);
-  testTapeReading();
+  // disp_msg("starting");
+  
+  PIDtest();
 }
 
 
@@ -100,14 +103,18 @@ void testDriveRaw(){
 
 // Tests Claw opening and closing
 void testGrabber(){
-  claw.openClaw();
-  claw.closeClaw();
+  claw.open();
+  delay(1000);
+  claw.close();
+  delay(1000);
 }
 
 // // Tests arm lifting and lowering
 void testArm(){
-  claw.raiseClaw();
-  claw.lowerClaw();
+  claw.raise();
+  delay(1000);
+  claw.lower();
+  delay(1000);
 }
 
 // (Uses Motor.h) Drives, stops, moves servos
@@ -120,10 +127,10 @@ void testDriveAndServos(){
   delay(300);
   disp_clear();
   disp_msg("Moving servos...");
-  claw.closeClaw();
-  claw.raiseClaw();
-  claw.lowerClaw();
-  claw.openClaw();
+  claw.close();
+  claw.raise();
+  claw.lower();
+  claw.open();
 }
 
 // (Uses PWM) Drives, stops, moves servos
@@ -165,8 +172,8 @@ void testSonarClawArm(){
   // int distance = sonar.ping_cm();
   int distance = ultrasonic.read();
   disp_label_value("Dist (cm): ", distance);
-  claw.openClaw();
-  claw.lowerClaw();
+  claw.open();
+  claw.lower();
 
   if(distance<8 && distance>3) {
     disp_msg("Can detected!\n //Claw closing...");
@@ -247,4 +254,53 @@ void disp_msg(const char *msg) {
 void disp_clear() {
   display.clearDisplay();
   display.setCursor(0, 0);
+}
+
+void PIDtest()
+{
+  int kp = 30;
+  int kd = 15;
+  int ki = 0;
+
+  int P = 0;
+  int D = 0;
+  int I = 0;
+  int G = 0;
+
+  int err = sensors.ir_error();
+
+  disp_clear();
+  
+  if (sensors.ir_nearbin()){
+    robotMotor.stop();
+    disp_msg("near!");
+  }
+  else if (!sensors.ir_noise()) { //if not reading noise
+    pwm_start(MOTOR_LB, FREQUENCY, 0, RESOLUTION_16B_COMPARE_FORMAT);
+
+    P = kp * err;
+    D = kd * (err - prev);
+    I = (ki * err) + I;
+    if (I > MAX_I)
+      I = MAX_I;
+    if (I < -MAX_I)
+      I = -MAX_I;
+    G = P + D + I;
+
+    disp_label_value("gain = ",G);
+    disp_label_value("Left:", sensors.ir_l());
+    disp_label_value("Right:", sensors.ir_r());
+    float left_speed = 4.5/10*MAX_MOTOR - G;
+    float right_speed = 4.5/10*MAX_MOTOR + G;
+    pwm_start(MOTOR_LF,FREQUENCY, left_speed, RESOLUTION_16B_COMPARE_FORMAT);
+    pwm_start(MOTOR_RF,FREQUENCY, right_speed, RESOLUTION_16B_COMPARE_FORMAT);
+
+    disp_label_value("Right Speed:", right_speed);
+    disp_label_value("Left Speed:", left_speed);
+
+    prev = err;
+  } else {
+    robotMotor.drive_ccw();
+    disp_msg("searching...");
+  }
 }

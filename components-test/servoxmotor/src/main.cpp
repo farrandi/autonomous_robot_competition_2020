@@ -58,36 +58,36 @@ void loop() {
   // robotMotor.stop();
   // disp.clear();
 
-  for (int i = downpos; i <= uppos; i+=speedbig){
-    writeBig(i);
-  }
-  //stopBigPWM();
-  delay(5000);
-  for (int i = uppos; i >= downpos; i-=speedbig){
-    writeBig(i);
-  }
-  //stopBigPWM();
-  delay(3000);
+  // for (int i = downpos; i <= uppos; i+=speedbig){
+  //   writeBig(i);
+  // }
+  // //stopBigPWM();
+  // delay(5000);
+  // for (int i = uppos; i >= downpos; i-=speedbig){
+  //   writeBig(i);
+  // }
+  // //stopBigPWM();
+  // delay(3000);
 
-  // disp.println("Closing");
-  // closeClaw();
-  // delay(1000);
-  // disp.clear();
+  disp.println("Closing");
+  closeClaw();
+  delay(1000);
+  disp.clear();
 
-  // disp.println("Raising");
-  // raiseClaw();
-  // delay(1000);
-  // disp.clear();
+  disp.println("Raising");
+  raiseClaw();
+  delay(1000);
+  disp.clear();
 
-  // disp.println("Lowering");
-  // lowerClaw();
-  // delay(1000);
-  // disp.clear();  
+  disp.println("Lowering");
+  lowerClaw();
+  delay(1000);
+  disp.clear();  
 
-  // disp.println("Opening");
-  // openClaw();
-  // delay(1000);
-  // disp.clear();
+  disp.println("Opening");
+  openClaw();
+  delay(1000);
+  disp.clear();
 }
 
 void openClaw(){
