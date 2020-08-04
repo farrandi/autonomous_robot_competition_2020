@@ -55,7 +55,7 @@ void loop() {
   disp_clear();
   // disp_msg("starting in 3...");
   // delay(3000);
-  PIDtest();
+  testArm();
 }
 
 

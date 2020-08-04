@@ -12,12 +12,12 @@ void Claw::setup(){
 /* Opens the claw
  */
 void Claw::open(){
-  if(closepos < openpos) {
-    for (int i = closepos; i <= openpos; i+=speedsmall){
+  if(CLOSEPOS < OPENPOS) {
+    for (int i = CLOSEPOS; i <= OPENPOS; i+=SPEED_SMALL){
       writeSmall(i);
     }
   } else{
-    for (int i = closepos; i >= openpos; i-=speedsmall){
+    for (int i = CLOSEPOS; i >= OPENPOS; i-=SPEED_SMALL){
       writeSmall(i);
     }
   }
@@ -26,12 +26,12 @@ void Claw::open(){
 /* Closes the claw
  */
 void Claw::close(){
-  if(openpos > closepos) {
-    for (int i = openpos; i >= closepos; i-=speedsmall){
+  if(OPENPOS > CLOSEPOS) {
+    for (int i = OPENPOS; i >= CLOSEPOS; i-=SPEED_SMALL){
       writeSmall(i);
     }
   } else{
-    for (int i = openpos; i <= closepos; i+=speedsmall){
+    for (int i = OPENPOS; i <= CLOSEPOS; i+=SPEED_SMALL){
       writeSmall(i);
     }
   }
@@ -40,12 +40,12 @@ void Claw::close(){
 /* Raises the claw
  */
 void Claw::raise(){
-  if(downpos < uppos) {
-    for (int i = downpos; i <= uppos; i+=speedbig){
+  if(DOWNPOS < UPPOS) {
+    for (int i = DOWNPOS; i <= UPPOS; i+=SPEED_BIG){
       writeBig(i);
     }
   } else{
-    for (int i = downpos; i >= uppos; i-=speedbig){
+    for (int i = DOWNPOS; i >= UPPOS; i-=SPEED_BIG){
       writeBig(i);
     }
   }
@@ -54,12 +54,12 @@ void Claw::raise(){
 /* Lowers the claw
  */
 void Claw::lower(){
-  if(uppos > downpos) {
-    for (int i = uppos; i >= downpos; i-=speedbig){
+  if(UPPOS > DOWNPOS) {
+    for (int i = UPPOS; i >= DOWNPOS; i-=SPEED_BIG){
       writeBig(i);
     }
   } else{
-    for (int i = uppos; i <= downpos; i+=speedbig){
+    for (int i = UPPOS; i <= DOWNPOS; i+=SPEED_BIG){
       writeBig(i);
     }
   }
