@@ -75,6 +75,7 @@
 #define IR_NOISE 50
 #define IR_BIN 1000
 #define ANALOG_MAX 1023
+#define MAX_I 120
 
 // Tape Sensors
 #define TAPE_L PA5

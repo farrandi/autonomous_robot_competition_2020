@@ -10,6 +10,8 @@ Claw claw;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 // NewPing sonar(TRIGGER_PIN,ECHO_PIN,MAX_DISTANCE);
 
+volatile short int prev = 0;
+
 void disp_setup();
 void disp_label_value(const char *label, int value);
 void disp_msg(const char *msg);
@@ -30,6 +32,7 @@ void testIRreadingRaw();
 void testIRreading();
 void testTapeReadingRaw();
 void testTapeReading();
+void PIDtest();
 
 void setup() {
   // put your setup code here, to run once:
@@ -52,12 +55,7 @@ void loop() {
   disp_clear();
   // disp_msg("starting in 3...");
   // delay(3000);
-  testTapeReading();
-<<<<<<< HEAD
-  testIRreading();
-  testSonar();
-=======
->>>>>>> 9c1f11ec2142b1a4955e8547bffd907e4dd2777a
+  PIDtest();
 }
 
 
@@ -252,4 +250,37 @@ void disp_msg(const char *msg) {
 void disp_clear() {
   display.clearDisplay();
   display.setCursor(0, 0);
+}
+
+void PIDtest()
+{
+  int kp = 5;
+  int kd = 10;
+  int ki = 2;
+
+  int P = 0;
+  int D = 0;
+  int I = 0;
+  int G = 0;
+
+  int err = sensors.ir_error();
+
+  if (!sensors.ir_noise()) { //if not reading noise
+    P = kp * err;
+    D = kd * (err - prev);
+    I = (ki * err) + I;
+    if (I > MAX_I)
+      I = MAX_I;
+    if (I < -MAX_I)
+      I = -MAX_I;
+    G = P + D + I;
+
+    disp_label_value("gain = ",G);
+    pwm_start(MOTOR_LF,FREQUENCY, 5/10*MAX_MOTOR - G, RESOLUTION_16B_COMPARE_FORMAT);
+    pwm_start(MOTOR_RF,FREQUENCY, 5/10*MAX_MOTOR + G, RESOLUTION_16B_COMPARE_FORMAT);
+
+    prev = err;
+  } else {
+    robotMotor.drive_ccw();
+  }
 }
