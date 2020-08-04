@@ -110,7 +110,9 @@ void testGrabber(){
 // // Tests arm lifting and lowering
 void testArm(){
   claw.raise();
+  delay(1000);
   claw.lower();
+  delay(1000);
 }
 
 // (Uses Motor.h) Drives, stops, moves servos

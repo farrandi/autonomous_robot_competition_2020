@@ -69,14 +69,14 @@ void Claw::lower(){
 @param int degree, the degree of the position to move the small servo 
  */
 void Claw::writeSmall(int degree){
-  pwm_start(SMALLSERVO_PIN, SERVO_FREQ, 0, TimerCompareFormat_t::MICROSEC_COMPARE_FORMAT);
+  pwm_start(SMALLSERVO_PIN, SERVO_FREQ, convertSmall(degree), TimerCompareFormat_t::MICROSEC_COMPARE_FORMAT);
 }
 
 /*Moves the big servo a specified position
 @param int degree, the degree of the position to move the big servo 
  */
 void Claw::writeBig(int degree){
-  pwm_start(BIGSERVO_PIN, SERVO_FREQ, 0, TimerCompareFormat_t::MICROSEC_COMPARE_FORMAT);
+  pwm_start(BIGSERVO_PIN, SERVO_FREQ, convertBig(degree), TimerCompareFormat_t::MICROSEC_COMPARE_FORMAT);
 }
 
 /* Converts the input degree into the pulse width in microseconds to use in pwm_start for the small servo
@@ -99,7 +99,7 @@ int Claw::convertBig(int degree){
   if (degree <= 0) {
     return MIN_ANGLE_PULSE;
   }
-  if (degree >= MAXANGLE_BIG) {
+  if (degree >= MAXANGLE_BIG-1) {
     return MAX_ANGLE_PULSE;
   }
   return degree*(MAX_ANGLE_PULSE - MIN_ANGLE_PULSE)/MAXANGLE_BIG+MIN_ANGLE_PULSE;
