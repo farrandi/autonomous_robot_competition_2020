@@ -1,34 +1,40 @@
 #ifndef Claw_h
 #define Claw_h
+#endif
 
-#include "Arduino.h"
-#include "Servo.h"
-#include "NewPing.h"
+#include <INIT.h>
 
-// For Sonar on Claw
-#define TRIGGER_PIN PB5
-#define ECHO_PIN PB4
-#define MAX_DISTANCE 320
+// CONSTANTS
+#define SERVO_FREQ 50
+#define MIN_ANGLE_PULSE 500
+#define MAX_ANGLE_PULSE 2500
 
-// For Claw Servo
-#define servoClawPin PA7
-#define clawMaxAngle 120
-#define clawSpeed 2
-
-// For Arm Servo
-#define servoArmPin PA8
-#define armMaxAngle 100
+const int closepos = CLOSEPOS;
+const int openpos = OPENPOS;
+const int speedsmall = SPEED_SMALL;
+const int downpos = DOWNPOS;
+const int uppos = UPPOS;
+const int speedbig = SPEED_BIG;
 
 Class Claw(){
     public:
-        void open(int speed);
-        void close(int speed);
+        // Constructors
+        Claw();
+
+        // Sets up the claw
+        void setup();
+
+        // claw motions
         void open();
         void close();
-        int read_sonar();
+        void raise();
+        void lower();
+
+        // servo write
+        void writeSmall(int degree);
+        void writeBig(int degree);
+
     private:
-        NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
-        Servo clawServo;
-        Servo armServo;
-        volatile int position;
+        int convertSmall(int degree);
+        int convertBig(int degree);
 }
