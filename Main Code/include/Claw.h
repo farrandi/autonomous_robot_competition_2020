@@ -37,4 +37,4 @@ class Claw{
     private:
         int convertSmall(int degree);
         int convertBig(int degree);
-}
+};

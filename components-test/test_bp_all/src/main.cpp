@@ -103,14 +103,14 @@ void testDriveRaw(){
 
 // Tests Claw opening and closing
 void testGrabber(){
-  claw.openClaw();
-  claw.closeClaw();
+  claw.open();
+  claw.close();
 }
 
 // // Tests arm lifting and lowering
 void testArm(){
-  claw.raiseClaw();
-  claw.lowerClaw();
+  claw.raise();
+  claw.lower();
 }
 
 // (Uses Motor.h) Drives, stops, moves servos
@@ -123,10 +123,10 @@ void testDriveAndServos(){
   delay(300);
   disp_clear();
   disp_msg("Moving servos...");
-  claw.closeClaw();
-  claw.raiseClaw();
-  claw.lowerClaw();
-  claw.openClaw();
+  claw.close();
+  claw.raise();
+  claw.lower();
+  claw.open();
 }
 
 // (Uses PWM) Drives, stops, moves servos
@@ -168,8 +168,8 @@ void testSonarClawArm(){
   // int distance = sonar.ping_cm();
   int distance = ultrasonic.read();
   disp_label_value("Dist (cm): ", distance);
-  claw.openClaw();
-  claw.lowerClaw();
+  claw.open();
+  claw.lower();
 
   if(distance<8 && distance>3) {
     disp_msg("Can detected!\n //Claw closing...");
