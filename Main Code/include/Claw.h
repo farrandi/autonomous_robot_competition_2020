@@ -16,7 +16,7 @@ const int downpos = DOWNPOS;
 const int uppos = UPPOS;
 const int speedbig = SPEED_BIG;
 
-Class Claw(){
+class Claw{
     public:
         // Constructors
         Claw();
