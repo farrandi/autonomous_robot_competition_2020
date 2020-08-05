@@ -25,8 +25,8 @@ Ultrasonic sonar(TRIGGER_PIN, ECHO_PIN, 15000UL);
 const int sonarInterval = 20;             // the interval between sonar pings
 unsigned long currentMillis = 0;          // the value of millis in the current iteration of the loop
 unsigned long previousSonarMillis = 0;    // the previous valut of the sonar millis.
-int sonarReading = 0;                     // the sonarReading value in cm
-int sonarThreshold = 50;                  // the sonar threshold value for detecting objects
+volatile unsigned int sonarReading;                     // the sonarReading value in cm
+int sonarThreshold = 120;                  // the sonar threshold value for detecting objects
 const int clawRangeLB = 10;               // the claw range lower bound
 const int clawRangeUB = 14;               // the claw range upper bound
 
@@ -45,7 +45,7 @@ void loop() {
   switch (state)
   {
   default:
-
+    myDisp.taggedValue("Actual reading: ", sonar.read());
     if (search() == true)     // If sonar finds object
     {
       state = PICK_UP;
@@ -57,53 +57,52 @@ void loop() {
       break;
     }
 
-  case PICK_UP:
+  // case PICK_UP:
 
-    if (can == 'N')
-    {
-      state = SEARCH;
-      break;
-    }
-    else
-    {
+  //   if (can == 'N')
+  //   {
+  //     state = SEARCH;
+  //     break;
+  //   }
+  //   else
+  //   {
 
-      state = HOME;
-      break;
-    }
-  case HOME:
+  //     state = HOME;
+  //     break;
+  //   }
+  // case HOME:
 
-    if (can == 'N')
-    {
-      state = SEARCH;
-      break;
-    }
+  //   if (can == 'N')
+  //   {
+  //     state = SEARCH;
+  //     break;
+  //   }
 
-    if (bin == 'Y')
-    {
-      state = DROP;
-      break;
-    }
-    else
-    {
-      break;
-    }
-  case DROP:
+  //   if (bin == 'Y')
+  //   {
+  //     state = DROP;
+  //     break;
+  //   }
+  //   else
+  //   {
+  //     break;
+  //   }
+  // case DROP:
 
-    state = SEARCH;
-    break;
-  case AVOID:
+  //   state = SEARCH;
+  //   break;
+  // case AVOID:
 
-    state = prev_state;
-    break;
-  case FUN:
+  //   state = prev_state;
+  //   break;
+  // case FUN:
 
-    break;
+  //   break;
   }
 }
 
 
 bool ping() {
-  bool objectDetected = false;
   if (currentMillis - previousSonarMillis >= sonarInterval) {
     sonarReading = sonar.read();
     previousSonarMillis += sonarInterval;
@@ -115,18 +114,28 @@ bool ping() {
 }
 
 bool search() {
+  myDisp.clear();
   if (ping() == true) {
     if (sonarReading >= clawRangeUB) {
       myMotor.drive_forward(5);
+      myDisp.println("driving forward...");
+      myDisp.taggedValue("Sonar reading: ", sonarReading);
     } else if (sonarReading <= clawRangeLB) {
       myMotor.drive_backward(5);
+      myDisp.println("driving backward...");
+      myDisp.taggedValue("Sonar reading: ", sonarReading);
+
     }
     else if (sonarReading <= clawRangeUB && sonarReading >= clawRangeLB) {
       myMotor.stop();
+      myDisp.taggedValue("Sonar reading: ", sonarReading);
+      myDisp.println("FOUND!");
       return true;
     }
   } else { 
     myMotor.drive_cw();
+    myDisp.println("searching...");
+    myDisp.taggedValue("Sonar reading: ", sonarReading);
   }
   
   return false;

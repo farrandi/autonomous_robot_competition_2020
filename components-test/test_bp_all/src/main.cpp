@@ -4,7 +4,7 @@
 #include "Sensors.h"
 
 Sensors sensors;
-Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN, TIMEOUT);
+Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN);
 Motor robotMotor;
 Claw claw;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
@@ -162,7 +162,7 @@ void testDriveAndServosRaw(){
 void testSonar(){
   // disp_clear();
   // disp_label_value("Distance (cm): ",sonar.ping_cm());
-  disp_label_value("Distance (cm): ",ultrasonic.read());
+  disp_label_value("Distance (cm): ", ultrasonic.read());
   delay(50);
   disp_label_value("Dist (in): ", ultrasonic.read(INC));
 }
