@@ -54,6 +54,9 @@ bool pickUp();
 bool checkCan();
 bool returnToBin();
 void dropCan();
+void tapeRejectionA(); //for anything but homing
+void tapeRejectionB(); //tape rejection for homing
+bool checkPaper(); //checks if it is near trashbin
 
 void setup() {
   myDisp.setup();
@@ -64,10 +67,11 @@ void setup() {
 }
 
 void loop() {
+
   prev_state = state;
   currentMillis = millis();
-
   tape = sensors.on_tape();
+
   if (tape > 0 && tape < 4)
     state = AVOID;
 
@@ -132,42 +136,12 @@ void loop() {
     if (tape == 1){
 
     }
-
-    void tapeRejectionTest(){
-  int left_reflection = sensors.tape_l();
-  int right_reflection = sensors.tape_r();
-  disp_label_value("left: ", left_reflection);
-  disp_label_value("right: ", right_reflection);
-  disp_label_value("threshold: ", TAPE_THRES);
-
-  if (left_reflection > TAPE_THRES){
-    robotMotor.drive_cw();
-  } else if (right_reflection > TAPE_THRES){
-    robotMotor.drive_ccw();
-  } else {
-    robotMotor.drive_forward(5);
-  }
-}
-
-void tapeRejectionTestSylvia(){
-  int left_reflection = sensors.tape_l();
-  int right_reflection = sensors.tape_r();
-  disp_label_value("left: ", left_reflection);
-  disp_label_value("right: ", right_reflection);
-  disp_label_value("threshold: ", TAPE_THRES);
-
-  if (left_reflection < TAPE_THRES){
-    robotMotor.drive_cw();
-  } else if (right_reflection < TAPE_THRES){
-    robotMotor.drive_ccw();
-  } else {
-    robotMotor.drive_forward(5);
-  }
-}
     state = prev_state;
     break;
+
   case FUN:
     // insert ur fun function here :)
+
     break;
   }
 }
@@ -204,7 +178,7 @@ bool search() {
     }
   } else { 
     myMotor.drive_cw();
-    myDisp.println("searching...");
+    myDisp.println("Searching...");
     myDisp.taggedValue("Sonar reading: ", sonarReading);
   }
 
@@ -271,7 +245,7 @@ bool returnToBin() {
   // The current implementation for determining we are in bin range is unknown at the moment.
   // The code below does not have a stop, and only follows IR.
 
-  // if (checkTape() == 4) {
+  // if (checkTape() == both white) {
 
   //   myMotor.stop();
   //   myDisp.println("At bin!");
@@ -314,9 +288,73 @@ void dropCan() {
 
   myClaw.lower();       // lowering the claw arm
   myClaw.open();        // opening the claw to drop
-  
+  myClaw.raise();       // the sonar gets in the way so we raise the claw before turning
   myMotor.drive_cw();   // turning robot around
   delay(1000);          // play around with the delay, we want a 180 turn ideally
   myMotor.stop();
+  myClaw.lower();       // lowering claw once again
+  
 }
 
+/** For not homing state
+ *  Will avoid both the paper and tape borders
+ */
+void tapeRejectionA() { 
+  int status = sensors.on_tape();
+
+  if (status == P_LEFT || status == T_LEFT){
+    myMotor.drive_cw();
+    delay (500);
+  }
+  else if (status == P_RIGHT || status == T_RIGHT) {
+    myMotor.drive_ccw();
+    delay(500);
+  }
+  else if (status == P_BOTH || status == T_BOTH){
+    myMotor.drive_backward(5);
+    delay(300);
+    myMotor.drive_ccw();
+  }
+}
+
+/** For homing state
+ *  Only avoids Tape
+ */
+void tapeRejectionB() {
+  int status = sensors.on_tape();
+
+  if (status == T_LEFT){
+    myMotor.drive_cw();
+    delay (500);
+  }
+  else if (status == T_RIGHT) {
+    myMotor.drive_ccw();
+    delay(500);
+  }
+  else if (status == T_BOTH){
+    myMotor.drive_backward(5);
+    delay(300);
+    myMotor.drive_ccw();
+  }
+  else
+    myMotor.drive_forward(5);
+}
+
+bool checkPaper() {
+  int status = sensors.on_tape();
+
+  if (status == P_BOTH){
+    myMotor.stop();
+    return TRUE;
+  }
+  else if (status == P_RIGHT){
+    myMotor.drive_cw();
+    delay(300);
+  }
+  else if (status == P_LEFT){
+    myMotor.drive_ccw();
+    delay(300);
+  }
+
+  return FALSE;
+}
