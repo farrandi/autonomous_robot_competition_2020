@@ -59,6 +59,7 @@ void loop() {
   
   testArm();
   testGrabber();
+  testSonar();
 }
 
 /* COMPONENTS TEST FUNCTIONS */
