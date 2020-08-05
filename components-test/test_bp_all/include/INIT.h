@@ -87,7 +87,7 @@
 #define LEFT 1
 #define RIGHT 2
 #define BOTH 3
-#define TAPE_THRES 400
+#define TAPE_THRES 300
 
 // Control
 #define SWITCH PB14

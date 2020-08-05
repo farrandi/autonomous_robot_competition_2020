@@ -32,6 +32,8 @@ void testIRreading();
 void testTapeReadingRaw();
 void testTapeReading();
 void PIDtest();
+void tapeRejectionTest();
+void tapeRejectionTestSylvia();
 
 void setup() {
   // put your setup code here, to run once:
@@ -54,9 +56,8 @@ void loop() {
   disp_clear();
   // disp_msg("starting");
   
-  testTapeReading();
+  tapeRejectionTest();
 }
-
 
 /* COMPONENTS TEST FUNCTIONS */
 
@@ -218,7 +219,39 @@ void testTapeReading()
   delay(200);
 }
 
-/* OTHER DISPLAY FUNCTIONS */
+void tapeRejectionTest(){
+  int left_reflection = sensors.tape_l();
+  int right_reflection = sensors.tape_r();
+  disp_label_value("left: ", left_reflection);
+  disp_label_value("right: ", right_reflection);
+  disp_label_value("threshold: ", TAPE_THRES);
+
+  if (left_reflection > TAPE_THRES){
+    robotMotor.drive_cw();
+  } else if (right_reflection > TAPE_THRES){
+    robotMotor.drive_ccw();
+  } else {
+    robotMotor.drive_forward(5);
+  }
+}
+
+void tapeRejectionTestSylvia(){
+  int left_reflection = sensors.tape_l();
+  int right_reflection = sensors.tape_r();
+  disp_label_value("left: ", left_reflection);
+  disp_label_value("right: ", right_reflection);
+  disp_label_value("threshold: ", TAPE_THRES);
+
+  if (left_reflection < TAPE_THRES){
+    robotMotor.drive_cw();
+  } else if (right_reflection < TAPE_THRES){
+    robotMotor.drive_ccw();
+  } else {
+    robotMotor.drive_forward(5);
+  }
+}
+
+/* INTERNAL FUNCTIONS */
 
 void motorRawStop(){
   pwm_start(MOTOR_LF, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
