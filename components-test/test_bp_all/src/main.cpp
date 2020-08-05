@@ -9,7 +9,6 @@ Motor robotMotor;
 Claw claw;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 // NewPing sonar(TRIGGER_PIN,ECHO_PIN,MAX_DISTANCE);
-
 volatile short int prev = 0;
 
 void disp_setup();
@@ -55,7 +54,7 @@ void loop() {
   disp_clear();
   // disp_msg("starting");
   
-  PIDtest();
+  testTapeReading();
 }
 
 
@@ -198,9 +197,8 @@ void testIRreadingRaw(){
 void testIRreading()
 {
   disp_clear();
-  disp_label_value("Error:", sensors.ir_noise());
-  disp_label_value("left - right:", sensors.ir_error());
-  disp_label_value("near beacon:", sensors.ir_nearbin());
+  disp_label_value("Left:", sensors.ir_l());
+  disp_label_value("Right:", sensors.ir_r());
   delay(200);
 }
 
@@ -215,6 +213,8 @@ void testTapeReading()
 {
   disp_clear();
   disp_label_value("Tape status:", sensors.on_tape());
+  disp_label_value("Left Sensor: ",sensors.tape_l());
+  disp_label_value("Right Sensor: ",sensors.tape_r());
   delay(200);
 }
 

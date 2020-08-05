@@ -12,6 +12,8 @@ class Sensors{
 
         // TAPE
         int on_tape(); 
+        int tape_l();
+        int tape_r();
 
         // IR
         bool ir_noise(); //returns TRUE if only reading noise, FALSE if beacon found

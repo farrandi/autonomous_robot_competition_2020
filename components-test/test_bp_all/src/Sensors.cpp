@@ -33,6 +33,16 @@ int Sensors::on_tape()
     return BOTH;
 }
 
+int Sensors::tape_l()
+{
+    return analogRead(TAPE_L);
+}
+
+int Sensors::tape_r()
+{
+    return analogRead(TAPE_R);
+}
+
 /**Returns TRUE if only reading noise, FALSE if beacon found
  */
 bool Sensors::ir_noise()
