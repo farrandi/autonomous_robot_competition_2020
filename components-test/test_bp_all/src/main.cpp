@@ -4,7 +4,7 @@
 #include "Sensors.h"
 
 Sensors sensors;
-Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN, TIMEOUT);
+Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN);
 Motor robotMotor;
 Claw claw;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
@@ -58,7 +58,7 @@ void loop() {
   disp_clear();
   // disp_msg("starting");
   
-  tapeRejectionAndPIDSylvia();
+  tapeRejectionTestSylvia();
 }
 
 /* COMPONENTS TEST FUNCTIONS */
@@ -163,7 +163,7 @@ void testDriveAndServosRaw(){
 void testSonar(){
   // disp_clear();
   // disp_label_value("Distance (cm): ",sonar.ping_cm());
-  disp_label_value("Distance (cm): ",ultrasonic.read());
+  disp_label_value("Distance (cm): ", ultrasonic.read());
   delay(50);
   disp_label_value("Dist (in): ", ultrasonic.read(INC));
 }
@@ -228,7 +228,9 @@ void tapeRejectionTest(){
   disp_label_value("right: ", right_reflection);
   disp_label_value("threshold: ", TAPE_THRES);
 
-  if (left_reflection > TAPE_THRES){
+  if (left_reflection > TAPE_THRES && right_reflection > TAPE_THRES) {
+    robotMotor.drive_backward(5);
+  } else if (left_reflection > TAPE_THRES){
     robotMotor.drive_cw();
   } else if (right_reflection > TAPE_THRES){
     robotMotor.drive_ccw();
@@ -244,7 +246,9 @@ void tapeRejectionTestSylvia(){
   disp_label_value("right: ", right_reflection);
   disp_label_value("threshold: ", TAPE_THRES);
 
-  if (left_reflection < TAPE_THRES){
+  if (left_reflection < TAPE_THRES && right_reflection < TAPE_THRES) {
+    robotMotor.drive_backward(5);
+  } else if (left_reflection < TAPE_THRES){
     robotMotor.drive_cw();
   } else if (right_reflection < TAPE_THRES){
     robotMotor.drive_ccw();
