@@ -103,7 +103,7 @@ void loop() {
 
 
 bool ping() {
-  bool objectDetected = false;
+  
   if (currentMillis - previousSonarMillis >= sonarInterval) {
     sonarReading = sonar.read();
     previousSonarMillis += sonarInterval;
@@ -115,19 +115,22 @@ bool ping() {
 }
 
 bool search() {
+
   if (ping() == true) {
+
     if (sonarReading >= clawRangeUB) {
-      myMotor.drive_forward(5);
+      myMotor.drive_forward(3);
     } else if (sonarReading <= clawRangeLB) {
-      myMotor.drive_backward(5);
+      myMotor.drive_backward(3);
     }
     else if (sonarReading <= clawRangeUB && sonarReading >= clawRangeLB) {
       myMotor.stop();
       return true;
     }
+
   } else { 
     myMotor.drive_cw();
   }
-  
+
   return false;
 }
