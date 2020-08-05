@@ -310,7 +310,9 @@ void tapeRejectionAndPID(){
   int left_reflection = sensors.tape_l();
   int right_reflection = sensors.tape_r();
 
-  if (left_reflection > TAPE_THRES){
+  if (left_reflection > TAPE_THRES && right_reflection > TAPE_THRES) {
+    robotMotor.drive_backward(5);
+  } else if (left_reflection > TAPE_THRES){
     robotMotor.drive_cw();
   } else if (right_reflection > TAPE_THRES){
     robotMotor.drive_ccw();
@@ -323,7 +325,9 @@ void tapeRejectionAndPIDSylvia(){
   int left_reflection = sensors.tape_l();
   int right_reflection = sensors.tape_r();
 
-  if (left_reflection < TAPE_THRES){
+  if (left_reflection < TAPE_THRES && right_reflection < TAPE_THRES) {
+    robotMotor.drive_backward(5);
+  } else if (left_reflection < TAPE_THRES){
     robotMotor.drive_cw();
   } else if (right_reflection < TAPE_THRES){
     robotMotor.drive_ccw();
