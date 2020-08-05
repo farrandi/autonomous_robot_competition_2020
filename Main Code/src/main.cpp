@@ -32,6 +32,7 @@ const int clawRangeUB = 14;               // the claw range upper bound
 
 bool ping();
 bool search();
+bool pickUp();
 
 void setup() {
   myDisp.setup();
@@ -59,7 +60,7 @@ void loop() {
 
   case PICK_UP:
 
-    if (can == 'N')
+    if (pickUp() == false)
     {
       state = SEARCH;
       break;
@@ -103,7 +104,7 @@ void loop() {
 
 
 bool ping() {
-  bool objectDetected = false;
+  
   if (currentMillis - previousSonarMillis >= sonarInterval) {
     sonarReading = sonar.read();
     previousSonarMillis += sonarInterval;
@@ -115,6 +116,7 @@ bool ping() {
 }
 
 bool search() {
+
   if (ping() == true) {
     if (sonarReading >= clawRangeUB) {
       myMotor.drive_forward(5);
@@ -128,6 +130,31 @@ bool search() {
   } else { 
     myMotor.drive_cw();
   }
-  
+
   return false;
+}
+
+bool pickUp() {
+
+  sonarReading = sonar.read();    // for checking if the can is still in range
+
+  if (sonarReading <= clawRangeUB && sonarReading >= clawRangeLB) {
+
+     // claw actions
+     myClaw.open();     // ensures the claw is open
+     myClaw.lower();    // ensures the claw arm is down
+     myClaw.close();    // closes claw to grab can
+     myClaw.raise();    // raises the claw arm
+
+     sonarReading = sonar.read();   // for checking once more if the can is still in range
+     
+     // if the following is true, the can is properly placed in our claw
+     if (sonarReading <= clawRangeUB && sonarReading >= clawRangeLB) {
+       return true;
+     }
+
+  }
+
+  return false;
+ 
 }
