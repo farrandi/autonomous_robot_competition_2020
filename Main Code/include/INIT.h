@@ -95,5 +95,5 @@
 #define LOWER_THRES 150 // the "highest" value for paper
 
 // Pins and Buttons
-#define SWITCH PB15
+#define SWITCH PB14
 #define BUTTON PB13

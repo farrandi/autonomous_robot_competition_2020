@@ -47,6 +47,9 @@ volatile unsigned int G = 0;
 volatile signed int err = 0;
 volatile short int prevErr = 0;          // PID previous error
 
+void fun_interrupt();
+void fun_func();
+
 bool avoid();
 bool ping();
 bool search();
@@ -63,6 +66,8 @@ void setup() {
   myClaw.setup();
   sensors.setup();
   pinMode(SWITCH, INPUT_PULLUP);
+  pinMode(BUTTON, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(BUTTON), fun_interrupt, FALLING);
 }
 
 void loop() {
@@ -131,11 +136,23 @@ void loop() {
       break;
 
     case FUN:
-      // insert ur fun function here :)
-
+      fun_func();
+      state = SEARCH;
       break;
     }
   }
+}
+
+void fun_interrupt(){
+  state = FUN;
+}
+
+void fun_func(){
+  // insert ur fun function here 
+  for (int i = 0; i < 100; i++){
+        myDisp.print(i);
+      }
+  delay(5000);
 }
 
 bool ping() {
