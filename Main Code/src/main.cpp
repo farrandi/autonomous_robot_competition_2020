@@ -56,6 +56,7 @@ bool returnToBin();
 void dropCan();
 void tapeRejectionA(); //for anything but homing
 void tapeRejectionB(); //tape rejection for homing
+bool checkPaper(); //checks if it is near trashbin
 
 void setup() {
   myDisp.setup();
@@ -314,8 +315,6 @@ void tapeRejectionA() {
     delay(300);
     myMotor.drive_ccw();
   }
-  else
-    myMotor.drive_forward(5);
 }
 
 /** For homing state
@@ -339,4 +338,23 @@ void tapeRejectionB() {
   }
   else
     myMotor.drive_forward(5);
+}
+
+bool checkPaper() {
+  int status = sensors.on_tape();
+
+  if (status == P_BOTH){
+    myMotor.stop();
+    return TRUE;
+  }
+  else if (status == P_RIGHT){
+    myMotor.drive_cw();
+    delay(300);
+  }
+  else if (status == P_LEFT){
+    myMotor.drive_ccw();
+    delay(300);
+  }
+
+  return FALSE;
 }
