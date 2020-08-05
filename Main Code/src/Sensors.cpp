@@ -15,7 +15,7 @@ void Sensors::setup()
 }
 
 /**
- * Returns 0 for NONE on tape, 1 for LEFT on tape, 2 for RIGHT on Tape, 3 for BOTH on tape
+ * 
  * Currently implementing (not completed): 
  * The return values are defined in INIT
  */
@@ -25,14 +25,19 @@ int Sensors::on_tape()
     int R_tape = analogRead(TAPE_R);
     
     // USE THIS if your competition surface is FLOOR for robot, TAPE for bounds, and WHITE for bin
-    if (L_tape < PAPER_THRES || R_tape < PAPER_THRES)
-        return BORDER;
-    if (L_tape <= FLOOR_THRES && R_tape <= FLOOR_THRES)
-        return NONE; //0
-    else if (L_tape > FLOOR_THRES) 
-        return LEFT;
-    else if (R_tape > FLOOR_THRES)
-        return RIGHT;
+    if (L_tape > UPPER_THRES && R_tape > UPPER_THRES) // both sensors read tape
+        return T_BOTH; //3
+    else if (L_tape > UPPER_THRES) //left sensors read tape
+        return T_LEFT;//1
+    else if (R_tape > UPPER_THRES) // right sensors read tape
+        return T_RIGHT;//2
+    else if (L_tape < LOWER_THRES && R_tape < LOWER_THRES) //both sensors read paper
+        return P_BOTH; //6
+    else if (L_tape < LOWER_THRES) //left sensor read paper
+        return P_LEFT;//4
+    else if (R_tape < LOWER_THRES) // right sensor read paper
+        return P_RIGHT;//5
+    
 
     // USE THIS if your competition surface is FLOOR for robot, WHITE for bounds, and TAPE for bin (NOT tested use at your own peril)
     // if (L_tape > FLOOR_THRES || R_tape > FLOOR_THRES)
@@ -44,7 +49,7 @@ int Sensors::on_tape()
     // else if (L_tape <= FLOOR_THRES && R_tape <= FLOOR_THRES)
     //     return NONE; //0
 
-    return BOTH;
+    return NONE; //sensors are both reading floor
 }
 
 int Sensors::tape_l()
