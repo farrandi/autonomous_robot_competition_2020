@@ -31,10 +31,11 @@ void testIRreadingRaw();
 void testIRreading();
 void testTapeReadingRaw();
 void testTapeReading();
-void PIDtest();
 void tapeRejectionTest();
 void tapeRejectionTestSylvia();
 void tapeRejectionAndPID();
+void PIDtest();
+void tapeRejectionAndPIDSylvia();
 
 void setup() {
   // put your setup code here, to run once:
@@ -57,7 +58,7 @@ void loop() {
   disp_clear();
   // disp_msg("starting");
   
-  PIDtest();
+  tapeRejectionAndPIDSylvia();
 }
 
 /* COMPONENTS TEST FUNCTIONS */
@@ -268,7 +269,7 @@ void PIDtest()
   disp_clear();
   
   if (sensors.ir_nearbin()){
-    robotMotor.stop();
+    // robotMotor.stop();
     disp_msg("near!");
   }
   else if (!sensors.ir_noise()) { //if not reading noise
