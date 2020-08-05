@@ -58,6 +58,7 @@ void loop() {
       break;
     }
 
+<<<<<<< HEAD
   case PICK_UP:
 
     if (pickUp() == false)
@@ -71,6 +72,21 @@ void loop() {
       state = HOME;
       break;
     }
+=======
+  // case PICK_UP:
+
+  //   if (can == 'N')
+  //   {
+  //     state = SEARCH;
+  //     break;
+  //   }
+  //   else
+  //   {
+
+  //     state = HOME;
+  //     break;
+  //   }
+>>>>>>> 250418893f808c2a6db8125dd874a5710b72b8c2
   // case HOME:
 
   //   if (can == 'N')
@@ -104,7 +120,10 @@ void loop() {
 
 
 bool ping() {
+<<<<<<< HEAD
   
+=======
+>>>>>>> 250418893f808c2a6db8125dd874a5710b72b8c2
   if (currentMillis - previousSonarMillis >= sonarInterval) {
     sonarReading = sonar.read();
     previousSonarMillis += sonarInterval;
@@ -116,7 +135,10 @@ bool ping() {
 }
 
 bool search() {
+<<<<<<< HEAD
   
+=======
+>>>>>>> 250418893f808c2a6db8125dd874a5710b72b8c2
   myDisp.clear();
   if (ping() == true) {
     if (sonarReading >= clawRangeUB) {
