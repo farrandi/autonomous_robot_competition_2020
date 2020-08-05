@@ -204,7 +204,7 @@ bool search() {
     }
   } else { 
     myMotor.drive_cw();
-    myDisp.println("searching...");
+    myDisp.println("Searching...");
     myDisp.taggedValue("Sonar reading: ", sonarReading);
   }
 
