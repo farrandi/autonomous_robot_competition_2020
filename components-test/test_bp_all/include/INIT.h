@@ -75,7 +75,7 @@
 #define IR_LB PB0
 #define IR_RA PA1
 #define IR_RB PA0
-#define IR_NOISE 95
+#define IR_NOISE 50
 #define IR_BIN 1000
 #define ANALOG_MAX 1023
 #define MAX_I 1000

@@ -34,6 +34,7 @@ void testTapeReading();
 void PIDtest();
 void tapeRejectionTest();
 void tapeRejectionTestSylvia();
+void tapeRejectionAndPID();
 
 void setup() {
   // put your setup code here, to run once:
@@ -56,7 +57,7 @@ void loop() {
   disp_clear();
   // disp_msg("starting");
   
-  tapeRejectionTest();
+  PIDtest();
 }
 
 /* COMPONENTS TEST FUNCTIONS */
@@ -251,48 +252,10 @@ void tapeRejectionTestSylvia(){
   }
 }
 
-/* INTERNAL FUNCTIONS */
-
-void motorRawStop(){
-  pwm_start(MOTOR_LF, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
-  pwm_start(MOTOR_LB, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
-  pwm_start(MOTOR_RF, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
-  pwm_start(MOTOR_RB, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
-  delay(50);
-}
-
-/* DISPLAY FUNCTIONS */
-
-void disp_setup()
-{
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-  display.clearDisplay();
-  display.setTextSize(1);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(0, 0);
-
-}
-
-void disp_label_value(const char *label, int value){
-  display.print(label);
-  display.println(value);
-  display.display();
-}
-
-void disp_msg(const char *msg) {
-  display.println(msg);
-  display.display();  
-}
-
-void disp_clear() {
-  display.clearDisplay();
-  display.setCursor(0, 0);
-}
-
 void PIDtest()
 {
   int kp = 30;
-  int kd = 5;
+  int kd = 100;
   int ki = 0;
 
   int P = 0;
@@ -336,4 +299,68 @@ void PIDtest()
     robotMotor.drive_ccw();
     disp_msg("searching...");
   }
+}
+
+void tapeRejectionAndPID(){
+  int left_reflection = sensors.tape_l();
+  int right_reflection = sensors.tape_r();
+
+  if (left_reflection > TAPE_THRES){
+    robotMotor.drive_cw();
+  } else if (right_reflection > TAPE_THRES){
+    robotMotor.drive_ccw();
+  } else {
+    PIDtest();
+  }
+}
+
+void tapeRejectionAndPIDSylvia(){
+  int left_reflection = sensors.tape_l();
+  int right_reflection = sensors.tape_r();
+
+  if (left_reflection < TAPE_THRES){
+    robotMotor.drive_cw();
+  } else if (right_reflection < TAPE_THRES){
+    robotMotor.drive_ccw();
+  } else {
+    PIDtest();
+  }
+}
+
+/* INTERNAL FUNCTIONS */
+
+void motorRawStop(){
+  pwm_start(MOTOR_LF, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
+  pwm_start(MOTOR_LB, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
+  pwm_start(MOTOR_RF, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
+  pwm_start(MOTOR_RB, FREQUENCY,0,RESOLUTION_16B_COMPARE_FORMAT);
+  delay(50);
+}
+
+/* DISPLAY FUNCTIONS */
+
+void disp_setup()
+{
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(0, 0);
+
+}
+
+void disp_label_value(const char *label, int value){
+  display.print(label);
+  display.println(value);
+  display.display();
+}
+
+void disp_msg(const char *msg) {
+  display.println(msg);
+  display.display();  
+}
+
+void disp_clear() {
+  display.clearDisplay();
+  display.setCursor(0, 0);
 }
