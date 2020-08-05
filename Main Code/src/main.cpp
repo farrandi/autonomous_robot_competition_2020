@@ -29,7 +29,7 @@ unsigned long currentMillis = 0;          // the value of millis in the current 
 unsigned long previousSonarMillis = 0;    // the previous valut of the sonar millis.
 volatile unsigned int sonarReading;       // the sonarReading value in cm
 unsigned int sonarThreshold = 120;        // the sonar threshold value for detecting objects
-const int clawRangeLB = 5;               // the claw range lower bound
+const int clawRangeLB = 5;                // the claw range lower bound
 const int clawRangeUB = 12;               // the claw range upper bound
 
 //INITIALIZING MISC
@@ -45,7 +45,7 @@ volatile unsigned int D = 0;
 volatile unsigned int I = 0;
 volatile unsigned int G = 0;
 volatile signed int err = 0;
-volatile short int prevErr = 0;         // PID previous error
+volatile short int prevErr = 0;          // PID previous error
 
 bool avoid();
 bool ping();
@@ -62,87 +62,79 @@ void setup() {
   myDisp.setup();
   myClaw.setup();
   sensors.setup();
-  
   pinMode(SWITCH, INPUT_PULLUP);
 }
 
 void loop() {
 
-  prev_state = state;
-  currentMillis = millis();
-  tape = sensors.on_tape();
+  if (digitalRead(SWITCH) == HIGH) {
+    prev_state = state;
+    currentMillis = millis();
+    tape = sensors.on_tape();
 
-  if (tape > 0 && tape < 4)
-    state = AVOID;
-
-  if (digitalRead(SWITCH)==HIGH){
-    state = OFF;
-  }
-
-  if (digitalRead(BUTTON) == HIGH){
-    state = FUN;
-  }
-
-  switch (state)
-  {
-  default:
-    myDisp.taggedValue("Actual reading: ", sonar.read());
-    if (search() == true)     // If sonar finds object
-    {
-      state = PICK_UP;
-      break;
-    }
-    else
-    {
-      myMotor.drive_forward(5); //not sure if this is necessary
-      break;
+    if (state != HOME) {
+      if (tape > 0) {
+        state = AVOID;
+      }
+      else if (tape > 0 && tape < 4) {
+        state = AVOID;
+      }
     }
 
-  case PICK_UP:
-    if (pickUp() == false)
-    {
+    switch (state) {
+
+    default:
+      myDisp.taggedValue("Actual reading: ", sonar.read());
+      if (search() == true) { // If sonar finds object
+        state = PICK_UP;
+        break;
+      }
+      else {
+        myMotor.drive_forward(5); //not sure if this is necessary
+        break;
+      }
+
+    case PICK_UP:
+      if (pickUp() == false) {
+        state = SEARCH;
+        break;
+      } else {
+        state = HOME;
+        break;
+      }
+    case HOME:
+
+      if (checkCan() == false) {
+        state = SEARCH;
+        break;
+      }
+
+      if (returnToBin() == true) {
+        state = DROP;
+        break;
+      } else {
+        break;
+      }
+
+    case DROP:
+      dropCan();
       state = SEARCH;
-     break;
-    }
-    else
-    {
+      break;
+    case AVOID:
+      if (prev_state == HOME) {
+        tapeRejectionB();
+      }
+      else {
+        tapeRejectionA();
+      }
+      state = prev_state;
+      break;
 
-      state = HOME;
+    case FUN:
+      // insert ur fun function here :)
+
       break;
     }
-  case HOME:
-
-  if (checkCan() == false)
-    {
-      state = SEARCH;
-      break;
-    }
-
-    if (returnToBin() == true)
-    {
-      state = DROP;
-      break;
-    }
-    else
-    {
-      break;
-    }
-
-  case DROP:
-    dropCan();
-    state = SEARCH;
-    break;
-  case AVOID:
-    if (tape == 1){
-
-    }
-    state = prev_state;
-    break;
-
-  case FUN:
-    // insert ur fun function here :)
-
-    break;
   }
 }
 
@@ -245,13 +237,11 @@ bool returnToBin() {
   // The current implementation for determining we are in bin range is unknown at the moment.
   // The code below does not have a stop, and only follows IR.
 
-  // if (checkTape() == both white) {
-
-  //   myMotor.stop();
-  //   myDisp.println("At bin!");
-  //   return true;
-  //} else 
-  if (!sensors.ir_noise()) {
+  if (checkPaper() == true) {
+    myMotor.stop();
+    myDisp.println("At bin!");
+    return true;
+  } else if (!sensors.ir_noise()) {
     myMotor.stop_back(); // need this to ensure the rotate component from search doesn't cross in
 
     P = kp * err;
@@ -345,7 +335,7 @@ bool checkPaper() {
 
   if (status == P_BOTH){
     myMotor.stop();
-    return TRUE;
+    return true;
   }
   else if (status == P_RIGHT){
     myMotor.drive_cw();
@@ -356,5 +346,5 @@ bool checkPaper() {
     delay(300);
   }
 
-  return FALSE;
+  return false;
 }
