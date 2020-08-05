@@ -45,13 +45,13 @@
 #define BIGSERVO_PIN PA_8
 
 // Servo Parameters
-#define MAXANGLE_SMALL 180
-#define MAXANGLE_BIG 120
-#define CLOSEPOS 0 // check that your servo is oriented this way - it may be the opposite
-#define OPENPOS (MAXANGLE_SMALL-1)
+#define MAXANGLE_SMALL 105
+#define MAXANGLE_BIG 180
+#define CLOSEPOS (MAXANGLE_SMALL-1) // check that your servo is oriented this way - it may be the opposite
+#define OPENPOS 0
 #define DOWNPOS 0
-#define UPPOS 90
-#define SPEED_SMALL 5
+#define UPPOS 75
+#define SPEED_SMALL 3
 #define SPEED_BIG 1
 
 // Display Settings
