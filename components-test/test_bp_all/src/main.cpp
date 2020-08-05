@@ -259,7 +259,7 @@ void disp_clear() {
 void PIDtest()
 {
   int kp = 30;
-  int kd = 15;
+  int kd = 5;
   int ki = 0;
 
   int P = 0;
