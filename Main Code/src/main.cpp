@@ -54,6 +54,8 @@ bool pickUp();
 bool checkCan();
 bool returnToBin();
 void dropCan();
+void tapeRejectionA(); //for anything but homing
+void tapeRejectionB(); //tape rejection for homing
 
 void setup() {
   myDisp.setup();
@@ -291,4 +293,50 @@ void dropCan() {
   myMotor.stop();
   myClaw.lower();       // lowering claw once again
   
+}
+
+/** For not homing state
+ *  Will avoid both the paper and tape borders
+ */
+void tapeRejectionA() { 
+  int status = sensors.on_tape();
+
+  if (status == P_LEFT || status == T_LEFT){
+    myMotor.drive_cw();
+    delay (500);
+  }
+  else if (status == P_RIGHT || status == T_RIGHT) {
+    myMotor.drive_ccw();
+    delay(500);
+  }
+  else if (status == P_BOTH || status == T_BOTH){
+    myMotor.drive_backward(5);
+    delay(300);
+    myMotor.drive_ccw();
+  }
+  else
+    myMotor.drive_forward(5);
+}
+
+/** For homing state
+ *  Only avoids Tape
+ */
+void tapeRejectionB() {
+  int status = sensors.on_tape();
+
+  if (status == T_LEFT){
+    myMotor.drive_cw();
+    delay (500);
+  }
+  else if (status == T_RIGHT) {
+    myMotor.drive_ccw();
+    delay(500);
+  }
+  else if (status == T_BOTH){
+    myMotor.drive_backward(5);
+    delay(300);
+    myMotor.drive_ccw();
+  }
+  else
+    myMotor.drive_forward(5);
 }
