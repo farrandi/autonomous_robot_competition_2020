@@ -20,6 +20,5 @@ class Motor{
         void drive_cw();
         void drive_ccw();
         void stop();
-
-        void PID_control(int left_speed, int right_speed);
+        void stop_back();
 };

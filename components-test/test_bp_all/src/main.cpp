@@ -57,7 +57,8 @@ void loop() {
   disp_clear();
   // disp_msg("starting");
   
-  PIDtest();
+  testArm();
+  testGrabber();
 }
 
 /* COMPONENTS TEST FUNCTIONS */

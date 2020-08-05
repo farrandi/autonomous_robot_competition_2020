@@ -7,6 +7,8 @@ Claw::Claw(){}
 void Claw::setup(){
   pinMode(SMALLSERVO_PIN,OUTPUT);
   pinMode(BIGSERVO_PIN,OUTPUT);
+  this->open();
+  this->lower();
 }
 
 /* Opens the claw

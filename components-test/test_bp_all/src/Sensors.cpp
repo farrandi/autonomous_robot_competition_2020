@@ -54,6 +54,7 @@ bool Sensors::ir_noise()
     // int left = 0;
     // int right = 0;
 
+//   For Double readings:
 //     if (l_hi > ANALOG_MAX)
 //      left = l_lo;
 //    else

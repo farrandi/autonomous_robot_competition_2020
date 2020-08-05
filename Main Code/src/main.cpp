@@ -15,7 +15,6 @@
 #define OFF 8
 int state = 0;
 int prev_state = state;
-volatile short int prevErr = 0;         // PID previous error
 
 //INITIALIZING COMPONENTS
 Display myDisp;
@@ -25,29 +24,60 @@ Sensors sensors;
 Ultrasonic sonar(TRIGGER_PIN, ECHO_PIN, 15000UL);
 
 //INITIALIZING TIMER CONSTANTS
-const int sonarInterval = 20;             // the interval between sonar pings
+const unsigned int sonarInterval = 20;    // the interval between sonar pings
 unsigned long currentMillis = 0;          // the value of millis in the current iteration of the loop
 unsigned long previousSonarMillis = 0;    // the previous valut of the sonar millis.
-volatile unsigned int sonarReading;                     // the sonarReading value in cm
-int sonarThreshold = 120;                  // the sonar threshold value for detecting objects
-const int clawRangeLB = 10;               // the claw range lower bound
-const int clawRangeUB = 14;               // the claw range upper bound
+volatile unsigned int sonarReading;       // the sonarReading value in cm
+unsigned int sonarThreshold = 120;        // the sonar threshold value for detecting objects
+const int clawRangeLB = 5;               // the claw range lower bound
+const int clawRangeUB = 12;               // the claw range upper bound
 
+//INITIALIZING MISC
+volatile unsigned int tape = 0;
+
+//INITIALIZING PID CONSTANTS
+const unsigned int kp = 34;
+const unsigned int kd = 100;
+const unsigned int ki = 0;
+const unsigned int MAX_I = 120;
+volatile unsigned int P = 0;
+volatile unsigned int D = 0;
+volatile unsigned int I = 0;
+volatile unsigned int G = 0;
+volatile signed int err = 0;
+volatile short int prevErr = 0;         // PID previous error
+
+bool avoid();
 bool ping();
 bool search();
 bool pickUp();
-bool returnToBin();
 bool checkCan();
+bool returnToBin();
+void dropCan();
 
 void setup() {
   myDisp.setup();
   myClaw.setup();
   sensors.setup();
+  
+  pinMode(SWITCH, INPUT_PULLUP);
 }
 
 void loop() {
   prev_state = state;
   currentMillis = millis();
+
+  tape = sensors.on_tape();
+  if (tape > 0 && tape < 4)
+    state = AVOID;
+
+  if (digitalRead(SWITCH)==HIGH){
+    state = OFF;
+  }
+
+  if (digitalRead(BUTTON) == HIGH){
+    state = FUN;
+  }
 
   switch (state)
   {
@@ -65,7 +95,6 @@ void loop() {
     }
 
   case PICK_UP:
-    myDisp.
     if (pickUp() == false)
     {
       state = SEARCH;
@@ -77,34 +106,15 @@ void loop() {
       state = HOME;
       break;
     }
-<<<<<<< HEAD
-  // case HOME:
-
-  //   if (can == 'N')
-  //   {
-  //     state = SEARCH;
-  //     break;
-  //   }
-
-  //   if (bin == 'Y')
-  //   {
-  //     state = DROP;
-  //     break;
-  //   }
-  //   else
-  //   {
-  //     break;
-  //   }
-=======
   case HOME:
 
-  if (can == 'N')
+  if (checkCan() == false)
     {
       state = SEARCH;
       break;
     }
 
-    if (bin == 'Y')
+    if (returnToBin() == true)
     {
       state = DROP;
       break;
@@ -113,21 +123,54 @@ void loop() {
     {
       break;
     }
->>>>>>> 6ec69a6fcc207692e958ac04ad90d3c0bd912b89
-  // case DROP:
 
-  //   state = SEARCH;
-  //   break;
-  // case AVOID:
+  case DROP:
+    dropCan();
+    state = SEARCH;
+    break;
+  case AVOID:
+    if (tape == 1){
 
-  //   state = prev_state;
-  //   break;
-  // case FUN:
+    }
 
-  //   break;
+    void tapeRejectionTest(){
+  int left_reflection = sensors.tape_l();
+  int right_reflection = sensors.tape_r();
+  disp_label_value("left: ", left_reflection);
+  disp_label_value("right: ", right_reflection);
+  disp_label_value("threshold: ", TAPE_THRES);
+
+  if (left_reflection > TAPE_THRES){
+    robotMotor.drive_cw();
+  } else if (right_reflection > TAPE_THRES){
+    robotMotor.drive_ccw();
+  } else {
+    robotMotor.drive_forward(5);
   }
 }
 
+void tapeRejectionTestSylvia(){
+  int left_reflection = sensors.tape_l();
+  int right_reflection = sensors.tape_r();
+  disp_label_value("left: ", left_reflection);
+  disp_label_value("right: ", right_reflection);
+  disp_label_value("threshold: ", TAPE_THRES);
+
+  if (left_reflection < TAPE_THRES){
+    robotMotor.drive_cw();
+  } else if (right_reflection < TAPE_THRES){
+    robotMotor.drive_ccw();
+  } else {
+    robotMotor.drive_forward(5);
+  }
+}
+    state = prev_state;
+    break;
+  case FUN:
+    // insert ur fun function here :)
+    break;
+  }
+}
 
 bool ping() {
   
@@ -142,10 +185,6 @@ bool ping() {
 }
 
 bool search() {
-<<<<<<< HEAD
-  
-=======
->>>>>>> 6ec69a6fcc207692e958ac04ad90d3c0bd912b89
   myDisp.clear();
   if (ping() == true) {
     if (sonarReading >= clawRangeUB) {
@@ -156,7 +195,6 @@ bool search() {
       myMotor.drive_backward(5);
       myDisp.println("driving backward...");
       myDisp.taggedValue("Sonar reading: ", sonarReading);
-
     }
     else if (sonarReading <= clawRangeUB && sonarReading >= clawRangeLB) {
       myMotor.stop();
@@ -174,18 +212,24 @@ bool search() {
 }
 
 bool pickUp() {
-
+  myDisp.clear();
   if (checkCan()) {
 
      // claw actions
+     myDisp.println("Opening claw");
      myClaw.open();     // ensures the claw is open
+     delay(500);
+     myDisp.println("Lowering arm");
      myClaw.lower();    // ensures the claw arm is down
+     delay(500);
+     myDisp.println("Closing claw");
      myClaw.close();    // closes claw to grab can
+     delay(1000);
+     myDisp.println("Raising arm");
      myClaw.raise();    // raises the claw arm
-
-     sonarReading = sonar.read();   // for checking once more if the can is still in range
+     delay(1000);
      
-     checkCan();
+     return checkCan();
 
   }
 
@@ -206,18 +250,26 @@ bool checkCan() {
 }
 
 bool returnToBin() {
-  int kp = 34;
-  int kd = 100;
-  int ki = 0;
 
-  int P = 0;
-  int D = 0;
-  int I = 0;
-  int G = 0;
+  //checks if the can is in the claw otherwise return to searching
+  if (!checkCan()) {
+    return false;
+  }
+  // int kp = 34;
+  // int kd = 100;
+  // int ki = 0;
 
-  int err = sensors.ir_error();
+  P = 0;
+  D = 0;
+  I = 0;
+  G = 0;
+
+  err = sensors.ir_error();
 
   myDisp.clear();
+
+  // The current implementation for determining we are in bin range is unknown at the moment.
+  // The code below does not have a stop, and only follows IR.
 
   // if (checkTape() == 4) {
 
@@ -226,7 +278,7 @@ bool returnToBin() {
   //   return true;
   //} else 
   if (!sensors.ir_noise()) {
-    pwm_start(MOTOR_LB, FREQUENCY, 0, RESOLUTION_16B_COMPARE_FORMAT);
+    myMotor.stop_back(); // need this to ensure the rotate component from search doesn't cross in
 
     P = kp * err;
     D = kd * (err - prevErr);
@@ -257,3 +309,14 @@ bool returnToBin() {
   return false;
 
 }
+
+void dropCan() {
+
+  myClaw.lower();       // lowering the claw arm
+  myClaw.open();        // opening the claw to drop
+  
+  myMotor.drive_cw();   // turning robot around
+  delay(1000);          // play around with the delay, we want a 180 turn ideally
+  myMotor.stop();
+}
+

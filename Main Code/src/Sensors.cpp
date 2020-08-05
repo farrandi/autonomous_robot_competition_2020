@@ -16,19 +16,33 @@ void Sensors::setup()
 
 /**
  * Returns 0 for NONE on tape, 1 for LEFT on tape, 2 for RIGHT on Tape, 3 for BOTH on tape
+ * Currently implementing (not completed): 
  * The return values are defined in INIT
  */
 int Sensors::on_tape() 
 {
     int L_tape = analogRead(TAPE_L);
     int R_tape = analogRead(TAPE_R);
-
-    if (L_tape <= TAPE_THRES && R_tape <= TAPE_THRES)
+    
+    // USE THIS if your competition surface is FLOOR for robot, TAPE for bounds, and WHITE for bin
+    if (L_tape < PAPER_THRES || R_tape < PAPER_THRES)
+        return BORDER;
+    if (L_tape <= FLOOR_THRES && R_tape <= FLOOR_THRES)
         return NONE; //0
-    else if (L_tape > TAPE_THRES) 
+    else if (L_tape > FLOOR_THRES) 
         return LEFT;
-    else if (R_tape > TAPE_THRES)
+    else if (R_tape > FLOOR_THRES)
         return RIGHT;
+
+    // USE THIS if your competition surface is FLOOR for robot, WHITE for bounds, and TAPE for bin (NOT tested use at your own peril)
+    // if (L_tape > FLOOR_THRES || R_tape > FLOOR_THRES)
+    //     return BORDER;
+    // else if (L_tape < PAPER_THRES) 
+    //     return LEFT;
+    // else if (R_tape < PAPER_THRES)
+    //     return RIGHT;
+    // else if (L_tape <= FLOOR_THRES && R_tape <= FLOOR_THRES)
+    //     return NONE; //0
 
     return BOTH;
 }
@@ -54,6 +68,7 @@ bool Sensors::ir_noise()
     // int left = 0;
     // int right = 0;
 
+//  For readings with the lower resistor as well:
 //     if (l_hi > ANALOG_MAX)
 //      left = l_lo;
 //    else
