@@ -25,19 +25,20 @@ Sensors sensors;
 Ultrasonic sonar(TRIGGER_PIN, ECHO_PIN, 15000UL);
 
 //INITIALIZING TIMER CONSTANTS
-const int sonarInterval = 20;             // the interval between sonar pings
+const unsigned int sonarInterval = 20;    // the interval between sonar pings
 unsigned long currentMillis = 0;          // the value of millis in the current iteration of the loop
 unsigned long previousSonarMillis = 0;    // the previous valut of the sonar millis.
-volatile unsigned int sonarReading;                     // the sonarReading value in cm
-int sonarThreshold = 120;                  // the sonar threshold value for detecting objects
+volatile unsigned int sonarReading;       // the sonarReading value in cm
+unsigned int sonarThreshold = 120;        // the sonar threshold value for detecting objects
 const int clawRangeLB = 10;               // the claw range lower bound
 const int clawRangeUB = 14;               // the claw range upper bound
 
 bool ping();
 bool search();
 bool pickUp();
-bool returnToBin();
 bool checkCan();
+bool returnToBin();
+void dropCan();
 
 void setup() {
   myDisp.setup();
@@ -79,13 +80,13 @@ void loop() {
     }
   case HOME:
 
-  if (can == 'N')
+  if (checkCan() == false)
     {
       state = SEARCH;
       break;
     }
 
-    if (bin == 'Y')
+    if (returnToBin() == true)
     {
       state = DROP;
       break;
@@ -94,17 +95,17 @@ void loop() {
     {
       break;
     }
-  // case DROP:
+  case DROP:
+    dropCan();
+    state = SEARCH;
+    break;
+  case AVOID:
 
-  //   state = SEARCH;
-  //   break;
-  // case AVOID:
+    state = prev_state;
+    break;
+  case FUN:
 
-  //   state = prev_state;
-  //   break;
-  // case FUN:
-
-  //   break;
+    break;
   }
 }
 
@@ -122,6 +123,7 @@ bool ping() {
 }
 
 bool search() {
+
   myDisp.clear();
   if (ping() == true) {
     if (sonarReading >= clawRangeUB) {
@@ -158,10 +160,8 @@ bool pickUp() {
      myClaw.lower();    // ensures the claw arm is down
      myClaw.close();    // closes claw to grab can
      myClaw.raise();    // raises the claw arm
-
-     sonarReading = sonar.read();   // for checking once more if the can is still in range
      
-     checkCan();
+     return checkCan();
 
   }
 
@@ -182,6 +182,11 @@ bool checkCan() {
 }
 
 bool returnToBin() {
+
+  //checks if the can is in the claw otherwise return to searching
+  if (!checkCan()) {
+    return false;
+  }
   int kp = 34;
   int kd = 100;
   int ki = 0;
@@ -194,6 +199,9 @@ bool returnToBin() {
   int err = sensors.ir_error();
 
   myDisp.clear();
+
+  // The current implementation for determining we are in bin range is unknown at the moment.
+  // The code below does not have a stop, and only follows IR.
 
   // if (checkTape() == 4) {
 
@@ -232,4 +240,15 @@ bool returnToBin() {
 
   return false;
 
+}
+
+void dropCan() {
+
+  myClaw.lower();       // lowering the claw arm
+  myClaw.open();        // opening the claw to drop
+  
+  myMotor.drive_cw();   // turning robot around
+  delay(1000);          // play around with the delay, we want a 180 turn ideally
+  myMotor.stop();
+  
 }
