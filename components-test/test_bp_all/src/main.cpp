@@ -259,8 +259,8 @@ void disp_clear() {
 void PIDtest()
 {
   int kp = 30;
-  int kd = 15;
-  int ki = 0;
+  int kd = 0;
+  int ki = 40;
 
   int P = 0;
   int D = 0;
@@ -300,7 +300,7 @@ void PIDtest()
 
     prev = err;
   } else {
-    robotMotor.drive_ccw();
+    //robotMotor.drive_ccw();
     disp_msg("searching...");
   }
 }
