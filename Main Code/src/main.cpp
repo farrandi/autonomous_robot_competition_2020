@@ -35,7 +35,7 @@ volatile unsigned int sonarReading;       // the sonarReading value in cm
 /*FILL THE # CONST BELOW*/
 unsigned int sonarThreshold = 100;        // the sonar threshold value for detecting objects
 const int clawRangeLB = 7;                // the claw range lower bound 
-const int clawRangeUB = 11;               // the claw range upper bound
+const int clawRangeUB = 12;               // the claw range upper bound
 
 const int dropTime = 1000;                // the rotating time after dropping claw;
 
@@ -92,9 +92,9 @@ void loop() {
     ReflStatus = sensors.on_tape();
 
     //basically if in home or drop, avoid ReflStatus BUT not avoid paper
-    if ((state == HOME || state == DROP) && (ReflStatus > 0 && ReflStatus < 4)) // for Sylvia: ((state == HOME || state == DROP) && ReflStatus >= 4)
+    if ((state == HOME || state == DROP) && ReflStatus >= 4) // for Sylvia: ((state == HOME || state == DROP) && ReflStatus >= 4)
       state = AVOID_BOUNDARY;
-    else if (ReflStatus > 0 ) // avoid both ReflStatus AND paper when in any other state
+    else if (ReflStatus > 0 && (state != DROP && state != HOME)) // avoid both ReflStatus AND paper when in any other state
       state = AVOID_ALL;
 
     myDisp.taggedValue("State:", state);
@@ -166,6 +166,7 @@ void fun_interrupt(){
   if (digitalRead(SWITCH)==LOW){
     myDisp.clear();
     myDisp.println("fun!");
+    delay(5000);
   }
 }
 
@@ -184,7 +185,7 @@ bool search() {
   myDisp.clear();
   if (ping() == true) {
     if (sonarReading >= clawRangeUB) {
-      myMotor.drive_forward(5);
+      myMotor.drive_forward(3);
       myDisp.println("driving forward...");
       myDisp.taggedValue("Sonar reading: ", sonarReading);
     } else if (sonarReading <= clawRangeLB) {
@@ -202,12 +203,12 @@ bool search() {
     // Move forward after searchInterval if nothing is detected
     if (currentMillis - previousSearchInterval > searchInterval){
         // TODO: Fine tune this
-        myMotor.drive_forward(6);
-        delay(20);
+        myMotor.drive_forward(5);
+        //delay(20);
         myMotor.stop();
         previousSearchInterval += searchInterval;
     }
-    myMotor.drive_cw_slow();
+    myMotor.drive_ccw_slow();
     myDisp.println("Searching...");
     myDisp.taggedValue("Sonar reading: ", sonarReading);
   }
@@ -224,9 +225,10 @@ bool pickUp() {
      myClaw.reset();
      myDisp.println("Closing claw");
      myClaw.close();    // closes claw to grab can
+     delay(300);
      myDisp.println("Raising arm");
      myClaw.raise();    // raises the claw arm
-     
+     delay(200);
      return checkCan();
   }
 
@@ -348,18 +350,18 @@ void tapeRejectionA() {
 }
 
 /** For homing state
- *  Only avoids Tape
+ *  Only avoids Paper
  */
 void tapeRejectionB() {
   int status = sensors.on_tape();
 
-  if (status == T_LEFT){
+  if (status == P_LEFT){
     myMotor.drive_cw();
   }
-  else if (status == T_RIGHT) {
+  else if (status == P_RIGHT) {
     myMotor.drive_ccw();
   }
-  else if (status == T_BOTH){
+  else if (status == P_BOTH){
     myMotor.drive_backward(5);
   }
   else
@@ -369,14 +371,14 @@ void tapeRejectionB() {
 bool checkBin() {
   int status = sensors.on_tape();
 
-  if (status == P_BOTH){
+  if (status == T_BOTH){
     myMotor.stop();
     return true;
   }
-  else if (status == P_RIGHT){
+  else if (status == T_RIGHT){
     myMotor.drive_cw_slow();
   }
-  else if (status == P_LEFT){
+  else if (status == T_LEFT){
     myMotor.drive_ccw_slow();
   }
 

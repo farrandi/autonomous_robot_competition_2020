@@ -34,7 +34,7 @@
 #define MAX_MOTOR 65535
 #define MOTOR_RATIO 0.9     //Ratio of Right:Left
 #define FREQUENCY 500
-#define TURN_SPEED 0.4
+#define TURN_SPEED 0.7
 
 // Sonar Parameters
 #define MAX_DISTANCE 200 // Maximum distance we want to ping for (in centimeters). Maximum sensor distance is rated at 400-500cm.
@@ -74,7 +74,7 @@
 #define IR_LB PB0
 #define IR_RA PA1
 #define IR_RB PA0
-#define IR_NOISE 50
+#define IR_NOISE 100
 #define IR_BIN 1000
 #define ANALOG_MAX 1023
  
@@ -89,7 +89,7 @@
 #define P_LEFT 4
 #define P_RIGHT 5
 #define P_BOTH 6
-#define UPPER_THRES 635 // the "highest" value for floor, "lowest" for tape
+#define UPPER_THRES 820 // the "highest" value for floor, "lowest" for tape
 #define LOWER_THRES 100 // the "highest" value for paper
 
 // Pins and Buttons

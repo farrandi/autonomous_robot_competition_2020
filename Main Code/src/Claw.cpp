@@ -29,10 +29,12 @@ void Claw::close(){
   if(OPENPOS > CLOSEPOS) {
     for (int i = OPENPOS; i >= CLOSEPOS; i-=SPEED_SMALL){
       writeSmall(i);
+      delay(15);
     }
   } else{
     for (int i = OPENPOS; i <= CLOSEPOS; i+=SPEED_SMALL){
       writeSmall(i);
+      delay(15);
     }
   }
 }
@@ -43,10 +45,12 @@ void Claw::raise(){
   if(DOWNPOS < UPPOS) {
     for (int i = DOWNPOS; i <= UPPOS; i+=SPEED_BIG){
       writeBig(i);
+      delay(15);
     }
   } else{
     for (int i = DOWNPOS; i >= UPPOS; i-=SPEED_BIG){
       writeBig(i);
+      delay(15);
     }
   }
 }
