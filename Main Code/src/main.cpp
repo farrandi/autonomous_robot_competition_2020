@@ -116,10 +116,7 @@ void loop() {
         state = HOME;
         break;
       }
-<<<<<<< HEAD
 
-=======
->>>>>>> f28a2494999efeb9ede7e17097d5202a06a0460e
     case HOME:
       myDisp.println("HOME");
       if (checkCan() == false) {
@@ -162,22 +159,7 @@ void loop() {
     myMotor.stop();
     myDisp.clear();
     myDisp.println("OFF");
-<<<<<<< HEAD
   }
-}
-
-void fun_interrupt(){
-  state = FUN;
-}
-
-void fun_func(){
-  // insert ur fun function here 
-  for (int i = 0; i < 100; i++){
-        myDisp.print(i);
-=======
->>>>>>> f28a2494999efeb9ede7e17097d5202a06a0460e
-  }
-  delay(5000);
 }
 
 void fun_interrupt(){
