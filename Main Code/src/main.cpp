@@ -35,7 +35,7 @@ volatile unsigned int sonarReading;       // the sonarReading value in cm
 /*FILL THE # CONST BELOW*/
 unsigned int sonarThreshold = 100;        // the sonar threshold value for detecting objects
 const int clawRangeLB = 7;                // the claw range lower bound 
-const int clawRangeUB = 12;               // the claw range upper bound
+const int clawRangeUB = 11;               // the claw range upper bound
 
 const int dropTime = 1000;                // the rotating time after dropping claw;
 
@@ -75,6 +75,8 @@ void setup() {
   pinMode(SWITCH, INPUT_PULLUP);
   pinMode(BUTTON, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(BUTTON), fun_interrupt, FALLING);
+  // myMotor.drive_forward(5);
+  // delay(1000);
 }
 
 void loop() {
@@ -185,7 +187,7 @@ bool search() {
   myDisp.clear();
   if (ping() == true) {
     if (sonarReading >= clawRangeUB) {
-      myMotor.drive_forward(3);
+      myMotor.drive_forward(5);
       myDisp.println("driving forward...");
       myDisp.taggedValue("Sonar reading: ", sonarReading);
     } else if (sonarReading <= clawRangeLB) {
@@ -203,7 +205,7 @@ bool search() {
     // Move forward after searchInterval if nothing is detected
     if (currentMillis - previousSearchInterval > searchInterval){
         // TODO: Fine tune this
-        myMotor.drive_forward(5);
+        myMotor.drive_forward(3);
         //delay(20);
         myMotor.stop();
         previousSearchInterval += searchInterval;

@@ -4,7 +4,7 @@
 #include "Sensors.h"
 
 Sensors sensors;
-Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN);
+Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN,15000UL);
 Motor robotMotor;
 Claw claw;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
@@ -58,7 +58,7 @@ void loop() {
   disp_clear();
   // disp_msg("starting");
   
-  testTapeReading();
+  testSonar();
 }
 
 /* COMPONENTS TEST FUNCTIONS */
