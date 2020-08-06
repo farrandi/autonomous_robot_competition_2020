@@ -46,12 +46,12 @@
 #define BIGSERVO_PIN PA_8
 
 // Servo Parameters
-#define MAXANGLE_SMALL 105
-#define MAXANGLE_BIG 180
-#define CLOSEPOS (MAXANGLE_SMALL-1) // check that your servo is oriented this way - it may be the opposite
-#define OPENPOS 0
+#define MAXANGLE_SMALL 180
+#define MAXANGLE_BIG 120
+#define CLOSEPOS 0// check that your servo is oriented this way - it may be the opposite
+#define OPENPOS 180
 #define DOWNPOS 0
-#define UPPOS 75
+#define UPPOS 50
 #define SPEED_SMALL 3
 #define SPEED_BIG 1
 
@@ -68,8 +68,8 @@
 #define ECHO_PIN PB4
 #define TIMEOUT 15000UL
 #define NEAR 100 //cm
-#define MIN_REACH_RANGE 8 //change according to the range your claw can grab the can
-#define MAX_REACH_RANGE 11
+#define MIN_REACH_RANGE 4 //change according to the range your claw can grab the can
+#define MAX_REACH_RANGE 8
     
 // IR Sensors
 #define IR_LA PB1
@@ -91,8 +91,8 @@
 #define P_LEFT 4
 #define P_RIGHT 5
 #define P_BOTH 6
-#define UPPER_THRES 700 // the "highest" value for floor, "lowest" for tape
-#define LOWER_THRES 150 // the "highest" value for paper
+#define UPPER_THRES 800 // the "highest" value for floor, "lowest" for tape
+#define LOWER_THRES 300 // the "highest" value for paper
 
 // Pins and Buttons
 #define SWITCH PB14

@@ -30,6 +30,9 @@ class Claw{
         void raise();
         void lower();
 
+        // claw default position during search
+        void reset();
+
         // servo write
         void writeSmall(int degree);
         void writeBig(int degree);

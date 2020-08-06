@@ -65,6 +65,13 @@ void Claw::lower(){
   }
 }
 
+/* Puts the claw in the default open and lowered position needed search
+*/
+void Claw::reset() {
+  writeSmall(OPENPOS);
+  writeBig(DOWNPOS);
+}
+
 /* Moves the small servo a specified position
 @param int degree, the degree of the position to move the small servo 
  */
