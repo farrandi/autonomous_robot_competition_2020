@@ -10,8 +10,8 @@
 #define LOOK 2
 #define HOME 3
 #define DROP 4
-#define AVOID 5
-#define FUN 6
+#define AVOID_ALL 5
+#define AVOID_BOUNDARY 6
 #define OFF 8
 int state = 0;
 int prev_state = state;
@@ -34,7 +34,7 @@ const int clawRangeUB = 12;               // the claw range upper bound
 const int dropTime = 1000;                // the rotating time after dropping claw;
 
 //INITIALIZING MISC
-volatile unsigned int tape = 0;
+volatile unsigned int ReflStatus = 0;
 
 //INITIALIZING PID CONSTANTS
 const unsigned int kp = 34;
@@ -59,7 +59,7 @@ bool checkCan();
 bool returnToBin();
 void dropCan();
 void tapeRejectionA(); //for anything but homing
-void tapeRejectionB(); //tape rejection for homing
+void tapeRejectionB(); //ReflStatus rejection for homing
 bool checkPaper(); //checks if it is near trashbin
 
 void setup() {
@@ -75,21 +75,28 @@ void loop() {
   if (digitalRead(SWITCH) == HIGH) {
     myDisp.print("STATE: ");
 
-    prev_state = state;
+    if (prev_state != AVOID_ALL ){
+      if (prev_state != AVOID_BOUNDARY)
+        prev_state = state;
+    }
     currentMillis = millis();
     myDisp.clear();
     myDisp.taggedValue("Left Tape:", sensors.tape_l());
     myDisp.taggedValue("Right Tape:", sensors.tape_r());
-    tape = sensors.on_tape();
+    ReflStatus = sensors.on_tape();
 
-    if (state != HOME || state != DROP) {
-      if (tape > 0) {
-        state = AVOID;
-      }
-      else if (tape > 0 && tape < 4) {
-        state = AVOID;
-      }
-    }
+    // if (state != HOME || state != DROP) {
+    //   if (ReflStatus > 0)
+    //     state = AVOID_ALL;
+    // }
+    // else if (ReflStatus > 0 && ReflStatus < 4)
+    //     state = AVOID_ALL;
+
+    //basically if in home or drop, avoid ReflStatus BUT not avoid paper
+    if ((state == HOME || state == DROP) && (ReflStatus > 0 && ReflStatus < 4)) // for Sylvia: ((state == HOME || state == DROP) && ReflStatus >= 4)
+      state = AVOID_BOUNDARY;
+    else if (ReflStatus > 0 ) // avoid both ReflStatus AND paper when in any other state
+      state = AVOID_ALL;
 
     myDisp.taggedValue("State:", state);
 
@@ -138,21 +145,15 @@ void loop() {
       dropCan();
       state = SEARCH;
       break;
-    case AVOID:
-      myDisp.println("AVOID");
-      if (prev_state == HOME) {
-        tapeRejectionB();
-      }
-      else {
-        tapeRejectionA();
-      }
+    case AVOID_ALL:
+      myDisp.println("AVOID_ALL");
+      tapeRejectionA();
       state = prev_state;
       break;
-
-    case FUN:
-      myDisp.println("FUN");
-      fun_func();
-      state = SEARCH;
+    case AVOID_BOUNDARY:
+      myDisp.println("AVOID_BOUNDARY");
+      tapeRejectionB();
+      state = prev_state;
       break;
     }
   } else {
@@ -163,11 +164,7 @@ void loop() {
 }
 
 void fun_interrupt(){
-  state = FUN;
-}
-
-void fun_func(){
-  // insert ur fun function here 
+    // insert ur fun function here 
   for (int i = 0; i < 100; i++){
         myDisp.print(i);
   }
@@ -328,7 +325,7 @@ void dropCan() {
 }
 
 /** For not homing state
- *  Will avoid both the paper and tape borders
+ *  Will avoid both the paper and ReflStatus borders
  */
 void tapeRejectionA() { 
   int status = sensors.on_tape();
@@ -360,7 +357,7 @@ void tapeRejectionB() {
     myMotor.drive_backward(5);
   }
   else
-    myMotor.drive_forward(5);
+    myMotor.drive_forward(5); 
 }
 
 bool checkPaper() {
