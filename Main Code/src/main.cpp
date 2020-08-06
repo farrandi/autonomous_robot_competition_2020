@@ -205,7 +205,7 @@ bool search() {
         myMotor.stop();
         previousSearchInterval += searchInterval;
     }
-    myMotor.drive_cw_slow();
+    myMotor.drive_ccw_slow();
     myDisp.println("Searching...");
     myDisp.taggedValue("Sonar reading: ", sonarReading);
   }
