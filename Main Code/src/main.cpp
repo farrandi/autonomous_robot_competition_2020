@@ -33,8 +33,8 @@ unsigned long previousSearchInterval = 0; // the previous value of the searching
 volatile unsigned int sonarReading;       // the sonarReading value in cm
 
 /*FILL THE # CONST BELOW*/
-unsigned int sonarThreshold = 120;        // the sonar threshold value for detecting objects
-const int clawRangeLB = 5;                // the claw range lower bound 
+unsigned int sonarThreshold = 100;        // the sonar threshold value for detecting objects
+const int clawRangeLB = 7;                // the claw range lower bound 
 const int clawRangeUB = 12;               // the claw range upper bound
 
 const int dropTime = 1000;                // the rotating time after dropping claw;

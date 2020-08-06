@@ -32,7 +32,7 @@
 
 // Motor Parameters
 #define MAX_MOTOR 65535
-#define MOTOR_RATIO 1.1     //Ratio of Right:Left
+#define MOTOR_RATIO 0.9     //Ratio of Right:Left
 #define FREQUENCY 500
 #define TURN_SPEED 0.4
 
@@ -46,12 +46,12 @@
 #define BIGSERVO_PIN PA_8
 
 // Servo Parameters
-#define MAXANGLE_SMALL 105
-#define MAXANGLE_BIG 180
-#define CLOSEPOS 0 // check that your servo is oriented this way - it may be the opposite
-#define OPENPOS (MAXANGLE_SMALL-1)
-#define DOWNPOS 160
-#define UPPOS 90
+#define MAXANGLE_SMALL 120
+#define MAXANGLE_BIG 120
+#define CLOSEPOS (MAXANGLE_SMALL-1) // check that your servo is oriented this way - it may be the opposite
+#define OPENPOS 0
+#define DOWNPOS 75
+#define UPPOS 115
 #define SPEED_SMALL 3
 #define SPEED_BIG 1
 
