@@ -30,7 +30,12 @@ unsigned long previousSonarMillis = 0;    // the previous valut of the sonar mil
 volatile unsigned int sonarReading;       // the sonarReading value in cm
 unsigned int sonarThreshold = 120;        // the sonar threshold value for detecting objects
 const int clawRangeLB = 5;                // the claw range lower bound
+<<<<<<< HEAD
 const int clawRangeUB = 10;               // the claw range upper bound
+=======
+const int clawRangeUB = 12;               // the claw range upper bound
+const int dropTime = 1000;                // the rotating time after dropping claw;
+>>>>>>> f28a2494999efeb9ede7e17097d5202a06a0460e
 
 //INITIALIZING MISC
 volatile unsigned int tape = 0;
@@ -46,6 +51,9 @@ volatile unsigned int I = 0;
 volatile unsigned int G = 0;
 volatile signed int err = 0;
 volatile short int prevErr = 0;          // PID previous error
+
+void fun_interrupt();
+void fun_func();
 
 bool avoid();
 bool ping();
@@ -63,11 +71,14 @@ void setup() {
   myClaw.setup();
   sensors.setup();
   pinMode(SWITCH, INPUT_PULLUP);
+  pinMode(BUTTON, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(BUTTON), fun_interrupt, FALLING);
 }
 
 void loop() {
-
   if (digitalRead(SWITCH) == HIGH) {
+    myDisp.print("STATE: ");
+
     prev_state = state;
     currentMillis = millis();
     myDisp.clear();
@@ -89,6 +100,7 @@ void loop() {
     switch (state) {
 
     default:
+      myDisp.println("SEARCH");
       myDisp.taggedValue("Actual reading: ", sonar.read());
       if (search() == true) { // If sonar finds object
         state = PICK_UP;
@@ -100,6 +112,7 @@ void loop() {
       }
 
     case PICK_UP:
+      myDisp.println("PICK-UP");
       if (pickUp() == false) {
         state = SEARCH;
         break;
@@ -109,7 +122,7 @@ void loop() {
       }
 
     case HOME:
-
+      myDisp.println("HOME");
       if (checkCan() == false) {
         myClaw.lower();
         myClaw.open();
@@ -125,10 +138,12 @@ void loop() {
       }
 
     case DROP:
+      myDisp.println("DROP");
       dropCan();
       state = SEARCH;
       break;
     case AVOID:
+      myDisp.println("AVOID");
       if (prev_state == HOME) {
         tapeRejectionB();
       }
@@ -139,8 +154,9 @@ void loop() {
       break;
 
     case FUN:
-      // insert ur fun function here :)
-
+      myDisp.println("FUN");
+      fun_func();
+      state = SEARCH;
       break;
     }
   } else {
@@ -150,8 +166,19 @@ void loop() {
   }
 }
 
+void fun_interrupt(){
+  state = FUN;
+}
+
+void fun_func(){
+  // insert ur fun function here 
+  for (int i = 0; i < 100; i++){
+        myDisp.print(i);
+  }
+  delay(5000);
+}
+
 bool ping() {
-  
   if (currentMillis - previousSonarMillis >= sonarInterval) {
     sonarReading = sonar.read();
     previousSonarMillis += sonarInterval;
@@ -220,12 +247,13 @@ bool pickUp() {
 bool checkCan() {
 
   sonarReading = sonar.read();   // for the can is still in range
-     
+  myDisp.println("Checking can...");
      // if the following is true, the can is properly placed in our claw
     if (sonarReading <= clawRangeUB && sonarReading >= clawRangeLB) {
+      myDisp.println("Holding can!");
       return true;
     }
-
+  myDisp.println("Dropped can :( ");
   return false;
 
 }
@@ -290,12 +318,14 @@ bool returnToBin() {
 }
 
 void dropCan() {
-
+  myDisp.println("Lowering claw...");
   myClaw.lower();       // lowering the claw arm
+  myDisp.println("Opening claw...");
   myClaw.open();        // opening the claw to drop
+  myDisp.println("Raising claw....");
   myClaw.raise();       // the sonar gets in the way so we raise the claw before turning
   myMotor.drive_cw();   // turning robot around
-  delay(1000);          // play around with the delay, we want a 180 turn ideally
+  delay(dropTime);          // play around with the delay, we want a 180 turn ideally
   myMotor.stop();
   myClaw.lower();       // lowering claw once again
   

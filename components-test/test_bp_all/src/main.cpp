@@ -58,7 +58,13 @@ void loop() {
   disp_clear();
   // disp_msg("starting");
   
+<<<<<<< HEAD
+  testArm();
+  testGrabber();
+  testSonar();
+=======
   tapeRejectionTestSylvia();
+>>>>>>> 495ed932bd3b526097468548a545ad38b8422eb3
 }
 
 /* COMPONENTS TEST FUNCTIONS */
