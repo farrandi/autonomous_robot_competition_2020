@@ -61,10 +61,12 @@ void Claw::lower(){
   if(UPPOS > DOWNPOS) {
     for (int i = UPPOS; i >= DOWNPOS; i-=SPEED_BIG){
       writeBig(i);
+      delay (25);
     }
   } else{
     for (int i = UPPOS; i <= DOWNPOS; i+=SPEED_BIG){
       writeBig(i);
+      delay(15);
     }
   }
 }

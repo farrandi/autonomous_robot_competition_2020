@@ -187,11 +187,11 @@ bool search() {
   myDisp.clear();
   if (ping() == true) {
     if (sonarReading >= clawRangeUB) {
-      myMotor.drive_forward(5);
+      myMotor.drive_forward(4);
       myDisp.println("driving forward...");
       myDisp.taggedValue("Sonar reading: ", sonarReading);
     } else if (sonarReading <= clawRangeLB) {
-      myMotor.drive_backward(5);
+      myMotor.drive_backward(4);
       myDisp.println("driving backward...");
       myDisp.taggedValue("Sonar reading: ", sonarReading);
     }
@@ -205,8 +205,8 @@ bool search() {
     // Move forward after searchInterval if nothing is detected
     if (currentMillis - previousSearchInterval > searchInterval){
         // TODO: Fine tune this
-        myMotor.drive_forward(3);
-        //delay(20);
+        myMotor.drive_forward(4);
+        delay(200);
         myMotor.stop();
         previousSearchInterval += searchInterval;
     }
@@ -243,7 +243,7 @@ bool checkCan() {
   sonarReading = sonar.read();   // for the can is still in range
   myDisp.println("Checking can...");
      // if the following is true, the can is properly placed in our claw
-    if (sonarReading <= clawRangeUB && sonarReading >= clawRangeLB) {
+    if (sonarReading <= clawRangeUB) {
       myDisp.println("Holding can!");
       return true;
     }
@@ -295,13 +295,15 @@ bool returnToBin() {
     float left_speed = 4.5/10*MAX_MOTOR - G;
     float right_speed = 4.5/10*MAX_MOTOR + G;
 
-    if (left_speed < MAX_MOTOR*0.4){
+    if (left_speed < MAX_MOTOR*0.4)
       left_speed = MAX_MOTOR*0.4;
-    }
+    else if (left_speed > MAX_MOTOR*0.7)
+      left_speed = MAX_MOTOR*0.7;
 
-    if (right_speed < MAX_MOTOR*0.4){
+    if (right_speed < MAX_MOTOR*0.4)
       right_speed = MAX_MOTOR*0.4;
-    }
+    else if (right_speed > MAX_MOTOR*0.7)
+      right_speed = MAX_MOTOR*0.7;
 
     pwm_start(MOTOR_LF,FREQUENCY, left_speed, RESOLUTION_16B_COMPARE_FORMAT);
     pwm_start(MOTOR_RF,FREQUENCY, right_speed, RESOLUTION_16B_COMPARE_FORMAT);
