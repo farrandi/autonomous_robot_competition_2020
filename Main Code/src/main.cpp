@@ -380,10 +380,10 @@ bool checkBin() {
     return true;
   }
   else if (status == T_RIGHT){
-    myMotor.drive_cw_slow();
+    myMotor.drive_cw();
   }
   else if (status == T_LEFT){
-    myMotor.drive_ccw_slow();
+    myMotor.drive_ccw();
   }
 
   return false;
