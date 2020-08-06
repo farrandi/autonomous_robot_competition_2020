@@ -21,4 +21,7 @@ class Motor{
         void drive_ccw();
         void stop();
         void stop_back();
+
+        void drive_cw_slow();
+        void drive_ccw_slow();
 };

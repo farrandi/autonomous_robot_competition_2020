@@ -66,10 +66,8 @@
 // For Sonar
 #define TRIGGER_PIN PB5
 #define ECHO_PIN PB4
-#define TIMEOUT 20000UL
+#define TIMEOUT 15000UL
 #define NEAR 100 //cm
-#define MIN_REACH_RANGE 8 //change according to the range your claw can grab the can
-#define MAX_REACH_RANGE 11
     
 // IR Sensors
 #define IR_LA PB1
