@@ -30,12 +30,8 @@ unsigned long previousSonarMillis = 0;    // the previous valut of the sonar mil
 volatile unsigned int sonarReading;       // the sonarReading value in cm
 unsigned int sonarThreshold = 120;        // the sonar threshold value for detecting objects
 const int clawRangeLB = 5;                // the claw range lower bound
-<<<<<<< HEAD
-const int clawRangeUB = 10;               // the claw range upper bound
-=======
 const int clawRangeUB = 12;               // the claw range upper bound
 const int dropTime = 1000;                // the rotating time after dropping claw;
->>>>>>> f28a2494999efeb9ede7e17097d5202a06a0460e
 
 //INITIALIZING MISC
 volatile unsigned int tape = 0;
