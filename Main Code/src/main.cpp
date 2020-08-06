@@ -164,6 +164,7 @@ void loop() {
 
 void fun_interrupt(){ 
     // insert ur fun function here
+    myMotor.stop();
     myDisp.clear();
     myDisp.println("smth cool");
     delay(2000);
@@ -239,7 +240,7 @@ bool checkCan() {
   sonarReading = sonar.read();   // for the can is still in range
   myDisp.println("Checking can...");
      // if the following is true, the can is properly placed in our claw
-    if (sonarReading <= clawRangeUB && sonarReading >= clawRangeLB) {
+    if (sonarReading <= clawRangeUB){ //} && sonarReading >= clawRangeLB) {
       myDisp.println("Holding can!");
       return true;
     }
@@ -294,6 +295,14 @@ bool returnToBin() {
 
     if (right_speed < MAX_MOTOR*0.4){
       right_speed = MAX_MOTOR*0.4;
+    }
+
+    if (left_speed > MAX_MOTOR*0.7){
+      left_speed = MAX_MOTOR*0.7;
+    }
+
+    if (right_speed > MAX_MOTOR*0.7){
+      right_speed = MAX_MOTOR*0.7;
     }
 
     pwm_start(MOTOR_LF,FREQUENCY, left_speed, RESOLUTION_16B_COMPARE_FORMAT);
