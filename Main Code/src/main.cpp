@@ -34,8 +34,8 @@ volatile unsigned int sonarReading;       // the sonarReading value in cm
 
 /*FILL THE # CONST BELOW*/
 unsigned int sonarThreshold = 120;        // the sonar threshold value for detecting objects
-const int clawRangeLB = 4;                // the claw range lower bound 
-const int clawRangeUB = 9;               // the claw range upper bound
+const int clawRangeLB = 2;                // the claw range lower bound 
+const int clawRangeUB = 12;               // the claw range upper bound
 
 const int dropTime = 1000;                // the rotating time after dropping claw;
 
@@ -97,7 +97,7 @@ void loop() {
     //basically if in home or drop, avoid ReflStatus BUT not avoid paper
     if ((state == HOME || state == DROP) && (ReflStatus >= 4)) // for Sylvia: ((state == HOME || state == DROP) && ReflStatus >= 4)
       state = AVOID_BOUNDARY;
-    else if (ReflStatus > 0 ) // avoid both ReflStatus AND paper when in any other state
+    else if (ReflStatus > 0 && (state != DROP && state != HOME)) // avoid both ReflStatus AND paper when in any other state
       state = AVOID_ALL;
 
     myDisp.taggedValue("State:", state);
@@ -182,11 +182,11 @@ bool search() {
   myDisp.clear();
   if (ping() == true) {
     if (sonarReading >= clawRangeUB) {
-      myMotor.drive_forward(5);
+      myMotor.drive_forward(4);
       myDisp.println("driving forward...");
       myDisp.taggedValue("Sonar reading: ", sonarReading);
     } else if (sonarReading <= clawRangeLB) {
-      myMotor.drive_backward(5);
+      myMotor.drive_backward(4);
       myDisp.println("driving backward...");
       myDisp.taggedValue("Sonar reading: ", sonarReading);
     }
