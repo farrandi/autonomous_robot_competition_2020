@@ -35,7 +35,7 @@ volatile unsigned int sonarReading;       // the sonarReading value in cm
 /*FILL THE # CONST BELOW*/
 unsigned int sonarThreshold = 100;        // the sonar threshold value for detecting objects
 const int clawRangeLB = 7;                // the claw range lower bound 
-const int clawRangeUB = 12;               // the claw range upper bound
+const int clawRangeUB = 11;               // the claw range upper bound
 
 const int dropTime = 1000;                // the rotating time after dropping claw;
 
@@ -201,8 +201,8 @@ bool search() {
     // Move forward after searchInterval if nothing is detected
     if (currentMillis - previousSearchInterval > searchInterval){
         // TODO: Fine tune this
-        myMotor.drive_forward(5);
-        delay(500);
+        myMotor.drive_forward(6);
+        delay(20);
         myMotor.stop();
         previousSearchInterval += searchInterval;
     }

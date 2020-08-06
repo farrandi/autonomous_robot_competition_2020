@@ -89,8 +89,8 @@
 #define P_LEFT 4
 #define P_RIGHT 5
 #define P_BOTH 6
-#define UPPER_THRES 700 // the "highest" value for floor, "lowest" for tape
-#define LOWER_THRES 300 // the "highest" value for paper
+#define UPPER_THRES 635 // the "highest" value for floor, "lowest" for tape
+#define LOWER_THRES 100 // the "highest" value for paper
 
 // Pins and Buttons
 #define SWITCH PB14
