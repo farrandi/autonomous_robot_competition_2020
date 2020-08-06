@@ -41,9 +41,24 @@ void Motor::drive_cw(){
 void Motor::drive_ccw(){
   this->stop();
   delay(50);
-  pwm_start(MOTOR_LB, FREQUENCY, MAX_MOTOR*TURN_SPEED, RESOLUTION_16B_COMPARE_FORMAT);
+  pwm_start(MOTOR_LB, FREQUENCY, MAX_MOTOR*TURN_SPEED*MOTOR_RATIO, RESOLUTION_16B_COMPARE_FORMAT);
   pwm_start(MOTOR_RF, FREQUENCY, MAX_MOTOR*TURN_SPEED, RESOLUTION_16B_COMPARE_FORMAT);
 }
+
+/* Makes robot rotate clockwise (right) SLOWLY*/
+void Motor::drive_cw_slow(){
+  this->stop();
+  delay(50);
+  pwm_start(MOTOR_RB, FREQUENCY, MAX_MOTOR* TURN_SPEED, RESOLUTION_16B_COMPARE_FORMAT);
+}
+
+/* Makes robot rotate counter-clockwise (left) with set speed*/
+void Motor::drive_ccw_slow(){
+  this->stop();
+  delay(50);
+  pwm_start(MOTOR_LB, FREQUENCY, MAX_MOTOR* TURN_SPEED * MOTOR_RATIO, RESOLUTION_16B_COMPARE_FORMAT);
+}
+
 
 /* Stops both motors*/
 void Motor::stop(){

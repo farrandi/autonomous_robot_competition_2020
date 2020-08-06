@@ -65,9 +65,9 @@ void Claw::lower(){
   }
 }
 
-/* Puts the claw in the default open and lowered position needed search
-*/
-void Claw::reset() {
+/** Default pos for search
+ */
+void Claw::reset(){
   writeSmall(OPENPOS);
   writeBig(DOWNPOS);
 }

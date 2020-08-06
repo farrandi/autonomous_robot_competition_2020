@@ -32,9 +32,9 @@
 
 // Motor Parameters
 #define MAX_MOTOR 65535
-#define MOTOR_RATIO 0.85 //Ratio of Right:Left
+#define MOTOR_RATIO 1.1     //Ratio of Right:Left
 #define FREQUENCY 500
-#define TURN_SPEED 0.6
+#define TURN_SPEED 0.4
 
 // Sonar Parameters
 #define MAX_DISTANCE 200 // Maximum distance we want to ping for (in centimeters). Maximum sensor distance is rated at 400-500cm.
@@ -68,8 +68,6 @@
 #define ECHO_PIN PB4
 #define TIMEOUT 15000UL
 #define NEAR 100 //cm
-#define MIN_REACH_RANGE 4 //change according to the range your claw can grab the can
-#define MAX_REACH_RANGE 8
     
 // IR Sensors
 #define IR_LA PB1

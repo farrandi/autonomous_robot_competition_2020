@@ -9,12 +9,12 @@
 #define MIN_ANGLE_PULSE 500
 #define MAX_ANGLE_PULSE 2500
 
-const int closepos = CLOSEPOS;
-const int openpos = OPENPOS;
-const int speedsmall = SPEED_SMALL;
-const int downpos = DOWNPOS;
-const int uppos = UPPOS;
-const int speedbig = SPEED_BIG;
+// const int closepos = CLOSEPOS;
+// const int openpos = OPENPOS;
+// const int speedsmall = SPEED_SMALL;
+// const int downpos = DOWNPOS;
+// const int uppos = UPPOS;
+// const int speedbig = SPEED_BIG;
 
 class Claw{
     public:
@@ -29,6 +29,7 @@ class Claw{
         void close();
         void raise();
         void lower();
+        void reset();
 
         // claw default position during search
         void reset();
