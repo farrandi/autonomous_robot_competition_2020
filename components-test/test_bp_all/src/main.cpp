@@ -36,6 +36,8 @@ void tapeRejectionTestSylvia();
 void tapeRejectionAndPID();
 void PIDtest();
 void tapeRejectionAndPIDSylvia();
+void testInterruptButton();
+void fun_interrupt();
 
 void setup() {
   // put your setup code here, to run once:
@@ -45,6 +47,7 @@ void setup() {
   pinMode(IR_RB,INPUT);
   pinMode(TAPE_L, INPUT_PULLUP);
   pinMode(TAPE_R, INPUT_PULLUP);
+  // attachInterrupt(digitalPinToInterrupt(BUTTON), fun_interrupt, FALLING);
 
   disp_setup();
   claw.setup();
@@ -58,13 +61,9 @@ void loop() {
   disp_clear();
   // disp_msg("starting");
   
-<<<<<<< HEAD
   testArm();
   testGrabber();
   testSonar();
-=======
-  tapeRejectionTestSylvia();
->>>>>>> 495ed932bd3b526097468548a545ad38b8422eb3
 }
 
 /* COMPONENTS TEST FUNCTIONS */
@@ -232,13 +231,13 @@ void tapeRejectionTest(){
   int right_reflection = sensors.tape_r();
   disp_label_value("left: ", left_reflection);
   disp_label_value("right: ", right_reflection);
-  disp_label_value("threshold: ", TAPE_THRES);
+  disp_label_value("threshold: ", UPPER_THRES);
 
-  if (left_reflection > TAPE_THRES && right_reflection > TAPE_THRES) {
+  if (left_reflection > UPPER_THRES && right_reflection > UPPER_THRES) {
     robotMotor.drive_backward(5);
-  } else if (left_reflection > TAPE_THRES){
+  } else if (left_reflection > UPPER_THRES){
     robotMotor.drive_cw();
-  } else if (right_reflection > TAPE_THRES){
+  } else if (right_reflection > UPPER_THRES){
     robotMotor.drive_ccw();
   } else {
     robotMotor.drive_forward(5);
@@ -250,13 +249,13 @@ void tapeRejectionTestSylvia(){
   int right_reflection = sensors.tape_r();
   disp_label_value("left: ", left_reflection);
   disp_label_value("right: ", right_reflection);
-  disp_label_value("threshold: ", TAPE_THRES);
+  disp_label_value("threshold: ", LOWER_THRES);
 
-  if (left_reflection < TAPE_THRES && right_reflection < TAPE_THRES) {
+  if (left_reflection < LOWER_THRES && right_reflection < LOWER_THRES) {
     robotMotor.drive_backward(5);
-  } else if (left_reflection < TAPE_THRES){
+  } else if (left_reflection < LOWER_THRES){
     robotMotor.drive_cw();
-  } else if (right_reflection < TAPE_THRES){
+  } else if (right_reflection < LOWER_THRES){
     robotMotor.drive_ccw();
   } else {
     robotMotor.drive_forward(5);
@@ -265,6 +264,8 @@ void tapeRejectionTestSylvia(){
 
 void PIDtest()
 {
+  int max_I = 100;
+
   int kp = 30;
   int kd = 100;
   int ki = 0;
@@ -288,10 +289,10 @@ void PIDtest()
     P = kp * err;
     D = kd * (err - prev);
     I = (ki * err) + I;
-    if (I > MAX_I)
-      I = MAX_I;
-    if (I < -MAX_I)
-      I = -MAX_I;
+    if (I > max_I)
+      I = max_I;
+    if (I < -max_I)
+      I = -max_I;
     G = P + D + I;
 
     disp_label_value("gain = ",G);
@@ -316,11 +317,11 @@ void tapeRejectionAndPID(){
   int left_reflection = sensors.tape_l();
   int right_reflection = sensors.tape_r();
 
-  if (left_reflection > TAPE_THRES && right_reflection > TAPE_THRES) {
+  if (left_reflection > UPPER_THRES && right_reflection > UPPER_THRES) {
     robotMotor.drive_backward(5);
-  } else if (left_reflection > TAPE_THRES){
+  } else if (left_reflection > UPPER_THRES){
     robotMotor.drive_cw();
-  } else if (right_reflection > TAPE_THRES){
+  } else if (right_reflection > UPPER_THRES){
     robotMotor.drive_ccw();
   } else {
     PIDtest();
@@ -331,11 +332,11 @@ void tapeRejectionAndPIDSylvia(){
   int left_reflection = sensors.tape_l();
   int right_reflection = sensors.tape_r();
 
-  if (left_reflection < TAPE_THRES && right_reflection < TAPE_THRES) {
+  if (left_reflection < LOWER_THRES && right_reflection < LOWER_THRES) {
     robotMotor.drive_backward(5);
-  } else if (left_reflection < TAPE_THRES){
+  } else if (left_reflection < LOWER_THRES){
     robotMotor.drive_cw();
-  } else if (right_reflection < TAPE_THRES){
+  } else if (right_reflection < LOWER_THRES){
     robotMotor.drive_ccw();
   } else {
     PIDtest();
