@@ -32,7 +32,7 @@
 
 // Motor Parameters
 #define MAX_MOTOR 65535
-#define MOTOR_RATIO 1    //Ratio of Right:Left
+#define MOTOR_RATIO 0.9    //Ratio of Right:Left
 #define FREQUENCY 500
 #define TURN_SPEED 0.7
 
