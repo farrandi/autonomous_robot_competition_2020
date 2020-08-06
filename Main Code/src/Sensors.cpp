@@ -112,7 +112,11 @@ bool Sensors::ir_nearbin()
 
 int Sensors::ir_l()
 {
-    return analogRead(IR_LA);
+    int ir_l = analogRead(IR_LA);
+    if (ir_l > 850) {
+        return ir_l;
+    }
+    return ir_l*1.3;
 }
 
 int Sensors::ir_r()

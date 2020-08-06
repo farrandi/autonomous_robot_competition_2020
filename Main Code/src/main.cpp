@@ -239,11 +239,11 @@ bool checkCan() {
 
   sonarReading = sonar.read();   // for the can is still in range
   myDisp.println("Checking can...");
-     // if the following is true, the can is properly placed in our claw
-    if (sonarReading <= clawRangeUB){ //} && sonarReading >= clawRangeLB) {
-      myDisp.println("Holding can!");
-      return true;
-    }
+  // if the following is true, the can is properly placed in our claw
+  if (sonarReading <= clawRangeUB){ //} && sonarReading >= clawRangeLB) {
+    myDisp.println("Holding can!");
+    return true;
+  }
   myDisp.println("Dropped can :( ");
   return false;
 
