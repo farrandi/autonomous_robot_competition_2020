@@ -163,10 +163,8 @@ void loop() {
 }
 
 void fun_interrupt(){ 
-  if (digitalRead(SWITCH)==LOW){
     // insert ur fun function here
     myDisp.println("smth cool");
-  }
 }
 
 bool ping() {
