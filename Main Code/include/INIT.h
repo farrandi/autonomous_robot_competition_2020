@@ -46,7 +46,7 @@
 #define BIGSERVO_PIN PA_8
 
 // Servo Parameters
-#define MAXANGLE_SMALL 105
+#define MAXANGLE_SMALL 120
 #define MAXANGLE_BIG 180
 #define CLOSEPOS 0 // check that your servo is oriented this way - it may be the opposite
 #define OPENPOS (MAXANGLE_SMALL-1)
@@ -90,8 +90,8 @@
 #define P_RIGHT 5
 #define P_BOTH 6
 #define UPPER_THRES 700 // the "highest" value for floor, "lowest" for tape
-#define LOWER_THRES 300 // the "highest" value for paper
+#define LOWER_THRES 350 // the "highest" value for paper
 
 // Pins and Buttons
-#define SWITCH PB14
+#define SWITCH PB15
 #define BUTTON PB13
