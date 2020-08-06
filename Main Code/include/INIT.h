@@ -32,7 +32,7 @@
 
 // Motor Parameters
 #define MAX_MOTOR 65535
-#define MOTOR_RATIO 1.1     //Ratio of Right:Left
+#define MOTOR_RATIO 1    //Ratio of Right:Left
 #define FREQUENCY 500
 #define TURN_SPEED 0.4
 
@@ -74,7 +74,7 @@
 #define IR_LB PB0
 #define IR_RA PA1
 #define IR_RB PA0
-#define IR_NOISE 50
+#define IR_NOISE 300
 #define IR_BIN 1000
 #define ANALOG_MAX 1023
  
@@ -93,5 +93,5 @@
 #define LOWER_THRES 300 // the "highest" value for paper
 
 // Pins and Buttons
-#define SWITCH PB14
-#define BUTTON PB13
+#define SWITCH PB13
+#define BUTTON PB14
