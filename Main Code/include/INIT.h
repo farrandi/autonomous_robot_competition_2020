@@ -34,7 +34,7 @@
 #define MAX_MOTOR 65535
 #define MOTOR_RATIO 1    //Ratio of Right:Left
 #define FREQUENCY 500
-#define TURN_SPEED 0.4
+#define TURN_SPEED 0.7
 
 // Sonar Parameters
 #define MAX_DISTANCE 200 // Maximum distance we want to ping for (in centimeters). Maximum sensor distance is rated at 400-500cm.
