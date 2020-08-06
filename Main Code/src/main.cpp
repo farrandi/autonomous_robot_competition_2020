@@ -164,7 +164,9 @@ void loop() {
 
 void fun_interrupt(){ 
     // insert ur fun function here
+    myDisp.clear();
     myDisp.println("smth cool");
+    delay(2000);
 }
 
 bool ping() {
