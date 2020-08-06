@@ -89,9 +89,6 @@ void loop() {
     currentMillis = millis();
     myDisp.clear();
 
-    myDisp.taggedValue("Left Tape:", sensors.tape_l());
-    myDisp.taggedValue("Right Tape:", sensors.tape_r());
-
     ReflStatus = sensors.on_tape();
 
     //basically if in home or drop, avoid ReflStatus BUT not avoid paper
@@ -159,12 +156,16 @@ void loop() {
     myMotor.stop();
     myDisp.clear();
     myDisp.println("OFF");
+    myDisp.taggedValue("Left Tape:", sensors.tape_l());
+    myDisp.taggedValue("Right Tape:", sensors.tape_r());
+
   }
 }
 
 void fun_interrupt(){ 
   if (digitalRead(SWITCH)==LOW){
-    // insert ur fun function here
+    myDisp.clear();
+    myDisp.println("fun!");
   }
 }
 
