@@ -32,9 +32,9 @@
 
 // Motor Parameters
 #define MAX_MOTOR 65535
-#define MOTOR_RATIO 1.2 //Ratio of Right:Left
+#define MOTOR_RATIO 1    //Ratio of Right:Left
 #define FREQUENCY 500
-#define TURN_SPEED 0.7
+#define TURN_SPEED 0.4
 
 // Sonar Parameters
 #define MAX_DISTANCE 200 // Maximum distance we want to ping for (in centimeters). Maximum sensor distance is rated at 400-500cm.
@@ -46,13 +46,13 @@
 #define BIGSERVO_PIN PA_8
 
 // Servo Parameters
-#define MAXANGLE_SMALL 70
+#define MAXANGLE_SMALL 180
 #define MAXANGLE_BIG 120
-#define CLOSEPOS (MAXANGLE_SMALL-1) // check that your servo is oriented this way - it may be the opposite
-#define OPENPOS 0
+#define CLOSEPOS 0// check that your servo is oriented this way - it may be the opposite
+#define OPENPOS 180
 #define DOWNPOS 0
-#define UPPOS 60
-#define SPEED_SMALL 5
+#define UPPOS 50
+#define SPEED_SMALL 3
 #define SPEED_BIG 1
 
 // Display Settings
@@ -68,28 +68,30 @@
 #define ECHO_PIN PB4
 #define TIMEOUT 15000UL
 #define NEAR 100 //cm
-#define MIN_REACH_RANGE 8 //change according to the range your claw can grab the can
-#define MAX_REACH_RANGE 11
     
 // IR Sensors
 #define IR_LA PB1
 #define IR_LB PB0
 #define IR_RA PA1
 #define IR_RB PA0
-#define IR_NOISE 50
+#define IR_NOISE 300
 #define IR_BIN 1000
 #define ANALOG_MAX 1023
-#define MAX_I 1000
+ 
 
 // Tape Sensors
 #define TAPE_L PA5
 #define TAPE_R PA4
 #define NONE 0
-#define LEFT 1
-#define RIGHT 2
-#define BOTH 3
-#define TAPE_THRES 300
+#define T_LEFT 1
+#define T_RIGHT 2
+#define T_BOTH 3
+#define P_LEFT 4
+#define P_RIGHT 5
+#define P_BOTH 6
+#define UPPER_THRES 800 // the "highest" value for floor, "lowest" for tape
+#define LOWER_THRES 300 // the "highest" value for paper
 
-// Control
-#define SWITCH PB14
-#define BUTTON PB13
+// Pins and Buttons
+#define SWITCH PB13
+#define BUTTON PB14
