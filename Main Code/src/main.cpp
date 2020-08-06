@@ -24,13 +24,13 @@ Sensors sensors;
 Ultrasonic sonar(TRIGGER_PIN, ECHO_PIN, 15000UL);
 
 //INITIALIZING TIMER CONSTANTS
-const unsigned int sonarInterval = 20;    // the interval between sonar pings
+const unsigned int sonarInterval = 25;    // the interval between sonar pings (ms)
 unsigned long currentMillis = 0;          // the value of millis in the current iteration of the loop
 unsigned long previousSonarMillis = 0;    // the previous valut of the sonar millis.
 volatile unsigned int sonarReading;       // the sonarReading value in cm
 unsigned int sonarThreshold = 120;        // the sonar threshold value for detecting objects
 const int clawRangeLB = 5;                // the claw range lower bound
-const int clawRangeUB = 12;               // the claw range upper bound
+const int clawRangeUB = 10;               // the claw range upper bound
 
 //INITIALIZING MISC
 volatile unsigned int tape = 0;
@@ -70,9 +70,12 @@ void loop() {
   if (digitalRead(SWITCH) == HIGH) {
     prev_state = state;
     currentMillis = millis();
+    myDisp.clear();
+    myDisp.taggedValue("Left Tape:", sensors.tape_l());
+    myDisp.taggedValue("Right Tape:", sensors.tape_r());
     tape = sensors.on_tape();
 
-    if (state != HOME) {
+    if (state != HOME || state != DROP) {
       if (tape > 0) {
         state = AVOID;
       }
@@ -80,6 +83,8 @@ void loop() {
         state = AVOID;
       }
     }
+
+    myDisp.taggedValue("State:", state);
 
     switch (state) {
 
@@ -102,9 +107,12 @@ void loop() {
         state = HOME;
         break;
       }
+
     case HOME:
 
       if (checkCan() == false) {
+        myClaw.lower();
+        myClaw.open();
         state = SEARCH;
         break;
       }
@@ -135,6 +143,10 @@ void loop() {
 
       break;
     }
+  } else {
+    myMotor.stop();
+    myDisp.clear();
+    myDisp.println("OFF");
   }
 }
 
@@ -178,7 +190,9 @@ bool search() {
 }
 
 bool pickUp() {
+
   myDisp.clear();
+
   if (checkCan()) {
 
      // claw actions
@@ -202,6 +216,7 @@ bool pickUp() {
   return false;
  
 }
+
 bool checkCan() {
 
   sonarReading = sonar.read();   // for the can is still in range
@@ -242,7 +257,7 @@ bool returnToBin() {
     myDisp.println("At bin!");
     return true;
   } else if (!sensors.ir_noise()) {
-    myMotor.stop_back(); // need this to ensure the rotate component from search doesn't cross in
+    //myMotor.stop_back(); // need this to ensure the rotate component from search doesn't cross in
 
     P = kp * err;
     D = kd * (err - prevErr);
@@ -294,16 +309,12 @@ void tapeRejectionA() {
 
   if (status == P_LEFT || status == T_LEFT){
     myMotor.drive_cw();
-    delay (500);
   }
   else if (status == P_RIGHT || status == T_RIGHT) {
     myMotor.drive_ccw();
-    delay(500);
   }
   else if (status == P_BOTH || status == T_BOTH){
     myMotor.drive_backward(5);
-    delay(300);
-    myMotor.drive_ccw();
   }
 }
 
@@ -315,16 +326,12 @@ void tapeRejectionB() {
 
   if (status == T_LEFT){
     myMotor.drive_cw();
-    delay (500);
   }
   else if (status == T_RIGHT) {
     myMotor.drive_ccw();
-    delay(500);
   }
   else if (status == T_BOTH){
     myMotor.drive_backward(5);
-    delay(300);
-    myMotor.drive_ccw();
   }
   else
     myMotor.drive_forward(5);
