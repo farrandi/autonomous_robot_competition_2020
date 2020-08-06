@@ -320,10 +320,13 @@ bool returnToBin() {
 void dropCan() {
   myDisp.println("Lowering claw...");
   myClaw.lower();       // lowering the claw arm
+  delay(500);
   myDisp.println("Opening claw...");
   myClaw.open();        // opening the claw to drop
+  delay(500);
   myDisp.println("Raising claw....");
   myClaw.raise();       // the sonar gets in the way so we raise the claw before turning
+  delay(500);
   myMotor.drive_backward(8);
   delay(50);
   myMotor.drive_cw();   // turning robot around
