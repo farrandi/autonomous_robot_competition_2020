@@ -34,8 +34,8 @@ volatile unsigned int sonarReading;       // the sonarReading value in cm
 
 /*FILL THE # CONST BELOW*/
 unsigned int sonarThreshold = 120;        // the sonar threshold value for detecting objects
-const int clawRangeLB = 5;                // the claw range lower bound 
-const int clawRangeUB = 12;               // the claw range upper bound
+const int clawRangeLB = 4;                // the claw range lower bound 
+const int clawRangeUB = 9;               // the claw range upper bound
 
 const int dropTime = 1000;                // the rotating time after dropping claw;
 
@@ -95,7 +95,7 @@ void loop() {
     ReflStatus = sensors.on_tape();
 
     //basically if in home or drop, avoid ReflStatus BUT not avoid paper
-    if ((state == HOME || state == DROP) && (ReflStatus > 0 && ReflStatus < 4)) // for Sylvia: ((state == HOME || state == DROP) && ReflStatus >= 4)
+    if ((state == HOME || state == DROP) && (ReflStatus >= 4)) // for Sylvia: ((state == HOME || state == DROP) && ReflStatus >= 4)
       state = AVOID_BOUNDARY;
     else if (ReflStatus > 0 ) // avoid both ReflStatus AND paper when in any other state
       state = AVOID_ALL;
@@ -165,6 +165,7 @@ void loop() {
 void fun_interrupt(){ 
   if (digitalRead(SWITCH)==LOW){
     // insert ur fun function here
+    myDisp.println("smth cool");
   }
 }
 
@@ -252,9 +253,6 @@ bool returnToBin() {
   if (!checkCan()) {
     return false;
   }
-  // int kp = 34;
-  // int kd = 100;
-  // int ki = 0;
 
   P = 0;
   D = 0;
@@ -347,18 +345,18 @@ void tapeRejectionA() {
 }
 
 /** For homing state
- *  Only avoids Tape
+ *  Only avoids PAPER (Sylvia)
  */
 void tapeRejectionB() {
   int status = sensors.on_tape();
 
-  if (status == T_LEFT){
+  if (status == P_LEFT){
     myMotor.drive_cw();
   }
-  else if (status == T_RIGHT) {
+  else if (status == P_RIGHT) {
     myMotor.drive_ccw();
   }
-  else if (status == T_BOTH){
+  else if (status == P_BOTH){
     myMotor.drive_backward(5);
   }
   else
@@ -368,14 +366,14 @@ void tapeRejectionB() {
 bool checkBin() {
   int status = sensors.on_tape();
 
-  if (status == P_BOTH){
+  if (status == T_BOTH){
     myMotor.stop();
     return true;
   }
-  else if (status == P_RIGHT){
+  else if (status == T_RIGHT){
     myMotor.drive_cw_slow();
   }
-  else if (status == P_LEFT){
+  else if (status == T_LEFT){
     myMotor.drive_ccw_slow();
   }
 
